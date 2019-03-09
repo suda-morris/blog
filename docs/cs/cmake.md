@@ -1,0 +1,185 @@
+# 𝘾𝙈𝙖𝙠𝙚 基础
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+project(MyApp
+        VERSION 1.0
+        LANGUAGES C)
+set(SOURCES main.c utils.c)
+add_executable(MyExe ${SOURCES})
+add_library(MyLib "utils.c")
+
+set(color Green CACHE STRING "Color of folower" FORCE)
+set_property(CACHE color PROPERTY STRINGS Red Orange Green)
+variable_watch(color)
+message(STATUS "Color = ${color}")
+message(STATUS "IDF_PATH = $ENV{IDF_PATH}")
+message(STATUS "Version = ${PROJECT_VERSION}")
+message(STATUS "SrcPath = ${PROJECT_SOURCE_DIR}")
+message(STATUS)
+set(longStr " ESP8266 ESP32 ESP8089 ")
+set(shortStr "ESP")
+string(STRIP ${longStr} longStr)
+message(${longStr})
+string(FIND ${longStr} ${shortStr} outVar)
+message(${outVar})
+string(FIND ${longStr} ${shortStr} outVar REVERSE)
+message(${outVar})
+string(REPLACE "ESP" "Espressif" outVar ${longStr})
+message(${outVar})
+string(REGEX MATCHALL "[0-9]" outVar ${longStr})
+message(${outVar})
+set(testStr abcdefabcd)
+string(REGEX REPLACE "(de)" "X\\1Y" outVar ${testStr})
+message(${outVar})
+set(myList a;b;c;def)
+message(${myList})
+list(LENGTH myList outVar)
+message(${outVar})
+list(GET myList 3 0 outVar)
+message(${outVar})
+set(myPaths "/a/b/c" "/b/e" "/a/d" "/b/e")
+message(${myPaths})
+list(REMOVE_DUPLICATES myPaths)
+message(${myPaths})
+list(SORT myPaths)
+message(${myPaths})
+
+if("/b/e" IN_LIST myPaths)
+        message(STATUS "/b/e is in the list")
+endif()
+
+set(x 3)
+set(y 7)
+math(EXPR z "(${x}+${y})/2")
+message(${z})
+
+if(x AND ("23" EQUAL 23))
+        message("YES")
+else()
+        message("NO")
+endif()
+
+set(who "Morris")
+if("Hi from ${who}" MATCHES "Hi from (Morris|Wendy).*")
+        message("${CMAKE_MATCH_1} says hello : ${CMAKE_MATCH_0}")
+else()
+        message("Nobody says hello")
+endif()
+
+if(IS_DIRECTORY "/home")
+        message("Is Directory")
+endif()
+
+if(COMMAND string)
+        message("string command exist")
+endif()
+
+if(DEFINED ENV{IDF_PATH})
+        message("environment IDF_PATH has been defined")
+endif()
+
+set(list1 A B)
+set(list2)
+set(foo WillNotBeShown)
+foreach(loopVar IN LISTS list1 list2 ITEMS ${foo} bar)
+        message("Iteration for: ${loopVar}")
+endforeach()
+
+foreach(loopVar RANGE 0 5 1)
+        message("${loopVar}")
+endforeach()
+
+message("source_dir=${CMAKE_SOURCE_DIR}\r\nbin_dir=${CMAKE_BINARY_DIR}")
+message("current_source_dir=${CMAKE_CURRENT_SOURCE_DIR}\r\ncurrent_bin_dir=${CMAKE_CURRENT_BINARY_DIR}")
+
+function(func arg)
+        message("arg=${arg}")
+        message("ARGC=${ARGC}")
+        message("ARGV=${ARGV}")
+        message("ARGN=${ARGN}")
+        if(DEFINED arg)
+                message("Function arg is a defined variable")
+        else()
+                message("Function arg is NOT a defined variable")
+        endif()
+endfunction()
+
+macro(macr arg)
+        message("arg=${arg}")
+        message("ARGC=${ARGC}")
+        if(DEFINED arg)
+                message("Macro arg is a defined variable")
+        else()
+                message("Macro arg is NOT a defined variable")
+        endif()
+endmacro()
+
+func(foobar test)
+macr(foobar)
+
+function(esp_func)
+        set(prefix IDF)
+        set(noValues ENABLE_WIFI CONSOLE)
+        set(singleValues TARGET)
+        set(multiValues SOURCES IMAGES)
+        cmake_parse_arguments(${prefix}
+                              "${noValues}"
+                              "${singleValues}"
+                              "${multiValues}"
+                              ${ARGN})
+        message("Option summary:")
+        foreach(arg IN LISTS noValues)
+                if(${${prefix}_${arg}})
+                        message("${arg} enabled")
+                else()
+                        message("${arg} disabled")
+                endif()
+        endforeach()
+
+        foreach(arg IN LISTS singleValues multiValues)
+                message("${arg}=${${prefix}_${arg}}")
+        endforeach()
+endfunction()
+
+esp_func(SOURCES foo.cpp startup.S TARGET esp32 ENABLE_WIFI)
+esp_func(CONSOLE TARGET esp8266 IMAGES here.png there.png)
+
+function(myfunc result1 result2)
+        set(${result1} "First result" PARENT_SCOPE)
+        set(${result2} "Second result" PARENT_SCOPE)
+endfunction()
+
+myfunc(res1 res2)
+message("result1=${res1}")
+message("result2=${res2}")
+
+get_cmake_property(resultVar MACROS)
+message(${resultVar})
+
+set_directory_properties(PROPERTIES username "morris")
+get_directory_property(resultVar username)
+message(${resultVar})
+
+set(tlist "/a;/b;/c")
+message(${tlist})
+set(tlist "/d;/e" ${tlist})
+message(${tlist})
+list(APPEND tlist "/f")
+message(${tlist})
+
+include(CMakePrintHelpers)
+cmake_print_properties(TARGETS MyExe MyLib PROPERTIES TYPE)
+cmake_print_properties(DIRECTORIES "." PROPERTIES username)
+cmake_print_variables(tlist CMAKE_VERSION)
+
+include(TestBigEndian)
+test_big_endian(isBigEndian)
+cmake_print_variables(isBigEndian)
+
+find_package(PythonInterp)
+find_package(PythonLibs)
+cmake_print_variables(PYTHON_EXECUTABLE)
+
+cmake_print_variables(CMAKE_BUILD_TYPE)
+```
