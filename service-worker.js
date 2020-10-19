@@ -27,7 +27,7 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "b8992ac40b4a4a79165e536d6344edbe"
+    "revision": "ad0969e9eafd8135793889a0fbcdb5f8"
   },
   {
     "url": "assets/css/0.styles.91231688.css",
@@ -842,8 +842,8 @@ self.__precacheManifest = [
     "revision": "090fcee83673b686bf29045af5ea1bb4"
   },
   {
-    "url": "assets/js/3.62d75057.js",
-    "revision": "e2f1e96240b2cd7b4efef9c40450f9d1"
+    "url": "assets/js/3.517bbde6.js",
+    "revision": "9e8c8b8df028881d703668b5cd2ccabc"
   },
   {
     "url": "assets/js/30.7d39ceff.js",
@@ -1094,8 +1094,8 @@ self.__precacheManifest = [
     "revision": "0d1434ce1c51a9c1d49c72c7be0bad1d"
   },
   {
-    "url": "assets/js/app.c99cf932.js",
-    "revision": "67520e202e8ab22c9008cebf2da32705"
+    "url": "assets/js/app.68035723.js",
+    "revision": "908730fe2c47c91d2b143f90a18d278c"
   },
   {
     "url": "author.jpg",
@@ -1103,111 +1103,111 @@ self.__precacheManifest = [
   },
   {
     "url": "cs/about.html",
-    "revision": "8ffc30a64aa06a5b67193da2cc856493"
+    "revision": "a791125e0ba0ba713aa683dc0dd45ce1"
   },
   {
     "url": "cs/bash.html",
-    "revision": "5e14740a3bb9fe6c5b5793aa26b5a8bb"
+    "revision": "a9f1f8b6079b303b16fa39f2bccdf166"
   },
   {
     "url": "cs/bit_ops.html",
-    "revision": "b401c9d3cbb61b205e479bf738ccfc16"
+    "revision": "2c651fc47043633842743a330a278648"
   },
   {
     "url": "cs/cheat_sheet.html",
-    "revision": "a2aa42b657d8e62303dbc9261f3fafeb"
+    "revision": "776b51171cb30ac1c8b98593c9ee3c8c"
   },
   {
     "url": "cs/cmake.html",
-    "revision": "b86c79b39b215f58074b40192e2c0851"
+    "revision": "9757b067878c2b71a9e65a231b94855f"
   },
   {
     "url": "cs/computer_composition.html",
-    "revision": "c0f7d37600077e7a817dfbeff6d79e08"
+    "revision": "fd340337d046b07fba5aca957c4704c5"
   },
   {
     "url": "cs/concurrent_programming.html",
-    "revision": "3a150b09c6a75a20fafe8a4ca943d637"
+    "revision": "d14735bfbf311780e1f564a8675e759a"
   },
   {
     "url": "cs/design_pattern.html",
-    "revision": "89cb42dd35829c21c8511357c6898681"
+    "revision": "2ed8e107ee2e43651bb28d5c68b06369"
   },
   {
     "url": "cs/gcc_toolchains.html",
-    "revision": "22dce62688760214314d65d4a52a4aef"
+    "revision": "702df634fd631092659e357b780a238d"
   },
   {
     "url": "cs/git.html",
-    "revision": "2303007222e39fbd833fd403d73cf683"
+    "revision": "71464bbec1bf691e88d388196320e1d1"
   },
   {
     "url": "cs/index.html",
-    "revision": "9d9e472aacc43e8d73b1fccf38e43af7"
+    "revision": "54b0fc819da15b935104392a0b5f65f7"
   },
   {
     "url": "cs/iptables.html",
-    "revision": "8515c1edfc2b941268b2abd6ec081298"
+    "revision": "36913c5f3f3a08d60b5bf0a722aa6c4c"
   },
   {
     "url": "cs/keras.html",
-    "revision": "5147dd027526c540e96a3ba8ba95a7f8"
+    "revision": "371d6bdc637a1a1bffb843222b90180e"
   },
   {
     "url": "cs/knowledge_map.html",
-    "revision": "2e493b0c3a24678ef9624381c8ed50ed"
+    "revision": "14bdc9ed1695161e8b94f9daa981bc6b"
   },
   {
     "url": "cs/logistic_regression.html",
-    "revision": "ea82a0309e40ce467612c7d16cd4a31c"
+    "revision": "ddf794b47935d98dcb84cae345bb5a6d"
   },
   {
     "url": "cs/lwip.html",
-    "revision": "e6c9b2ac00f80c252fdb4a5d645af270"
+    "revision": "9dd1a0be95f7a154a3008f073d70b261"
   },
   {
     "url": "cs/mbedtls.html",
-    "revision": "07a858ceb23e5ce55a73ba14cc8482b4"
+    "revision": "b81dd265d37c2bb3f0e86cf7d7c47e8f"
   },
   {
     "url": "cs/risc-v.html",
-    "revision": "9b9fe2b0556cca1e6e1de3ff51e1237b"
+    "revision": "79a17266e862e1c568a44f40a8c9329c"
   },
   {
     "url": "cs/scala.html",
-    "revision": "37d3dc6adea0a86b33a9eb8d0c6b01e5"
+    "revision": "67dcbdcf9a0bf7f88d09dcb14be66fa8"
   },
   {
     "url": "cs/xtensa.html",
-    "revision": "a5b8d12bc9ba0cec7edfe2b840c10a4a"
+    "revision": "159edd53216daa46306b4dd3f9db8994"
   },
   {
     "url": "ee/about.html",
-    "revision": "198d5388126832255964e07dc26181b1"
+    "revision": "a5d8c272bfcd460f86de00edd9f18ee2"
   },
   {
     "url": "ee/chisel.html",
-    "revision": "adf38fa4d6a261f07d676906ca9d403f"
+    "revision": "d77f709b0a35db090f0990520bf481a5"
   },
   {
     "url": "ee/esp32.html",
-    "revision": "c931418128a8a42a72722a6110d9b4b4"
+    "revision": "bba64123f341136a79824379dee157cb"
   },
   {
     "url": "ee/index.html",
-    "revision": "754208f7c81d063818ea490536ff1523"
+    "revision": "bfe5c2a946c87907344a8d602e81a93f"
   },
   {
     "url": "ee/infrared_remote.html",
-    "revision": "6b5f2bf849edb88c350ed492822c5302"
+    "revision": "fd26ec2e80e4aac6fa5ea36f6b163c00"
   },
   {
     "url": "ee/motor_control.html",
-    "revision": "9a4b61139f5223f52e0e9c93ddca8c6c"
+    "revision": "ab318079bea8320db925b6a635df61a9"
   },
   {
     "url": "ee/openwrt.html",
-    "revision": "ebcf4e7121c3ea62b7fb6f823fc35752"
+    "revision": "847a7cc8bd0f6b2c268fa80ec0b0f52b"
   },
   {
     "url": "favicon.png",
@@ -2035,211 +2035,211 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "de5dc05dcb70f4525488673ee85dc88f"
+    "revision": "01a5fffccc020089b67b923cf7a78737"
   },
   {
     "url": "others/about.html",
-    "revision": "f6b56515c242ec2ae6c8173097f0f2a4"
+    "revision": "68e72d7c729640265835bcb7b578d9eb"
   },
   {
     "url": "others/altium-desinger.html",
-    "revision": "013d3892e41cd37d675e0af40d7bcc05"
+    "revision": "1a9d0a78603ac32daafea69d0e9d53c6"
   },
   {
     "url": "others/android-studio.html",
-    "revision": "17bf7b71196afad0a666fc0f5362bfd6"
+    "revision": "df6ff2798a58c2ef474121254c1b9894"
   },
   {
     "url": "others/android.html",
-    "revision": "138a9cf84ce2acf55423d25902fb7fdc"
+    "revision": "5f06256e3c7f497fbe11c388f60e3422"
   },
   {
     "url": "others/communication-principle.html",
-    "revision": "12501c9bed147ab2cfe27e461614c7fa"
+    "revision": "ac0a28b468535dc4befe9c286b56d5d5"
   },
   {
     "url": "others/cortex-m0-introduction.html",
-    "revision": "3e90c5d8fad271daa64411169df0d3ab"
+    "revision": "88a66e69d07efb93b570b68a6d0978b6"
   },
   {
     "url": "others/css.html",
-    "revision": "4e17701b2609152736a2e67c13c4d6e7"
+    "revision": "6cc6ee7feaac7d122f58e3ac3df1fa7c"
   },
   {
     "url": "others/electron-vue.html",
-    "revision": "3ffb31477786628fc3ef6c7e4657e2e0"
+    "revision": "96ddfec03f31310fc5087d67643d8063"
   },
   {
     "url": "others/embedded-linux.html",
-    "revision": "da64ea8f5ed049770bdfd737e18b2377"
+    "revision": "a5de5d8201828842c3c4b3e6bba45b2c"
   },
   {
     "url": "others/english-writting.html",
-    "revision": "9b0b1e2752f7c9699f5272f1dcf0bb29"
+    "revision": "e282661fde3a4e8fb829fa8683534546"
   },
   {
     "url": "others/freertos.html",
-    "revision": "40c4fd3d18b2879a310cea73e828f255"
+    "revision": "f589870e584de5fe556500b671e0916f"
   },
   {
     "url": "others/gns3.html",
-    "revision": "1bf28ed5c87127e6b13927f6a2a35ddb"
+    "revision": "a99617be33e83b61244dd189dbb21c88"
   },
   {
     "url": "others/gps.html",
-    "revision": "ebaf6b6f63b8b99cbeb5b652ca33f088"
+    "revision": "d82ff19f82d6500196b565b6c449b3e6"
   },
   {
     "url": "others/html5.html",
-    "revision": "0d1ffa6a80971b8f0dc17d54bcfc3e85"
+    "revision": "fbe624d5cdea8cc17115b979c05c7078"
   },
   {
     "url": "others/ieee1588.html",
-    "revision": "936414c0ce0a7c75f45da2a48b1a5fe0"
+    "revision": "2bd93e2ce6de78be07831f09feb06070"
   },
   {
     "url": "others/index.html",
-    "revision": "91538e1026438652130b8d5ca3871a79"
+    "revision": "42f11d8034500fd6b82595d3898f1b49"
   },
   {
     "url": "others/inline-assembly.html",
-    "revision": "3964be68c2f7ab54afd64d3e3a78d2bf"
+    "revision": "6ec035423f463cb044dfaebd5f37f74c"
   },
   {
     "url": "others/interview-by-code.html",
-    "revision": "eb32f0cf3dc22366c0885c8093373fe2"
+    "revision": "89f44ec3639e80e1c8b7e7d1007d9a49"
   },
   {
     "url": "others/javascript.html",
-    "revision": "feaff7ac608a7beb129068801b5ab1e2"
+    "revision": "3c3e91780dca9bdedcd8145f7398609b"
   },
   {
     "url": "others/json.html",
-    "revision": "4f646806c5fe68849161d31525dad12e"
+    "revision": "4eead8041f7650a40e49869777e9b3c5"
   },
   {
     "url": "others/latex.html",
-    "revision": "4006062c15cf9828d93a050b00576f29"
+    "revision": "47ffb3776e6e0bb475c8a5be08beec4f"
   },
   {
     "url": "others/linux-basic.html",
-    "revision": "60c20664e2dc26461e9242b78c8ecd4c"
+    "revision": "31e0e540d95ad04bd1974704da267760"
   },
   {
     "url": "others/linux-kernel.html",
-    "revision": "5af7d6262a5d7a79c1975ed76d4bf3a3"
+    "revision": "e2bc3147bae8dbc2c911546d7b8a3adb"
   },
   {
     "url": "others/machine-learning.html",
-    "revision": "68be414bce850e9878dbbb76d066c5d2"
+    "revision": "9b99d507c8a045fb215f033640e69a16"
   },
   {
     "url": "others/markdown.html",
-    "revision": "074aafb7f75abaf60f74b6d117466120"
+    "revision": "469845697aef0914f3bd4eb045fcf4de"
   },
   {
     "url": "others/matlab.html",
-    "revision": "bc2907ab7189ee1a8fb36120074766de"
+    "revision": "1e47c767da16c3791788aadf303efecf"
   },
   {
     "url": "others/mdp-template.html",
-    "revision": "732b7a4fd98c2bbd9c67b6ba237a34a0"
+    "revision": "0cfa1ddf4e4b936d48ae481b8d24fd56"
   },
   {
     "url": "others/micro-fabrication.html",
-    "revision": "b0f0a7bd71488b75eddca0a002de4d59"
+    "revision": "ac850c3bf74a31be6e553cef113e81be"
   },
   {
     "url": "others/microsoft-office.html",
-    "revision": "d3886b0644f2098d359f31f5380d2ad2"
+    "revision": "35c26b379ae3f9980b8398c9d5963daa"
   },
   {
     "url": "others/network-security.html",
-    "revision": "87fb20230e61d3cbf0d7b0cda51e75b9"
+    "revision": "84fff3e8b9e26e1b84247d586f809c8d"
   },
   {
     "url": "others/nfc-pn532.html",
-    "revision": "311f769301f82e9d640af49b1c4cf9de"
+    "revision": "bdbb87d5ae6c732be1eb923df16edf38"
   },
   {
     "url": "others/oral_english.html",
-    "revision": "281a097530810dd2277ae33d27a32309"
+    "revision": "0406157db31b0f024a90d8b4863df749"
   },
   {
     "url": "others/poe-introduction.html",
-    "revision": "b57bb4f49abdcd6c1abad468862899c7"
+    "revision": "7febfbc053da9d6c8f8a262e9ded38c0"
   },
   {
     "url": "others/poe.html",
-    "revision": "06c6b2266178ca4669524ac0bfde7bdd"
+    "revision": "e9ad2b57648cd62bad5517e79628bd98"
   },
   {
     "url": "others/pyside2.html",
-    "revision": "662b19f3624bd9842aeff9b2bd353880"
+    "revision": "c98dd978d44e3bafb31e4400d3e08aeb"
   },
   {
     "url": "others/python-socket.html",
-    "revision": "24274ca6d9dbcd05d1e62ce6f52fa7a3"
+    "revision": "beafd4f0071251659777afedb535c74a"
   },
   {
     "url": "others/python.html",
-    "revision": "67e8e838da922672e7bc4e398f6f04ea"
+    "revision": "3379a2a2e2e12e1adb711c9db22fdeb1"
   },
   {
     "url": "others/q-learning.html",
-    "revision": "9c6c42536bf27803289a799b67f7f935"
+    "revision": "9a9b8e7bbab886061503fa81c7ee5c03"
   },
   {
     "url": "others/qr-code.html",
-    "revision": "8848d130cbba694031ef03f410e5de34"
+    "revision": "41864b128c227c6db0b582b6fc3bb868"
   },
   {
     "url": "others/qt4.html",
-    "revision": "1fc9cd7825183a883093f853c99cc6fa"
+    "revision": "6a10b4aa4b260a859eee1b70fd97c99a"
   },
   {
     "url": "others/review-in-cpp.html",
-    "revision": "edec34547bf228c6d331415fdb4a436f"
+    "revision": "7415c31db33bfecb5d109d5c0825d4e1"
   },
   {
     "url": "others/s3c6410.html",
-    "revision": "74bdf6e633bc3627576a074eb7abc47f"
+    "revision": "1a9b07c00ffd7cfcc004725030c8b4ca"
   },
   {
     "url": "others/sd-card.html",
-    "revision": "24289da381aba2e38363b9e58b0e9a23"
+    "revision": "3e9deadd35f22f30ef1fd37dbbf76c53"
   },
   {
     "url": "others/sdn.html",
-    "revision": "79ada16fc1486854dab5716e9dd63da9"
+    "revision": "ca7127a98a47ece1e7db4981c117f618"
   },
   {
     "url": "others/star-uml.html",
-    "revision": "b74514446a473b4e03a3e0850020c9ea"
+    "revision": "61fed6cf487ce6627872112ff0cd9bf3"
   },
   {
     "url": "others/ubuntu-mate.html",
-    "revision": "9685b6400800bba7e81da0af1556f9a1"
+    "revision": "0585e21a62286aa993961484401b1df4"
   },
   {
     "url": "others/verilog.html",
-    "revision": "4420709ddb170d7e4830e454f75f4214"
+    "revision": "cbd0c4a0eee3c088116455ac5cf28d5d"
   },
   {
     "url": "others/vue.html",
-    "revision": "ee53cca079749a0c1415766de54d5f83"
+    "revision": "0ad6f55dc156d79ed30d846eb04bc04e"
   },
   {
     "url": "others/w5500.html",
-    "revision": "0a0e7d948ef18ac7e2aed9886a5c3085"
+    "revision": "57bcb37c8ed166d101dbb71d8d3240dd"
   },
   {
     "url": "others/w7500.html",
-    "revision": "42bd936033f5f11a9cea48f2e4bbd944"
+    "revision": "87258aef84972039970f13eb66d2e22b"
   },
   {
     "url": "resume.html",
-    "revision": "36457fc11966f6400430cf74c34d30a8"
+    "revision": "7090ce0049f9ef1bc209c732f243f57f"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
