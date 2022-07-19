@@ -1,4 +1,4 @@
-# 𝑼𝑺𝑩 基础
+# USB 基础
 
 ## USB 基本概念
 
@@ -14,11 +14,11 @@
 
 ### 通讯接口
 
-![USB 通讯接口](../.vuepress/public/images/ee/usb/USB_slot_interface.png)
+![USB 通讯接口](/images/usb/USB_slot_interface.png)
 
 ### 编码方式
 
-![USB 编码方式](../.vuepress/public/images/ee/usb/USB_encoding.png)
+![USB 编码方式](/images/usb/USB_encoding.png)
 
 这种编码方式也称为**反向不归零编码（NRZI）**
 
@@ -26,7 +26,7 @@
 
 ### 信号传输状态
 
-![USB 信号传输状态](../.vuepress/public/images/ee/usb/USB_signal_state.png)
+![USB 信号传输状态](/images/usb/USB_signal_state.png)
 
 ### 帧
 
@@ -34,7 +34,7 @@
 
 ### 通讯过程划分
 
-![USB 通讯过程划分](../.vuepress/public/images/ee/usb/USB_field_package_transaction_transfer.png)
+![USB 通讯过程划分](/images/usb/USB_field_package_transaction_transfer.png)
 
 **事务**是最基本的传输单位。
 
@@ -102,19 +102,19 @@ USB 设备中实际的物理单元，端点和地址决定了主机和设备之�
 * 一个独立的外围设备，可以是单一功能，也可以是多功能的合成设备
 * 内部包含有描述自身功能和资源需求的配置信息
 
-![USB 设备结构图](../.vuepress/public/images/ee/usb/USB_device_structure.png)
+![USB 设备结构图](/images/usb/USB_device_structure.png)
 
 ## USB 系统分层
 
-![USB 系统分层](../.vuepress/public/images/ee/usb/USB_system_tier.png)
+![USB 系统分层](/images/usb/USB_system_tier.png)
 
 ## 连接与检测
 
-![USB 连接检测](../.vuepress/public/images/ee/usb/USB_connection_detection.png)
+![USB 连接检测](/images/usb/USB_connection_detection.png)
 
-![USB 全速设备连接](../.vuepress/public/images/ee/usb/USB_fs_device_connection.png)
+![USB 全速设备连接](/images/usb/USB_fs_device_connection.png)
 
-![USB 高速设备连接](../.vuepress/public/images/ee/usb/USB_hs_device_connection.png)
+![USB 高速设备连接](/images/usb/USB_hs_device_connection.png)
 
 ### 总线的状态
 
@@ -143,7 +143,7 @@ USB 主设备向 USB 从设备通过获取各种描述符，从而了解设备�
 * 经过地址0 （缺省地址）到其他地址（主设备分配地址）的通讯
 * 对于挂载多个 USB 从设备的系统，主设备是逐一进行枚举操作
 
-![USB 枚举](../.vuepress/public/images/ee/usb/USB_enumeration.png)
+![USB 枚举](/images/usb/USB_enumeration.png)
 
 ### 设备描述符
 
@@ -155,19 +155,19 @@ USB 主设备向 USB 从设备通过获取各种描述符，从而了解设备�
 
 ## 控制传输
 
-![USB 控制传输](../.vuepress/public/images/ee/usb/USB_control_transfer.png)
+![USB 控制传输](/images/usb/USB_control_transfer.png)
 
-![USB 控制传输涉及到的事务](../.vuepress/public/images/ee/usb/USB_control_transfer_transactions.png)
+![USB 控制传输涉及到的事务](/images/usb/USB_control_transfer_transactions.png)
 
 ### 建立阶段
 
-![USB 控制传输建立阶段](../.vuepress/public/images/ee/usb/USB_control_transfer_setup_stage.png)
+![USB 控制传输建立阶段](/images/usb/USB_control_transfer_setup_stage.png)
 
 ## USB 键盘
 
-![USB 键盘设计思路](../.vuepress/public/images/ee/usb/USB_keyboard_design.png)
+![USB 键盘设计思路](/images/usb/USB_keyboard_design.png)
 
-![USB 软件设计](../.vuepress/public/images/ee/usb/USB_keyboard_sw.png)
+![USB 软件设计](/images/usb/USB_keyboard_sw.png)
 
 ##  参考文献
 
