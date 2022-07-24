@@ -8,6 +8,7 @@ src = "src"
 
 [output.html]
 mathjax-support = true
+site-url = "/blog/"
 
 [rust]
 edition = "2021" # the default edition for code blocks

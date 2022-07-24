@@ -67,7 +67,7 @@ $$
 
 ### RLC 电路
 
-![RLC电路](/images/control/RLC.jpg)
+![RLC电路](../images/control/RLC.jpg)
 
 根据欧姆定律，
 $$
@@ -123,7 +123,7 @@ $$
 
 ### 运放电路
 
-![运放电路](/images/control/Opamp.jpg)
+![运放电路](../images/control/Opamp.jpg)
 
 根据运放的"虚短"特性，可以得到 \\(i_1(t) = \frac{v_{in}(t)}{R_1}\\), \\(i_2(t) = \frac{v_{out}(t)}{R_2}\\)
 
