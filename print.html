@@ -277,7 +277,7 @@ $$</p>
 $$</p>
 <p>这里的\(\mathbf{x}\)为状态，\(\mathbf{u}\)为输入，\(\mathbf{y}\)为输出，\(\mathbf{A}\), \(\mathbf{B}\), \(\mathbf{C}\), \(\mathbf{D}\)为常数矩阵。</p>
 <h3 id="rlc-电路"><a class="header" href="#rlc-电路">RLC 电路</a></h3>
-<p><img src="ee//images/control/RLC.jpg" alt="RLC电路" /></p>
+<p><img src="ee/../images/control/RLC.jpg" alt="RLC电路" /></p>
 <p>根据欧姆定律，
 $$
 v_{in}(t) = L\frac{d}{dt}i(t) + Ri(t) + \frac{1}{C}\int_{0}^{t}i(\tau) d\tau
@@ -319,7 +319,7 @@ y(t) = \left[ \begin{matrix}
 \end{matrix}\right] \mathbf{x}(t)
 $$</p>
 <h3 id="运放电路"><a class="header" href="#运放电路">运放电路</a></h3>
-<p><img src="ee//images/control/Opamp.jpg" alt="运放电路" /></p>
+<p><img src="ee/../images/control/Opamp.jpg" alt="运放电路" /></p>
 <p>根据运放的&quot;虚短&quot;特性，可以得到 \(i_1(t) = \frac{v_{in}(t)}{R_1}\), \(i_2(t) = \frac{v_{out}(t)}{R_2}\)</p>
 <p>以及 \(v_{out}(t) = \frac{1}{C}\int_{0}^{\tau}i_3(\tau) d\tau\)， 即 \(i_3(t) = C\dot v_{out}\)</p>
 <p>根据运放的&quot;虚断&quot;特性，\(i_1(t) + i_2(t) + i_3(t) = 0\)</p>
@@ -356,17 +356,17 @@ $$</p>
 </tbody></table>
 </div>
 <h3 id="通讯接口"><a class="header" href="#通讯接口">通讯接口</a></h3>
-<p><img src="ee//images/usb/USB_slot_interface.png" alt="USB 通讯接口" /></p>
+<p><img src="ee/../images/usb/USB_slot_interface.png" alt="USB 通讯接口" /></p>
 <h3 id="编码方式"><a class="header" href="#编码方式">编码方式</a></h3>
-<p><img src="ee//images/usb/USB_encoding.png" alt="USB 编码方式" /></p>
+<p><img src="ee/../images/usb/USB_encoding.png" alt="USB 编码方式" /></p>
 <p>这种编码方式也称为<strong>反向不归零编码（NRZI）</strong></p>
 <p><strong>位填充</strong>：在数据进行 NRZI 编码前，每 6 个连续的 <strong>1</strong> 信号之后都会插入 1 个 <strong>0</strong> 信号，以避免长时间电平保持不变带来的同步漂移。</p>
 <h3 id="信号传输状态"><a class="header" href="#信号传输状态">信号传输状态</a></h3>
-<p><img src="ee//images/usb/USB_signal_state.png" alt="USB 信号传输状态" /></p>
+<p><img src="ee/../images/usb/USB_signal_state.png" alt="USB 信号传输状态" /></p>
 <h3 id="帧"><a class="header" href="#帧">帧</a></h3>
 <p>帧是一个时间单位，固定为<strong>1ms</strong>（低/全速），高速-微帧为 <strong>125us</strong></p>
 <h3 id="通讯过程划分"><a class="header" href="#通讯过程划分">通讯过程划分</a></h3>
-<p><img src="ee//images/usb/USB_field_package_transaction_transfer.png" alt="USB 通讯过程划分" /></p>
+<p><img src="ee/../images/usb/USB_field_package_transaction_transfer.png" alt="USB 通讯过程划分" /></p>
 <p><strong>事务</strong>是最基本的传输单位。</p>
 <h3 id="四种传输"><a class="header" href="#四种传输">四种传输</a></h3>
 <p>::: tip 控制传输
@@ -411,13 +411,13 @@ $$</p>
 <li>一个独立的外围设备，可以是单一功能，也可以是多功能的合成设备</li>
 <li>内部包含有描述自身功能和资源需求的配置信息</li>
 </ul>
-<p><img src="ee//images/usb/USB_device_structure.png" alt="USB 设备结构图" /></p>
+<p><img src="ee/../images/usb/USB_device_structure.png" alt="USB 设备结构图" /></p>
 <h2 id="usb-系统分层"><a class="header" href="#usb-系统分层">USB 系统分层</a></h2>
-<p><img src="ee//images/usb/USB_system_tier.png" alt="USB 系统分层" /></p>
+<p><img src="ee/../images/usb/USB_system_tier.png" alt="USB 系统分层" /></p>
 <h2 id="连接与检测"><a class="header" href="#连接与检测">连接与检测</a></h2>
-<p><img src="ee//images/usb/USB_connection_detection.png" alt="USB 连接检测" /></p>
-<p><img src="ee//images/usb/USB_fs_device_connection.png" alt="USB 全速设备连接" /></p>
-<p><img src="ee//images/usb/USB_hs_device_connection.png" alt="USB 高速设备连接" /></p>
+<p><img src="ee/../images/usb/USB_connection_detection.png" alt="USB 连接检测" /></p>
+<p><img src="ee/../images/usb/USB_fs_device_connection.png" alt="USB 全速设备连接" /></p>
+<p><img src="ee/../images/usb/USB_hs_device_connection.png" alt="USB 高速设备连接" /></p>
 <h3 id="总线的状态"><a class="header" href="#总线的状态">总线的状态</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>常见的总线状态</th><th>描述</th></tr></thead><tbody>
 <tr><td>正常工作</td><td>总线上存在周期性 SOF 包</td></tr>
@@ -440,19 +440,19 @@ $$</p>
 <li>经过地址0 （缺省地址）到其他地址（主设备分配地址）的通讯</li>
 <li>对于挂载多个 USB 从设备的系统，主设备是逐一进行枚举操作</li>
 </ul>
-<p><img src="ee//images/usb/USB_enumeration.png" alt="USB 枚举" /></p>
+<p><img src="ee/../images/usb/USB_enumeration.png" alt="USB 枚举" /></p>
 <h3 id="设备描述符"><a class="header" href="#设备描述符">设备描述符</a></h3>
 <p>第一个需要获取的描述符，长度固定 18 字节。</p>
 <h3 id="配置描述符"><a class="header" href="#配置描述符">配置描述符</a></h3>
 <p>描述了设备特定的配置，提供了当前配置下设备的功能接口，供电方式，耗电等信息。是一个配置的集合，集合长度不固定，包含了配置描述符、接口描述符、类定义描述符、端点描述符。</p>
 <h2 id="控制传输"><a class="header" href="#控制传输">控制传输</a></h2>
-<p><img src="ee//images/usb/USB_control_transfer.png" alt="USB 控制传输" /></p>
-<p><img src="ee//images/usb/USB_control_transfer_transactions.png" alt="USB 控制传输涉及到的事务" /></p>
+<p><img src="ee/../images/usb/USB_control_transfer.png" alt="USB 控制传输" /></p>
+<p><img src="ee/../images/usb/USB_control_transfer_transactions.png" alt="USB 控制传输涉及到的事务" /></p>
 <h3 id="建立阶段"><a class="header" href="#建立阶段">建立阶段</a></h3>
-<p><img src="ee//images/usb/USB_control_transfer_setup_stage.png" alt="USB 控制传输建立阶段" /></p>
+<p><img src="ee/../images/usb/USB_control_transfer_setup_stage.png" alt="USB 控制传输建立阶段" /></p>
 <h2 id="usb-键盘"><a class="header" href="#usb-键盘">USB 键盘</a></h2>
-<p><img src="ee//images/usb/USB_keyboard_design.png" alt="USB 键盘设计思路" /></p>
-<p><img src="ee//images/usb/USB_keyboard_sw.png" alt="USB 软件设计" /></p>
+<p><img src="ee/../images/usb/USB_keyboard_design.png" alt="USB 键盘设计思路" /></p>
+<p><img src="ee/../images/usb/USB_keyboard_sw.png" alt="USB 软件设计" /></p>
 <h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
 <ul>
 <li><a href="https://www.usb.org">USB 协会官网</a></li>
