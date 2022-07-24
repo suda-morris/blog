@@ -1,20 +1,26 @@
 name: Build and Deploy
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@master
-      - name: Install and Build 🔧
-        run: |
-          npm install
-          npm run docs:build
+        with:
+          fetch-depth: 0
+      - name: Setup 📥
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: "latest"
+      - name: Build 🔧
+        run: mdbook build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: docs/.vuepress/dist
+          FOLDER: ./book

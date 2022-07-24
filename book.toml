@@ -1,0 +1,13 @@
+[book]
+title = "🐏 suda-morris 个人博客 🐇"
+authors = ["suda-morris"]
+description = "Personal Blog"
+language = "en"
+multilingual = false
+src = "src"
+
+[output.html]
+mathjax-support = true
+
+[rust]
+edition = "2021" # the default edition for code blocks
