@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>git - 🐏 suda-morris 个人博客 🐇</title>
+        <title>slides 工具 - 🐏 suda-morris 个人博客 🐇</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Personal Blog">
@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">1.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control_system.html"><strong aria-hidden="true">2.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">3.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html" class="active"><strong aria-hidden="true">4.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">5.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">1.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control_system.html"><strong aria-hidden="true">2.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">3.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">4.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html" class="active"><strong aria-hidden="true">5.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -136,107 +136,263 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="git-基础"><a class="header" href="#git-基础">Git 基础</a></h1>
-<h2 id="演示文稿"><a class="header" href="#演示文稿">演示文稿</a></h2>
-<p><a href="https://suda-morris.github.io/git_workflow_lecture/">Git 工作流介绍</a></p>
-<h2 id="视频演示"><a class="header" href="#视频演示">视频演示</a></h2>
-<p><a href="https://www.bilibili.com/video/BV1zv411i7ce/">Git 工作流介绍</a></p>
-<h2 id="gitconfig-文件模板"><a class="header" href="#gitconfig-文件模板">.gitconfig 文件模板</a></h2>
-<pre><code class="language-bash">[user]
-    name = suda-morris
-    email = 362953310@qq.com
-[branch]
-    autosetuprebase = always
-
-[core]
-    editor = vim
-    quotepath = false
-    autocrlf = false
-    pager = less -+$LESS -FRX
-
-[color]
-    status = auto
-    branch = auto
-    diff = auto
-    ui = true
-    pager = true
-
-[color &quot;branch&quot;]
-    current = green reverse
-    local = white
-    remote = red
-
-[color &quot;diff&quot;]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
-
-[color &quot;status&quot;]
-    added = yellow
-    changed = red
-    untracked = cyan
-
-[diff]
-    tool = git_diff_wrapper
-
-[difftool &quot;git_diff_wrapper&quot;]
-    cmd = vimdiff -n   +2  $LOCAL $REMOTE
-
-[pager]
-    diff =
-
-[difftool]
-    prompt = no
-
-[alias]
-    glf  = log -n 10 --name-only --format=\&quot;%Cgreen%h %Cred[%ci] %Creset&lt;%an&gt; %Creset %Cgreen%s %Creset \&quot;
-    gl  = log -n 30 --date-order --format=\&quot;%Cgreen%h %Cred[%ci] %Creset &lt;%an&gt;%C(yellow)%d%Creset %Creset %Cgreen%s %Creset \&quot;
-    gll  = log -n 30  --format=\&quot;%Cgreen%H %Cred[%ci] %Creset&lt;%an&gt; %Creset %Cgreen%s %Creset \&quot;
-    gl3 = log -n 20  --format=\&quot;%Cgreen%h %Cred[%ci] %Creset&lt;%an&gt; %Creset %Cgreen%s %Creset \&quot; --graph
-    gl2 = log --format=\&quot;%Cgreen%h %Cred[%ci] %Creset&lt;%an&gt; %Creset %Cgreen%s %Creset \&quot;
-    glc = log --format=\&quot;%Cgreen%h %Cred[%cd] %Creset&lt;committer:%cn&gt; : %Cred[%ad] %Creset&lt;author:%cn&gt; %Creset \&quot;
-    glc2 = log --format=\&quot;%Cgreen%h %Cred[%ci] %Creset&lt;committer:%cn&gt; : %Cred[%ai] %Creset&lt;author:%cn&gt; %Creset \&quot;
-    glc3 = log --format=\&quot;%Cgreen%h %Cred[%ci] %Creset&lt;committer:%cn&gt; : %Cred[%ai] %Creset&lt;author:%cn&gt; %n %Cgreen%s %Creset \&quot;
-    glt = log --format=\&quot;%Cgreen%h :: %ad :: %aD :: %ar :: %at :: %ai %Creset \&quot;
-    glw = log  -n 20  --format=\&quot;%Cgreen%h %Cred[%ci] %Creset&lt;%an&gt; %Creset %n%Cgreen%s%Creset%n%b  \&quot;
-    gldetail = log --format=\&quot;%h `[%cd] `&lt;committer:%cn&gt; `[%ad] `&lt;author:%an&gt; ` %s \&quot;
-    hist = log --pretty=format:\&quot;%C(yellow)%h %C(red)%d %C(reset)%s %C(green)[%an] %C(blue)%ad\&quot; --topo-order --graph
-    latest = for-each-ref --sort=-committerdate --format=\&quot;%(committername)@%(refname:short) [%(committerdate:short)] %(contents)\&quot;
-    st = status -uno -s
-    st2 = status -s
-    co = checkout
-    bl = blame --date=short
-    ci = commit
-    dt = difftool
-    dif = diff --word-diff
-    di = diff --no-ext-diff
-
-[log]
-    date = short
-
-[commit]
-    template = /home/morris/.gitmessage
+                        <h1 id="终端演示工具"><a class="header" href="#终端演示工具">终端演示工具</a></h1>
+<h2 id="slides"><a class="header" href="#slides"><a href="https://github.com/maaslalani/slides">Slides</a></a></h2>
+<h3 id="安装与使用"><a class="header" href="#安装与使用">安装与使用</a></h3>
+<pre><code class="language-bash"># 安装 slides 软件
+yay -S slides
+# 使用 slides 软件
+slides path/to/markdown/file.md
 </code></pre>
-<h2 id="gitmessage-文件模板"><a class="header" href="#gitmessage-文件模板">.gitmessage 文件模板</a></h2>
-<pre><code>vfs/fatfs: fix stat call failing when called for mount point
+<h3 id="模板"><a class="header" href="#模板">模板</a></h3>
+<pre><code class="language-markdown">---
+theme: https://github.com/maaslalani/slides/raw/main/styles/theme.json
+---
 
-FATFS does not support f_stat call for drive root. When handling stat
-for drive root, don't call f_stat and just return struct st with S_IFDIR
-flag set.
+# Welcome to Slides
 
-Closes https://github.com/espressif/esp-idf/issues/xxx
+A terminal based presentation tool
+
+---
+
+# Code blocks
+
+Slides allows you to execute code blocks directly inside your slides!
+
+Just press `ctrl+e` and the result of the code block will be displayed as virtual
+text in your slides.
+
+---
+
+### Bash
+
+```bash
+ls
+```
+
+---
+
+### Go
+
+```go
+package main
+
+import &quot;fmt&quot;
+
+func main() {
+  fmt.Println(&quot;Hello, world!&quot;)
+}
+```
+
+---
+
+### Javascript
+
+```javascript
+console.log(&quot;Hello, world!&quot;)
+```
+
+---
+
+### Python
+
+```python
+print(&quot;Hello, world!&quot;)
+```
+
+---
+
+# h1
+## h2
+### h3
+#### h4
+##### h5
+###### h6
+
+---
+
+# Markdown components
+
+You can use everything in markdown!
+
+* Like bulleted list
+* You know the deal
+
+1. Numbered lists too
+
+* [x] ToDo
+
+---
+
+# Tables
+
+| Tables | Too    |
+| ------ | ------ |
+| Even   | Tables |
+
+---
+
+# Graphs
+
+```
+digraph {
+    rankdir = LR;
+    a -&gt; b;
+    b -&gt; c;
+}
+```
+```
+┌───┐     ┌───┐     ┌───┐
+│ a │ ──▶ │ b │ ──▶ │ c │
+└───┘     └───┘     └───┘
+```
+---
+
+~~~uname -a
+This will be replaced by command `uname -a`
+~~~
+
+---
+
+SEE YOU!
+
+[Blog](https://suda-mottis.github.io/blog)
+
+![ME](/home/morris/blog/docs/.vuepress/public/author.jpg)
+
+</code></pre>
+<h2 id="mdp"><a class="header" href="#mdp"><a href="https://github.com/visit1985/mdp">mdp</a></a></h2>
+<h3 id="安装与使用-1"><a class="header" href="#安装与使用-1">安装与使用</a></h3>
+<pre><code class="language-bash"># 安装 mdp 软件
+sudo pacman -S mdp
+# 使用 mdp 软件
+mdp path/to/markdown/file.md
+</code></pre>
+<h3 id="模板-1"><a class="header" href="#模板-1">模板</a></h3>
+<pre><code class="language-markdown">%title: Markdown Presentation 演示文稿 🥳
+%author: suda-morris
+%date: 2019-11-11
+
+-&gt; # 一级标题，居中 &lt;-
+
+-&gt; ## 二级标题，居中 &lt;-
+
+-&gt; 文本内容，居中 &lt;-
+
+_基本控制:_
+
+下一页      *Enter*, *Space*, *Page Down*, *j*, *l*,
+            *Down Arrow*, *Right Arrow*
+
+前一页      *Backspace*, *Page Up*, *h*, *k*,
+            *Up Arrow*, *Left Arrow*
+
+退出        *q*
+重载        *r*
+第 N 页     *1..9*
+首页        *Home*, *g*
+末页        *End*, *G*
+
+-------------------------------------------------
+
+
+-&gt; # 代码展示 &lt;-
+
+行内代码 `main()`
+
+代码块
+
+​```
+int main(int argc, char *argv[]) {
+    printf(&quot;%s\n&quot;, &quot;Hello world!&quot;);
+}
+​```
+
+-------------------------------------------------
+
+-&gt; # 引用 &lt;-
+
+&gt; 引用
+&gt;&gt; 嵌套引用 1
+&gt;&gt;&gt; 嵌套引用 2
+
+-------------------------------------------------
+
+-&gt; # 下划线与高亮 &lt;-
+
+_仅下划线_ *高亮* _*下划线且高亮*_
+
+-------------------------------------------------
+
+-&gt; # 列表 &lt;-
+
+list
+* major
+    - minor
+        - *important*
+          detail
+    - minor
+
+-------------------------------------------------
+
+-&gt; # 逐行显示 &lt;-
+
+Agenda
+^
+* major
+^
+    * minor
+^
+* major
+  ^
+    * minor
+      ^
+        * detail
+
+-------------------------------------------------
+
+-&gt; # URL 链接 &lt;-
+
+[blog](https://suda-morris.github.io/blog)
+
+-------------------------------------------------
+
+-&gt; # UTF-8 特殊字符 &lt;-
+
+ae = ä, oe = ö, ue = ü, ss = ß
+upsilon = Ʊ, phi = ɸ
+
+▛▀▀▀▀▀▀▀▀▀▜
+▌rectangle▐
+▙▄▄▄▄▄▄▄▄▄▟
+
+
+-------------------------------------------------
+
+-&gt; # 演示的暂停与恢复 &lt;-
+
+按下 *Ctrl + z* 可以暂停当前演示，回到终端
+
+在终端输入 *fg* 可以恢复之前的演示
+
+-------------------------------------------------
+
+-&gt; # 导出到 PDF 文件 &lt;-
+
+需要安装额外的工具：
+
+\- *markdown* 将 Markdown 文件导出为 HTML
+\- *wkhtmltopdf* 将 HTML 转换为 PDF
+
+`$ markdown sample.md | wkhtmltopdf - sample.pdf`
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../ee/usb.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../cs/git.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a rel="next" href="../ux/slides-tool.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
                     </nav>
@@ -244,11 +400,8 @@ Closes https://github.com/espressif/esp-idf/issues/xxx
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../ee/usb.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../cs/git.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a rel="next" href="../ux/slides-tool.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
