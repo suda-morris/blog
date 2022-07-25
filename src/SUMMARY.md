@@ -12,9 +12,13 @@
 
 # 控制系统
 
-- [控制系统基础](ee/control_system.md)
+- [控制系统基础](ee/control-system.md)
 
 ---
+
+# 多媒体
+
+- [视频处理](cs/video-process.md)
 
 # 通信协议
 

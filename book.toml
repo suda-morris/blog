@@ -9,6 +9,21 @@ src = "src"
 [output.html]
 mathjax-support = true
 site-url = "/blog/"
+git-repository-url = "https://github.com/suda-morris/blog"
+edit-url-template = "https://github.com/suda-morris/blog/edit/master/{path}"
+
+[output.html.playground]
+editable = true
+line-numbers = true
+
+[output.html.search]
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2
 
 [rust]
 edition = "2021" # the default edition for code blocks
