@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>slides 工具 - 🐏 suda-morris 个人博客 🐇</title>
+        <title>控制系统基础 - 🐏 suda-morris 个人博客 🐇</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Personal Blog">
@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">1.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">2.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">3.</strong> 视频处理</a></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">4.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">5.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html" class="active"><strong aria-hidden="true">6.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">1.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html" class="active"><strong aria-hidden="true">2.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">3.</strong> 视频处理</a></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">4.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">5.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">6.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -115,7 +115,7 @@
                         <a href="https://github.com/suda-morris/blog" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/suda-morris/blog/edit/master/src/ux/slides-tool.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/suda-morris/blog/edit/master/src/ee/control-system.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
@@ -142,263 +142,130 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="终端演示工具"><a class="header" href="#终端演示工具">终端演示工具</a></h1>
-<h2 id="slides"><a class="header" href="#slides"><a href="https://github.com/maaslalani/slides">Slides</a></a></h2>
-<h3 id="安装与使用"><a class="header" href="#安装与使用">安装与使用</a></h3>
-<pre><code class="language-bash"># 安装 slides 软件
-yay -S slides
-# 使用 slides 软件
-slides path/to/markdown/file.md
-</code></pre>
-<h3 id="模板"><a class="header" href="#模板">模板</a></h3>
-<pre><code class="language-markdown">---
-theme: https://github.com/maaslalani/slides/raw/main/styles/theme.json
----
-
-# Welcome to Slides
-
-A terminal based presentation tool
-
----
-
-# Code blocks
-
-Slides allows you to execute code blocks directly inside your slides!
-
-Just press `ctrl+e` and the result of the code block will be displayed as virtual
-text in your slides.
-
----
-
-### Bash
-
-```bash
-ls
-```
-
----
-
-### Go
-
-```go
-package main
-
-import &quot;fmt&quot;
-
-func main() {
-  fmt.Println(&quot;Hello, world!&quot;)
-}
-```
-
----
-
-### Javascript
-
-```javascript
-console.log(&quot;Hello, world!&quot;)
-```
-
----
-
-### Python
-
-```python
-print(&quot;Hello, world!&quot;)
-```
-
----
-
-# h1
-## h2
-### h3
-#### h4
-##### h5
-###### h6
-
----
-
-# Markdown components
-
-You can use everything in markdown!
-
-* Like bulleted list
-* You know the deal
-
-1. Numbered lists too
-
-* [x] ToDo
-
----
-
-# Tables
-
-| Tables | Too    |
-| ------ | ------ |
-| Even   | Tables |
-
----
-
-# Graphs
-
-```
-digraph {
-    rankdir = LR;
-    a -&gt; b;
-    b -&gt; c;
-}
-```
-```
-┌───┐     ┌───┐     ┌───┐
-│ a │ ──▶ │ b │ ──▶ │ c │
-└───┘     └───┘     └───┘
-```
----
-
-~~~uname -a
-This will be replaced by command `uname -a`
-~~~
-
----
-
-SEE YOU!
-
-[Blog](https://suda-mottis.github.io/blog)
-
-![ME](/home/morris/blog/docs/.vuepress/public/author.jpg)
-
-</code></pre>
-<h2 id="mdp"><a class="header" href="#mdp"><a href="https://github.com/visit1985/mdp">mdp</a></a></h2>
-<h3 id="安装与使用-1"><a class="header" href="#安装与使用-1">安装与使用</a></h3>
-<pre><code class="language-bash"># 安装 mdp 软件
-sudo pacman -S mdp
-# 使用 mdp 软件
-mdp path/to/markdown/file.md
-</code></pre>
-<h3 id="模板-1"><a class="header" href="#模板-1">模板</a></h3>
-<pre><code class="language-markdown">%title: Markdown Presentation 演示文稿 🥳
-%author: suda-morris
-%date: 2019-11-11
-
--&gt; # 一级标题，居中 &lt;-
-
--&gt; ## 二级标题，居中 &lt;-
-
--&gt; 文本内容，居中 &lt;-
-
-_基本控制:_
-
-下一页      *Enter*, *Space*, *Page Down*, *j*, *l*,
-            *Down Arrow*, *Right Arrow*
-
-前一页      *Backspace*, *Page Up*, *h*, *k*,
-            *Up Arrow*, *Left Arrow*
-
-退出        *q*
-重载        *r*
-第 N 页     *1..9*
-首页        *Home*, *g*
-末页        *End*, *G*
-
--------------------------------------------------
-
-
--&gt; # 代码展示 &lt;-
-
-行内代码 `main()`
-
-代码块
-
-​```
-int main(int argc, char *argv[]) {
-    printf(&quot;%s\n&quot;, &quot;Hello world!&quot;);
-}
-​```
-
--------------------------------------------------
-
--&gt; # 引用 &lt;-
-
-&gt; 引用
-&gt;&gt; 嵌套引用 1
-&gt;&gt;&gt; 嵌套引用 2
-
--------------------------------------------------
-
--&gt; # 下划线与高亮 &lt;-
-
-_仅下划线_ *高亮* _*下划线且高亮*_
-
--------------------------------------------------
-
--&gt; # 列表 &lt;-
-
-list
-* major
-    - minor
-        - *important*
-          detail
-    - minor
-
--------------------------------------------------
-
--&gt; # 逐行显示 &lt;-
-
-Agenda
-^
-* major
-^
-    * minor
-^
-* major
-  ^
-    * minor
-      ^
-        * detail
-
--------------------------------------------------
-
--&gt; # URL 链接 &lt;-
-
-[blog](https://suda-morris.github.io/blog)
-
--------------------------------------------------
-
--&gt; # UTF-8 特殊字符 &lt;-
-
-ae = ä, oe = ö, ue = ü, ss = ß
-upsilon = Ʊ, phi = ɸ
-
-▛▀▀▀▀▀▀▀▀▀▜
-▌rectangle▐
-▙▄▄▄▄▄▄▄▄▄▟
-
-
--------------------------------------------------
-
--&gt; # 演示的暂停与恢复 &lt;-
-
-按下 *Ctrl + z* 可以暂停当前演示，回到终端
-
-在终端输入 *fg* 可以恢复之前的演示
-
--------------------------------------------------
-
--&gt; # 导出到 PDF 文件 &lt;-
-
-需要安装额外的工具：
-
-\- *markdown* 将 Markdown 文件导出为 HTML
-\- *wkhtmltopdf* 将 HTML 转换为 PDF
-
-`$ markdown sample.md | wkhtmltopdf - sample.pdf`
-</code></pre>
+                        <h1 id="控制系统基础"><a class="header" href="#控制系统基础">控制系统基础</a></h1>
+<h2 id="控制系统建模"><a class="header" href="#控制系统建模">控制系统建模</a></h2>
+<p>对于一个输入为 \(u\)，输出为 \(y\) 的动态系统，当 \(t\) 时刻的输出 \(y(t)\) 由直到 \(t\) 时刻为止的输入和输出来决定的时候，这个系统可以用下面的微分方程来表示：</p>
+<p>$$
+\frac{d^n}{dt^n}y(t) + a_{n-1}\frac{d^{n-1}}{dt^{n-1}}y(t) + \cdots + a_1\frac{d}{dt}y(t) + a_0y(t) \\
+= b_m\frac{d^m}{dt^m}u(t) + b_{m-1}\frac{d^{m-1}}{dt^{m-1}}u(t) + \cdots + b_1\frac{d}{dt}u(t) + b_0u(t)
+$$</p>
+<p>微分方程很难求解以及分析系统行为，所以通常会将微分方程转换成<strong>传递函数模型</strong>或者<strong>状态空间模型</strong>。</p>
+<h3 id="传递函数"><a class="header" href="#传递函数">传递函数</a></h3>
+<p>传递函数模型使用复变函数来表现系统模型，可以通过将微分方程两边进行初始值为0的拉普拉斯变换得到。</p>
+<p>拉普拉斯变换的定义：\(g(s) = \mathcal{L}[g(t)] = \int_0^{\infty}g(\tau)e^{-s\tau}d\tau\)</p>
+<hr />
+<p>微分的拉普拉斯变换</p>
+<p>$$
+\begin{align}
+\mathcal{L}[\dot y(t)] &amp;= \int_0^{\infty}\dot y(\tau)e^{-s\tau}d\tau \\
+&amp;= [y(\tau)e^{-s\tau}]_0^{\infty} - \int_0^{\infty}-sy(\tau)e^{-s\tau}d\tau \\
+&amp;= [y(\tau)e^{-s\tau}]_0^{\infty} + s\int_0^{\infty}y(\tau)e^{-s\tau}d\tau \\
+&amp;= y(\infty) -y(0) + s\mathcal{L}[y(t)] \\
+&amp;= sy(s) - y(0)
+\end{align}
+$$</p>
+<p>令 \(y(0) = 0\)，则得到 \(\mathcal{L}[\dot y(t)] = sy(s)\)</p>
+<hr />
+<p>积分的拉普拉斯变换</p>
+<p>令 \(f(t) = \int_0^ty(\tau)d\tau\), 则 \(\dot f(t) = y(t)\)</p>
+<p>$$
+\begin{align}
+\mathcal{L}[\dot f(t)] &amp;= sf(s) - f(0) \\
+&amp;= sf(s) - \int_0^0y(\tau)d\tau \\
+&amp;= sf(s)
+\end{align}
+$$</p>
+<p>$$
+\mathcal{L}[\int_0^ty(\tau)d\tau] = \mathcal{L}[f(t)] = f(s) = \frac{1}{s}\mathcal{L}[\dot f(t)] = \frac{1}{s}\mathcal{L}[y(t)] = \frac{1}{s}y(s)
+$$</p>
+<h3 id="状态空间"><a class="header" href="#状态空间">状态空间</a></h3>
+<p>状态空间模型通过矩阵的形式将多元高阶微分方程表示成一阶微分方程的形式。传递函数模型表达的是输入和输出的关系，而状态空间模型表达的是输入-&gt;状态-&gt;输出的关系。我们可以自由地选择状态变量。此外，状态空间模型也可以处理初始值不为0的情况。</p>
+<p>$$
+\mathcal{P}:
+\begin{cases}
+\mathbf{\dot x}(t) &amp;= \mathbf{A} \mathbf{x}(t) + \mathbf{B} \mathbf{u}(t) \\
+\mathbf{y}(t)      &amp;= \mathbf{C} \mathbf{x}(t) + \mathbf{D} \mathbf{u}(t)
+\end{cases}
+$$</p>
+<p>这里的\(\mathbf{x}\)为状态，\(\mathbf{u}\)为输入，\(\mathbf{y}\)为输出，\(\mathbf{A}\), \(\mathbf{B}\), \(\mathbf{C}\), \(\mathbf{D}\)为常数矩阵。</p>
+<h3 id="rlc-电路"><a class="header" href="#rlc-电路">RLC 电路</a></h3>
+<p><img src="../images/control/RLC.jpg" alt="RLC电路" /></p>
+<p>根据欧姆定律，
+$$
+v_{in}(t) = L\frac{d}{dt}i(t) + Ri(t) + \frac{1}{C}\int_{0}^{t}i(\tau) d\tau
+$$</p>
+<p>设定输出为 \(y(t) = v_{out}(t) = \frac{1}{C}\int_{0}^{t}i(\tau) d\tau\), 则 \(C\dot y(t) = i(t)\)</p>
+<p>设定输入为 \(u(t) = v_{in}(t)\)</p>
+<p>可以得到
+$$
+LC\ddot y(t) + RC\dot y(t) + y(t) = u(t)
+$$</p>
+<h4 id="传递函数模型"><a class="header" href="#传递函数模型">传递函数模型</a></h4>
+<p>对微分方程两边做拉普拉斯变换，得到
+$$
+LCs^2y(s) + RCsy(s) + y(s) = u(s)
+$$</p>
+<p>于是传递函数模型等于
+$$
+\mathcal{P} = \frac{y(s)}{u(s)} = \frac{1}{LCs^2 + RCs + 1}
+$$</p>
+<h4 id="状态空间模型"><a class="header" href="#状态空间模型">状态空间模型</a></h4>
+<p>设 \(\mathbf{x}(t) = \left[ \begin{matrix}
+\int_0^t i(\tau)d\tau \\
+i(t) \\
+\end{matrix} \right] \)， \(u(t) = v_{in}\)，\(y(t) = \frac{1}{C}\int_0^t i(\tau)d\tau\)</p>
+<p>则状态方程为
+$$
+\mathbf{\dot x}(t) = \left[ \begin{matrix}
+0&amp; 1 \\
+-\frac{1}{LC}&amp; -\frac{R}{L} \\
+\end{matrix}\right] \mathbf{x}(t) + \left[ \begin{matrix}
+0 \\
+\frac{1}{L} \\
+\end{matrix} \right] u(t)
+$$</p>
+<p>而输出方程为
+$$
+y(t) = \left[ \begin{matrix}
+\frac{1}{C} \quad 0
+\end{matrix}\right] \mathbf{x}(t)
+$$</p>
+<h3 id="运放电路"><a class="header" href="#运放电路">运放电路</a></h3>
+<p><img src="../images/control/Opamp.jpg" alt="运放电路" /></p>
+<p>根据运放的&quot;虚短&quot;特性，可以得到 \(i_1(t) = \frac{v_{in}(t)}{R_1}\), \(i_2(t) = \frac{v_{out}(t)}{R_2}\)</p>
+<p>以及 \(v_{out}(t) = \frac{1}{C}\int_{0}^{\tau}i_3(\tau) d\tau\)， 即 \(i_3(t) = C\dot v_{out}\)</p>
+<p>根据运放的&quot;虚断&quot;特性，\(i_1(t) + i_2(t) + i_3(t) = 0\)</p>
+<p>代入方程得到
+$$
+\frac{v_{in}(t)}{R_1} + \frac{v_{out}(t)}{R_2} + C\dot v_{out}(t) = 0
+$$</p>
+<p>设定输出 \(y(t)=v_{out}(t)\), 设定输入 \(u(t)=v_{in}(t)\)</p>
+<p>因此可以得到
+$$R_1R_2C\dot y(t) + R_1y(t) = -R_2u(t)$$</p>
+<h4 id="传递函数模型-1"><a class="header" href="#传递函数模型-1">传递函数模型</a></h4>
+<p>对微分方程两边做拉普拉斯变换，得到 \(R_1R_2Csy(s) + R_1y(s) = -R_2u(s)\), 于是传递函数模型等于
+$$
+\mathcal{P} = \frac{y(s)}{u(s)} = \frac{-R_2}{R_1R_2Cs + R_1}
+$$</p>
+<h4 id="状态空间模型-1"><a class="header" href="#状态空间模型-1">状态空间模型</a></h4>
+<p>设 \(x(t) = v_{out}(t), u(t)=v_{in}(t),y(t)=v_{out}(t)\)，则可得到状态方程
+$$
+\dot x(t) = -\frac{1}{CR_2}x(t) - \frac{1}{CR_1}u(t)
+$$
+输出方程为
+$$
+y(t)=x(t)
+$$</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../cs/git.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../cs/openwrt.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../cs/video-process.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
                     </nav>
@@ -406,8 +273,11 @@ upsilon = Ʊ, phi = ɸ
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../cs/git.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../cs/openwrt.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../cs/video-process.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 

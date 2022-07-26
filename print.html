@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">1.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control_system.html"><strong aria-hidden="true">2.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">3.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">4.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">5.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">1.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">2.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">3.</strong> 视频处理</a></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">4.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">5.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">6.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -112,6 +112,9 @@
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/suda-morris/blog" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
                     </div>
                 </div>
@@ -1161,6 +1164,25 @@ $$
 $$
 y(t)=x(t)
 $$</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="视频处理"><a class="header" href="#视频处理">视频处理</a></h1>
+<p><img src="cs/../images/video-process/video-process-flow.jpg" alt="视频处理工作流程" /></p>
+<h2 id="图像的基本概念"><a class="header" href="#图像的基本概念">图像的基本概念</a></h2>
+<h3 id="像素"><a class="header" href="#像素">像素</a></h3>
+<p>像素是图像的基本单元，一个个像素就组成了图像。可以认为像素就是图像中的一个点。</p>
+<h3 id="分辨率"><a class="header" href="#分辨率">分辨率</a></h3>
+<p>图像（或视频）的分辨率是指图像的大小或尺寸。视频行业常见的分辨率有：</p>
+<div class="table-wrapper"><table><thead><tr><th>分辨率</th><th>宽度</th><th>高度</th></tr></thead><tbody>
+<tr><td>QCIF</td><td>176</td><td>144</td></tr>
+<tr><td>CIF</td><td>352</td><td>288</td></tr>
+<tr><td>D1</td><td>720</td><td>576</td></tr>
+<tr><td>360P</td><td>640</td><td>360</td></tr>
+<tr><td>720P</td><td>1280</td><td>720</td></tr>
+<tr><td>1080P</td><td>1920</td><td>1080</td></tr>
+<tr><td>4K</td><td>3840</td><td>2160</td></tr>
+<tr><td>8K</td><td>7680</td><td>4320</td></tr>
+</tbody></table>
+</div>
+<p><strong>不能简单地认为分辨率数值越高的图像就越清晰。</strong></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usb-基础"><a class="header" href="#usb-基础">USB 基础</a></h1>
 <h2 id="usb-基本概念"><a class="header" href="#usb-基本概念">USB 基本概念</a></h2>
 <h3 id="usb-协议标准"><a class="header" href="#usb-协议标准">USB 协议标准</a></h3>
@@ -1631,8 +1653,16 @@ upsilon = Ʊ, phi = ɸ
         </div>
 
         <script type="text/javascript">
+            window.playground_line_numbers = true;
+        </script>
+        <script type="text/javascript">
             window.playground_copyable = true;
         </script>
+        <script src="ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
