@@ -4,6 +4,12 @@
 
 ---
 
+# 体系结构
+
+- [RISC-V](cs/risc-v.md)
+
+---
+
 # 操作系统
 
 - [OpenWRT](cs/openwrt.md)
