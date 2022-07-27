@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">1.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">2.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">3.</strong> 视频处理</a></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">4.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">5.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">6.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="cs/risc-v.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">2.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">3.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">4.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">5.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">6.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">7.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -233,6 +233,500 @@
 <li>媒体: 用博客、视频记录工作与生活</li>
 <li>创客: 接触最新最好玩的创客玩具(树莓派, openwrt, XMOS, PSoC)</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="risc-v-基础"><a class="header" href="#risc-v-基础">RISC-V 基础</a></h1>
+<h2 id="单核-cpu-组成结构"><a class="header" href="#单核-cpu-组成结构">单核 CPU 组成结构</a></h2>
+<p><img src="cs/../images/risc-v/riscv_alu.png" alt="ALU" /></p>
+<p><strong>数据通路</strong>是处理器中执行处理器所需操作的硬件部分，就像是处理器的四肢。</p>
+<p><strong>控制器</strong>是对数据通路要做什么操作进行行为调度的硬件结构，就像是处理器的大脑。</p>
+<p><img src="cs/../images/risc-v/riscv_data_path.png" alt="ALU" /></p>
+<h2 id="指令集划分"><a class="header" href="#指令集划分">指令集划分</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>基本指令集</th><th>指令数</th><th>描述</th></tr></thead><tbody>
+<tr><td>RV32I</td><td>47</td><td>32位地址空间与整数指令,支持32个通用整数寄存器</td></tr>
+<tr><td>RV32E</td><td>47</td><td>仅支持16个通用整数寄存器</td></tr>
+<tr><td>RV64I</td><td>59</td><td>64位地址空间与整数指令,以及一部分64位和32位的指令</td></tr>
+<tr><td>RV128I</td><td>71</td><td>128位地址空间与整数指令,以及一部分64位和32位的指令</td></tr>
+</tbody></table>
+</div><div class="table-wrapper"><table><thead><tr><th>扩展指令集</th><th>指令数</th><th>描述</th></tr></thead><tbody>
+<tr><td>M</td><td>8</td><td>整数乘法与除法指令</td></tr>
+<tr><td>A</td><td>11</td><td>存储器原子操作和Load-Reserved/Store-Conditional指令</td></tr>
+<tr><td>F</td><td>26</td><td>单精度(32bit)浮点指令</td></tr>
+<tr><td>D</td><td>26</td><td>双精度(32bit)浮点指令,必须支持F扩展指令</td></tr>
+<tr><td>C</td><td>46</td><td>压缩指令,指令长度为16位</td></tr>
+</tbody></table>
+</div>
+<h2 id="基本指令集类型"><a class="header" href="#基本指令集类型">基本指令集类型</a></h2>
+<p><img src="cs/../images/risc-v/riscv_instruction_type.png" alt="指令编码格式" /></p>
+<h3 id="rregister型指令"><a class="header" href="#rregister型指令">R(Register)型指令</a></h3>
+<p><img src="cs/../images/risc-v/riscv_R_instruction.png" alt="R型指令" /></p>
+<h4 id="指令汇编格式"><a class="header" href="#指令汇编格式">指令汇编格式</a></h4>
+<h5 id="加法"><a class="header" href="#加法">加法</a></h5>
+<pre><code class="language-assembly">add rd, rs1, rs2
+</code></pre>
+<h5 id="减法"><a class="header" href="#减法">减法</a></h5>
+<pre><code class="language-assembly">sub rd, rs1, rs2
+</code></pre>
+<h5 id="逻辑与"><a class="header" href="#逻辑与">逻辑与</a></h5>
+<pre><code class="language-assembly">and rd, rs1, rs2
+</code></pre>
+<h5 id="逻辑或"><a class="header" href="#逻辑或">逻辑或</a></h5>
+<pre><code class="language-assembly">or rd, rs1, rs2
+</code></pre>
+<h5 id="逻辑异或"><a class="header" href="#逻辑异或">逻辑异或</a></h5>
+<pre><code class="language-assembly">xor rd, rs1, rs2
+</code></pre>
+<h5 id="有符号小于比较"><a class="header" href="#有符号小于比较">有符号小于比较</a></h5>
+<pre><code class="language-assembly">slt rd, rs1, rs2
+</code></pre>
+<h5 id="无符号小于比较"><a class="header" href="#无符号小于比较">无符号小于比较</a></h5>
+<pre><code class="language-assembly">sltu rd, rs1, rs2
+</code></pre>
+<h5 id="逻辑左移"><a class="header" href="#逻辑左移">逻辑左移</a></h5>
+<pre><code class="language-assembly">sll rd, rs1, rs2
+</code></pre>
+<h5 id="逻辑右移"><a class="header" href="#逻辑右移">逻辑右移</a></h5>
+<pre><code class="language-assembly">srl rd, rs1, rs2
+</code></pre>
+<h5 id="算数右移"><a class="header" href="#算数右移">算数右移</a></h5>
+<pre><code class="language-assembly">sra rd, rs1, rs2
+</code></pre>
+<h3 id="iimmediate型指令"><a class="header" href="#iimmediate型指令">I(Immediate)型指令</a></h3>
+<p><img src="cs/../images/risc-v/riscv_I_instruction.png" alt="I型指令" /></p>
+<h4 id="指令汇编格式-1"><a class="header" href="#指令汇编格式-1">指令汇编格式</a></h4>
+<h5 id="立即数加法"><a class="header" href="#立即数加法">立即数加法</a></h5>
+<pre><code class="language-assembly">addi rd, rs1, imm[11:0]
+</code></pre>
+<h5 id="立即数逻辑与"><a class="header" href="#立即数逻辑与">立即数逻辑与</a></h5>
+<pre><code class="language-assembly">andi rd, rs1, imm[11:0]
+</code></pre>
+<h5 id="立即数逻辑或"><a class="header" href="#立即数逻辑或">立即数逻辑或</a></h5>
+<pre><code class="language-assembly">ori rd, rs1, imm[11:0]
+</code></pre>
+<h5 id="立即数逻辑异或"><a class="header" href="#立即数逻辑异或">立即数逻辑异或</a></h5>
+<pre><code class="language-assembly">xori rd, rs1, imm[11:0]
+</code></pre>
+<h5 id="立即数有符号小于比较"><a class="header" href="#立即数有符号小于比较">立即数有符号小于比较</a></h5>
+<pre><code class="language-assembly">slti rd, rs1, imm[11:0]
+</code></pre>
+<h5 id="立即数无符号小于比较"><a class="header" href="#立即数无符号小于比较">立即数无符号小于比较</a></h5>
+<pre><code class="language-assembly">sltui rd, rs1, imm[11:0]
+</code></pre>
+<h5 id="立即数逻辑左移"><a class="header" href="#立即数逻辑左移">立即数逻辑左移</a></h5>
+<pre><code class="language-assembly">slli rd, rs1, shamt[4:0]
+</code></pre>
+<h5 id="立即数逻辑右移"><a class="header" href="#立即数逻辑右移">立即数逻辑右移</a></h5>
+<pre><code class="language-assembly">srli rd, rs1, shamt[4:0]
+</code></pre>
+<h5 id="立即数算数右移"><a class="header" href="#立即数算数右移">立即数算数右移</a></h5>
+<pre><code class="language-assembly">srai rd, rs1, shamt[4:0]
+</code></pre>
+<h3 id="loadstore-指令"><a class="header" href="#loadstore-指令">Load/Store 指令</a></h3>
+<p><img src="cs/../images/risc-v/riscv_load_store_instruction.png" alt="Load/Store 指令" /></p>
+<h4 id="指令汇编格式-2"><a class="header" href="#指令汇编格式-2">指令汇编格式</a></h4>
+<h5 id="字加载"><a class="header" href="#字加载">字加载</a></h5>
+<pre><code class="language-assembly">lw rd, offset[11:0](rs1)
+</code></pre>
+<h5 id="半字加载"><a class="header" href="#半字加载">半字加载</a></h5>
+<pre><code class="language-assembly">lh rd, offset[11:0](rs1)
+</code></pre>
+<h5 id="无符号半字加载"><a class="header" href="#无符号半字加载">无符号半字加载</a></h5>
+<pre><code class="language-assembly">lhu rd, offset[11:0](rs1)
+</code></pre>
+<h5 id="字节加载"><a class="header" href="#字节加载">字节加载</a></h5>
+<pre><code class="language-assembly">lb rd, offset[11:0](rs1)
+</code></pre>
+<h5 id="无符号字节加载"><a class="header" href="#无符号字节加载">无符号字节加载</a></h5>
+<pre><code class="language-assembly">lbu rd, offset[11:0](rs1)
+</code></pre>
+<h5 id="字存储"><a class="header" href="#字存储">字存储</a></h5>
+<pre><code class="language-assembly">sw rs2, offset[11:0](rs1)
+</code></pre>
+<h5 id="半字存储"><a class="header" href="#半字存储">半字存储</a></h5>
+<pre><code class="language-assembly">sh rs2, offset[11:0](rs1)
+</code></pre>
+<h5 id="字节存储"><a class="header" href="#字节存储">字节存储</a></h5>
+<pre><code class="language-assembly">sb rs2, offset[11:0](rs1)
+</code></pre>
+<h3 id="bbranch型指令"><a class="header" href="#bbranch型指令">B(Branch)型指令</a></h3>
+<p><img src="cs/../images/risc-v/riscv_B_instruction.png" alt="B型指令" /></p>
+<h4 id="指令汇编格式-3"><a class="header" href="#指令汇编格式-3">指令汇编格式</a></h4>
+<h5 id="相等跳转"><a class="header" href="#相等跳转">相等跳转</a></h5>
+<pre><code class="language-assembly">beq rs1, rs2, label
+</code></pre>
+<h5 id="不等跳转"><a class="header" href="#不等跳转">不等跳转</a></h5>
+<pre><code class="language-assembly">bne rs1, rs2, label
+</code></pre>
+<h5 id="小于跳转"><a class="header" href="#小于跳转">小于跳转</a></h5>
+<pre><code class="language-assembly">blt rs1, rs2, label
+</code></pre>
+<h5 id="无符号小于跳转"><a class="header" href="#无符号小于跳转">无符号小于跳转</a></h5>
+<pre><code class="language-assembly">bltu rs1, rs2, label
+</code></pre>
+<h5 id="大于等于跳转"><a class="header" href="#大于等于跳转">大于等于跳转</a></h5>
+<pre><code class="language-assembly">bge rs1, rs2, label
+</code></pre>
+<h5 id="无符号大于等于跳转"><a class="header" href="#无符号大于等于跳转">无符号大于等于跳转</a></h5>
+<pre><code class="language-assembly">bgeu rs1, rs2, label
+</code></pre>
+<h3 id="jjump型指令"><a class="header" href="#jjump型指令">J(Jump)型指令</a></h3>
+<p><img src="cs/../images/risc-v/riscv_jump_instruction.png" alt="J型指令" /></p>
+<h4 id="指令汇编格式-4"><a class="header" href="#指令汇编格式-4">指令汇编格式</a></h4>
+<h5 id="无条件跳转"><a class="header" href="#无条件跳转">无条件跳转</a></h5>
+<pre><code class="language-assembly">jal rd, label # 将 PC+4 的值保存到 rd 寄存器中，然后设置 PC = PC + offset
+</code></pre>
+<p>伪指令 <code>j</code> 实际上就是jal指令的变体，此时 rd 会被设置为 x0,表示丢弃返回地址</p>
+<h5 id="无条件相对跳转-i-类型指令"><a class="header" href="#无条件相对跳转-i-类型指令">无条件相对跳转 (I 类型指令)</a></h5>
+<pre><code class="language-assembly">jalr rd, rs1, imm # 将 PC+4 保存到 rd 寄存器中，然后设置 PC = rs1  + imm
+</code></pre>
+<p>跳转到任意 32 位绝对地址处</p>
+<pre><code class="language-assembly">lui x1, &lt;hi20bits&gt;
+jalr ra, x1, &lt;lo12bits&gt;
+</code></pre>
+<p>相对PC地址32位偏移量的相对跳转</p>
+<pre><code class="language-assembly">auipc x1, &lt;hi20bits&gt;
+jalr x0, x1, &lt;lo12bits&gt;
+</code></pre>
+<h3 id="uupper-immediate型指令"><a class="header" href="#uupper-immediate型指令">U(Upper immediate)型指令</a></h3>
+<p><img src="cs/../images/risc-v/riscv_U_instruction.png" alt="U型指令" /></p>
+<h4 id="指令汇编格式-5"><a class="header" href="#指令汇编格式-5">指令汇编格式</a></h4>
+<h5 id="lui-指令-load-upper-immediate"><a class="header" href="#lui-指令-load-upper-immediate">lui 指令 (Load Upper Immediate)</a></h5>
+<pre><code class="language-assembly">lui rs, imm # 将 20 位的立即数左移12位，低 12 位补零，并写回寄存器 rd 中
+</code></pre>
+<p>配合 addi 指令（设置低 12 比特）可实现讲寄存器设置为任意 32 比特的立即数，例如：</p>
+<pre><code class="language-assembly">lui x10, 0x87654     # x10 = 0x87654000
+addi x10, x10, 0x321 # x10 = 0x87654321
+</code></pre>
+<p>但是，当这个 12 位的立即数为负数（即最高比特位是1）时，得到的结果是高 20 位减 1 再和低 12 位拼接，比如：</p>
+<pre><code class="language-assembly">lui x10, 0xDEADB     # x10 = 0xDEADB000
+addi x10, x10, 0xEEF # x10 = 0xDEADBEEF
+</code></pre>
+<p>解决这个问题的一种方法是，如果低 12 位的立即数的符号位是 1 ,那就预先给高 20 位的数加 1。<code>li</code> 伪指令可以替我们处理好这中特殊情况。</p>
+<h5 id="auipc-指令-add-upper-immediate-to-pc"><a class="header" href="#auipc-指令-add-upper-immediate-to-pc">auipc 指令 (Add Upper Immediate to PC)</a></h5>
+<pre><code class="language-assembly">auipc rd, imm # 将 20 位的立即数左移12位，低 12 位补零，将得到的 32 位数与 pc 的值相加，最后写回寄存器 rd 中
+</code></pre>
+<p>具体应用有：</p>
+<pre><code class="language-assembly">Label: auipc x10, 0 # 将 Label 的地址保存在 x10 寄存器中
+</code></pre>
+<h2 id="alu-的设计"><a class="header" href="#alu-的设计">ALU 的设计</a></h2>
+<p><img src="cs/../images/risc-v/riscv_alu_design.png" alt="ALU设计框图" /></p>
+<h3 id="加法运算的实现"><a class="header" href="#加法运算的实现">加法运算的实现</a></h3>
+<pre><code class="language-verilog">module adder #(
+parameter N = 8
+) (
+	input [N - 1 : 0] a,
+	input [N - 1 : 0] b,
+	input			  cin,
+
+	output [N - 1 : 0] sum,
+	output 			   cout
+);
+	assign {cout, sum} = a + b + cin;
+endmodule
+</code></pre>
+<h3 id="减法运算的实现"><a class="header" href="#减法运算的实现">减法运算的实现</a></h3>
+<pre><code class="language-verilog">module subtractor #(
+parameter N = 8
+) (
+    input [N - 1 : 0] a,
+    input [N - 1 : 0] b,
+
+    output [N - 1 : 0] y
+);
+    assign y = a - b;
+endmodule
+</code></pre>
+<h3 id="比较运算的实现"><a class="header" href="#比较运算的实现">比较运算的实现</a></h3>
+<h4 id="相等比较"><a class="header" href="#相等比较">相等比较</a></h4>
+<p>用异或门检查 A 和 B 中对应的位是否相等</p>
+<h4 id="量值比较减法"><a class="header" href="#量值比较减法">量值比较（减法）</a></h4>
+<p>首先计算A-B的值，然后检查结果的符号位</p>
+<pre><code class="language-verilog">module comparator #(
+parameter N = 8
+) (
+    input [N - 1 : 0] a,
+    input [N - 1 : 0] b
+
+    output eq,
+    output neq,
+    output lt,
+    output lte,
+    output gt,
+    output gte
+);
+    assign eq = (a == b);
+    assign neq = (a != b);
+    assign lt = (a &lt; b);
+    assign lte = (a &lt;= b);
+    assign gt = (a &gt; b);
+    assign gte = (a &gt;= b);
+endmodule
+</code></pre>
+<h2 id="单指令周期-cpu"><a class="header" href="#单指令周期-cpu">单指令周期 CPU</a></h2>
+<ul>
+<li>指令周期：CPU 取出并执行一条指令所需的全部时间</li>
+<li>指令执行的的五个步骤
+<ol>
+<li>取指（Instruction Fetch）</li>
+<li>译码（Instruction Decode）</li>
+<li>执行（Execute）</li>
+<li>访存（Memory Access）</li>
+<li>写回（Write Back)</li>
+</ol>
+</li>
+<li>CPU周期：也称为机器周期，一个机器周期由若干个时钟周期组成</li>
+<li>CPI (Clock Cycle Per Instruction)：执行每条指令所需的时钟周期数的平均值</li>
+<li>单指令周期CPU：全部指令选用一个 CPU 周期完成的系统</li>
+</ul>
+<p><img src="cs/../images/risc-v/single_instruction_CPU.png" alt="单指令周期 CPU" /></p>
+<h3 id="寄存器堆的实现"><a class="header" href="#寄存器堆的实现">寄存器堆的实现</a></h3>
+<p><img src="cs/../images/risc-v/register_file.png" alt="寄存器堆" /></p>
+<pre><code class="language-verilog">module regfile(rna, rnb, d, wn, we, clk, clrn, qa, qb);
+    input [4:0] rna, rnb, wn; // 读地址，写地址
+    input [31:0] d; // 写数据
+    input we, clk, clrn; // 写使能，时钟，清除信号
+    output [31:0] qa, qb; // 读数据
+
+    reg [31:0] register [1:31]; // 31x32-bit regs
+
+    // 2 read ports
+    assign qa = (rna == 0) ? 0 : register[rna];
+    assign qb = (rnb == 0) ? 0 : register[rnb];
+
+    // 1 write port
+    always @(posedge clk or negedge clrn)
+        if(clrn == 0) begin
+            integer i;
+            for(i=1;i&lt;32;i=i+1)
+                register[i] &lt;= 0;
+        end else if ((wn != 0) &amp;&amp; we)
+            register[wn] &lt;= d;
+endmodule
+</code></pre>
+<h3 id="完整的数据通路"><a class="header" href="#完整的数据通路">完整的数据通路</a></h3>
+<p><img src="cs/../images/risc-v/riscv_full_data_path.png" alt="完整的数据通路" /></p>
+<ul>
+<li>译码阶段，会将指令的功能码和操作码发送给<strong>控制器</strong>，来产生相应的控制信号</li>
+<li>立即数扩展信号：ImmSel</li>
+<li>ALU 功能选择信号：ALUSel</li>
+</ul>
+<h3 id="控制器的设计"><a class="header" href="#控制器的设计">控制器的设计</a></h3>
+<p><img src="cs/../images/risc-v/riscv_cpu_controller_truth_table.png" alt="控制器的设计" /></p>
+<h3 id="r-型指令数据通路"><a class="header" href="#r-型指令数据通路">R 型指令数据通路</a></h3>
+<p><img src="cs/../images/risc-v/riscv_R_instruction_data_path.png" alt="R型指令数据通路" /></p>
+<ul>
+<li><code>ALUSel</code> 会根据指令的 <code>funct3</code>来取不同的值</li>
+</ul>
+<h3 id="i-型指令数据通路"><a class="header" href="#i-型指令数据通路">I 型指令数据通路</a></h3>
+<p><img src="cs/../images/risc-v/riscv_I_instruction_data_path.png" alt="I型指令数据通路" /></p>
+<h3 id="load-指令数据通路"><a class="header" href="#load-指令数据通路">Load 指令数据通路</a></h3>
+<p><img src="cs/../images/risc-v/riscv_load_instruction_data_path.png" alt="Load指令数据通路" /></p>
+<h3 id="store-指令数据通路"><a class="header" href="#store-指令数据通路">Store 指令数据通路</a></h3>
+<p><img src="cs/../images/risc-v/riscv_store_instruction_data_path.png" alt="Store指令数据通路" /></p>
+<ul>
+<li>立即数来自<code>inst[31:25][11:7]</code>，这个和Load不同</li>
+<li>Store指令没有<strong>写回</strong>阶段</li>
+</ul>
+<h3 id="b-型指令数据通路"><a class="header" href="#b-型指令数据通路">B 型指令数据通路</a></h3>
+<p><img src="cs/../images/risc-v/riscv_B_instruction_data_path.png" alt="B指令数据通路" /></p>
+<ul>
+<li>无<strong>访存</strong>和<strong>写回</strong>阶段</li>
+</ul>
+<h3 id="jalr-指令数据通路"><a class="header" href="#jalr-指令数据通路">jalr 指令数据通路</a></h3>
+<p><img src="cs/../images/risc-v/riscv_jalr_instruction_data_path.png" alt="jalr指令数据通路" /></p>
+<ul>
+<li>PC+4 的值会保存到<code>rd</code> 中</li>
+</ul>
+<h3 id="jal-指令数据通路"><a class="header" href="#jal-指令数据通路">jal 指令数据通路</a></h3>
+<p><img src="cs/../images/risc-v/riscv_jal_instruction_data_path.png" alt="jal指令数据通路" /></p>
+<h2 id="流水线技术"><a class="header" href="#流水线技术">流水线技术</a></h2>
+<p><img src="cs/../images/risc-v/riscv_pipeline.png" alt="流水线技术" /></p>
+<h3 id="处理器性能公式"><a class="header" href="#处理器性能公式">处理器性能公式</a></h3>
+<p>$$
+ProgramTime = \frac{Instructions}{Program} * \frac{Cycle s}{Instruction} * \frac{Time}{Cycle}
+$$</p>
+<h3 id="流水线阶段寄存器"><a class="header" href="#流水线阶段寄存器">流水线阶段寄存器</a></h3>
+<p>为了确保硬件共享的时候，前一阶段的数据不被丢失，需要在流水线之间插入“阶段寄存器”来保存中间值和控制信号。</p>
+<p><img src="cs/../images/risc-v/riscv_pipeline_registers.png" alt="流水线寄存器" /></p>
+<h2 id="cache"><a class="header" href="#cache">Cache</a></h2>
+<p><img src="cs/../images/risc-v/riscv_cache.png" alt="Cache" /></p>
+<h3 id="cache-的结构"><a class="header" href="#cache-的结构">Cache 的结构</a></h3>
+<p><img src="cs/../images/risc-v/riscv_cache_structure.png" alt="Cache的结构" /></p>
+<ul>
+<li>块（block）：两级存储器层次结构中存储器信息交换的最小单元</li>
+<li>命中（hit）：如果处理器需要的数据存放在高层存储器中的某个块中，称为一次命中</li>
+<li>缺失（miss）：如果在高层存储器中没有找到所需的数据，这次数据请求称为一次缺失
+<ul>
+<li>缺失代价（miss penalty）：将相应的块从底层存储器替换到高层存储器的时间+将该信息块传送给处理器的时间</li>
+</ul>
+</li>
+</ul>
+<h3 id="cache-直接映射"><a class="header" href="#cache-直接映射">Cache 直接映射</a></h3>
+<p>直接映射：一种 cache 结构，其中每个存储器地址仅仅对应到 cache 中的一个位置</p>
+<p>映射方法：（块地址）mod（cache 中的块数）</p>
+<p>标记：表中的一个字段，包含了地址信息，这些地址信息可以用来判断cache中的字是否就是所请求的字</p>
+<p>有效位：表中的一个字段，用来标识一个块是否包含有一个有效数据</p>
+<p><img src="cs/../images/risc-v/riscv_cache_direct_mapping.png" alt="Cache直接映射" /></p>
+<p><img src="cs/../images/risc-v/riscv_cache_direct_mapping_example.png" alt="Cache直接映射示例" /></p>
+<p>缺点：利用率低，命中率低</p>
+<h3 id="cache-全相联映射"><a class="header" href="#cache-全相联映射">Cache 全相联映射</a></h3>
+<p>全相联映射：一个块可以被放置在 cache 中的任何位置</p>
+<p><img src="cs/../images/risc-v/riscv_cache_full_association_mapping.png" alt="Cache全相联映射" /></p>
+<p><img src="cs/../images/risc-v/riscv_cache_full_association_mapping_example.png" alt="Cache全相联映射示例" /></p>
+<p>缺点：硬件开销大（有多少cache块就配有相等数量的比较器）</p>
+<h3 id="cache-组相联映射"><a class="header" href="#cache-组相联映射">Cache 组相联映射</a></h3>
+<p>在组相联映射中，每个块可被放置的位置数是固定的，每个块有 n 个位置可放的 cache 被称为 n 路组相联 Cache</p>
+<p><img src="cs/../images/risc-v/riscv_set_associative_cache.png" alt="Cache组相联映射" /></p>
+<p><img src="cs/../images/risc-v/riscv_set_associative_cache_example.png" alt="Cache组相联映射示例" /></p>
+<p>四路组相联 Cache：</p>
+<ul>
+<li>4 个比较器</li>
+<li>1 个四选一多路选择器</li>
+</ul>
+<h3 id="cache-的设计"><a class="header" href="#cache-的设计">Cache 的设计</a></h3>
+<ul>
+<li>要考虑的维度
+<ul>
+<li>Cache 的容量</li>
+<li>块大小</li>
+<li>组织方式（Direct，Fully Associative，Set Associative）</li>
+<li>替换算法（FIFO，LRU）</li>
+<li>写策略（write-through, write-back）</li>
+</ul>
+</li>
+</ul>
+<h2 id="虚拟地址"><a class="header" href="#虚拟地址">虚拟地址</a></h2>
+<p><img src="cs/../images/risc-v/riscv_mmu.png" alt="虚拟存储器管理" /></p>
+<h3 id="分段管理"><a class="header" href="#分段管理">分段管理</a></h3>
+<p><img src="cs/../images/risc-v/riscv_mmu_segment_manage.png" alt="分段管理" /></p>
+<p>分段管理：将一个程序按照逻辑单元分成多个程序段，每一个段使用自己单独的虚拟地址空间。</p>
+<ul>
+<li>逻辑上相互独立</li>
+<li>容易实现共享和保护</li>
+<li>非常容易产生碎片（段长是不确定的）</li>
+</ul>
+<h3 id="分页管理"><a class="header" href="#分页管理">分页管理</a></h3>
+<p><img src="cs/../images/risc-v/riscv_mmu_page_manage.png" alt="分页管理" /></p>
+<ul>
+<li>如果页表项为4字节，那么整张页表会占据4MB大小的内存空间</li>
+</ul>
+<h3 id="两级分页管理"><a class="header" href="#两级分页管理">两级分页管理</a></h3>
+<p><img src="cs/../images/risc-v/riscv_mmu_two_level_page_manage.png" alt="两级分页管理" /></p>
+<ul>
+<li>4KB的页目录+4KB的页表</li>
+</ul>
+<h3 id="快速地址转换-tlb"><a class="header" href="#快速地址转换-tlb">快速地址转换 TLB</a></h3>
+<p><img src="cs/../images/risc-v/riscv_tlb.png" alt="块表" /></p>
+<p>块表（Translation-Lookaside Buffer）：用于记录最近使用地址的映射信息的高速缓存，从而可以避免每次都要访问页表</p>
+<h3 id="使用-tlb-进行地址转换"><a class="header" href="#使用-tlb-进行地址转换">使用 TLB 进行地址转换</a></h3>
+<p><img src="cs/../images/risc-v/riscv_tlb_location.png" alt="TLB的位置" /></p>
+<p><img src="cs/../images/risc-v/riscv_tlb_translation.png" alt="TLB实现地址转换的原理" /></p>
+<p><img src="cs/../images/risc-v/riscv_vma_pma_translation.png" alt="TLB虚实地址转换" /></p>
+<h2 id="通用寄存器组"><a class="header" href="#通用寄存器组">通用寄存器组</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>寄存器</th><th>ABI 名字</th><th>描述</th><th>Saver</th></tr></thead><tbody>
+<tr><td>x0</td><td>zero</td><td>硬件连线0</td><td>-</td></tr>
+<tr><td>x1</td><td>ra</td><td>返回地址</td><td>Caller</td></tr>
+<tr><td>x2</td><td>sp</td><td>栈指针</td><td>Callee</td></tr>
+<tr><td>x3</td><td>gp</td><td>全局指针</td><td>-</td></tr>
+<tr><td>x4</td><td>tp</td><td>线程指针</td><td>-</td></tr>
+<tr><td>x5-x7</td><td>t0-t2</td><td>临时寄存器</td><td>Caller</td></tr>
+<tr><td>x8</td><td>s0/fp</td><td>保存的寄存器/帧指针</td><td>Callee</td></tr>
+<tr><td>x9</td><td>s1</td><td>保存寄存器<br />保存原进程中的关键数据，<br />避免在函数调用过程中被破坏</td><td>Callee</td></tr>
+<tr><td>x10-x11</td><td>a0-a1</td><td>函数参数/返回值</td><td>Caller</td></tr>
+<tr><td>x12-x17</td><td>a2-a7</td><td>函数参数</td><td>Caller</td></tr>
+<tr><td>x18-x27</td><td>s2-s11</td><td>保存寄存器</td><td>Callee</td></tr>
+<tr><td>x28-x31</td><td>t3-t6</td><td>临时寄存器</td><td>Caller</td></tr>
+</tbody></table>
+</div>
+<h3 id="函数调用时保留的寄存器"><a class="header" href="#函数调用时保留的寄存器">函数调用时保留的寄存器</a></h3>
+<p>被调用函数一般不会使用这些寄存器，即便使用也会提前保存好原值，可以信任。这些寄存器有：sp, gp, tp 和 s0-s11 寄存器。</p>
+<h3 id="函数调用时不保存的寄存器"><a class="header" href="#函数调用时不保存的寄存器">函数调用时不保存的寄存器</a></h3>
+<p>有可能被调用函数使用更改，需要caller在调用前对自己用到的寄存器进行保存。这些寄存器有：参数与返回地址寄存器 a0-a7，返回地址寄存器 ra，临时寄存器 t0-t6</p>
+<h2 id="csr-寄存器组"><a class="header" href="#csr-寄存器组">CSR 寄存器组</a></h2>
+<h3 id="独立的12位地址编码空间"><a class="header" href="#独立的12位地址编码空间">独立的12位地址编码空间</a></h3>
+<p><img src="cs/../images/risc-v/csr_register_encoding.png" alt="CSR寄存器访问指令的编码" /></p>
+<h3 id="专用的-csr-指令读写-csr-寄存器"><a class="header" href="#专用的-csr-指令读写-csr-寄存器">专用的 CSR 指令读写 CSR 寄存器</a></h3>
+<p><img src="cs/../images/risc-v/riscv_csr_register_access_instruction.png" alt="CSR寄存器访问指令" /></p>
+<h3 id="标准寄存器列表"><a class="header" href="#标准寄存器列表">标准寄存器列表</a></h3>
+<h4 id="machine-mode"><a class="header" href="#machine-mode">Machine Mode</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>名称</th><th>地址</th><th>属性</th><th>备注</th></tr></thead><tbody>
+<tr><td>mvendorid</td><td>0xF11</td><td>RO</td><td>商业供应商编号寄存器</td></tr>
+<tr><td>marchid</td><td>0xF12</td><td>RO</td><td>架构编号寄存器</td></tr>
+<tr><td>mimpid</td><td>0xF13</td><td>RO</td><td>硬件实现编号寄存器</td></tr>
+<tr><td>mhartid</td><td>0xF14</td><td>RO</td><td>Hart编号寄存器 (Hart: Hardware Thread)</td></tr>
+<tr><td>mstatus</td><td>0x300</td><td>RW</td><td>异常处理状态寄存器</td></tr>
+<tr><td>misa</td><td>0x301</td><td>RO</td><td>指令集架构寄存器</td></tr>
+<tr><td>mie</td><td>0x304</td><td>RW</td><td>局部中断屏蔽控制寄存器</td></tr>
+<tr><td>mtvec</td><td>0x305</td><td>RW</td><td>异常入口基地址寄存器</td></tr>
+<tr><td>mtvt</td><td>0x307</td><td>RW</td><td>中断向量表的基地址，至少为 <strong>64byte</strong> 对齐</td></tr>
+<tr><td>mscratch</td><td>0x340</td><td>RW</td><td>暂存寄存器，比如进入异常处理模式后，将应用程序的用户的 sp 寄存器临时保存到这个寄存器中</td></tr>
+<tr><td>mepc</td><td>0x341</td><td>RW</td><td>异常PC寄存器</td></tr>
+<tr><td>mcause</td><td>0x342</td><td>RW</td><td>异常原因寄存器</td></tr>
+<tr><td>mtval</td><td>0x343</td><td>RW</td><td>异常值寄存器，保存进入异常之前出错指令的编码值或者存储器访问的地址值</td></tr>
+<tr><td>mip</td><td>0x344</td><td>RW</td><td>中断等待寄存器</td></tr>
+<tr><td>mnxti</td><td>0x345</td><td>RW</td><td>读操作返回值是下一个中断的handler地址，写回操作会更新中断使能的状态</td></tr>
+<tr><td>mintstatus</td><td>0x346</td><td>RO</td><td>用于保存当前中断 Level</td></tr>
+<tr><td>mscratchcsw</td><td>0x348</td><td>RW</td><td>用于在特权模式变化时交换mscratch与目的寄存器的值</td></tr>
+<tr><td>mscratchcswl</td><td>0x349</td><td>RW</td><td>用于在中断Level变化时交换mscratch与目的寄存器的值</td></tr>
+<tr><td>mcycle</td><td>0xB00</td><td>RW</td><td>周期计数器的低32位</td></tr>
+<tr><td>mcycleh</td><td>0xB80</td><td>RW</td><td>周期计数器的高32位</td></tr>
+<tr><td>minstret</td><td>0xB02</td><td>RW</td><td>完成指令计数器的低32位，该寄存器用于衡量处理器的性能</td></tr>
+<tr><td>minstrech</td><td>0xB82</td><td>RW</td><td>完成指令计数器的高32位</td></tr>
+</tbody></table>
+</div>
+<h4 id="user-mode"><a class="header" href="#user-mode">User Mode</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>名称</th><th>地址</th><th>属性</th><th>备注</th></tr></thead><tbody>
+<tr><td>cycle</td><td>0xC00</td><td>RO</td><td>mcycle寄存器的只读副本</td></tr>
+<tr><td>time</td><td>0xC01</td><td>RO</td><td>mtime寄存器的只读副本</td></tr>
+<tr><td>instret</td><td>0xC02</td><td>RO</td><td>minstret寄存器的只读副本</td></tr>
+<tr><td>cycleh</td><td>0xC80</td><td>RO</td><td>mcycleh寄存器的只读副本</td></tr>
+<tr><td>timeh</td><td>0xC81</td><td>RO</td><td>mtimeh寄存器的只读副本</td></tr>
+<tr><td>instreth</td><td>0xC82</td><td>RO</td><td>minstreth寄存器的只读副本</td></tr>
+</tbody></table>
+</div>
+<h2 id="risc-v-的中断"><a class="header" href="#risc-v-的中断">RISC-V 的中断</a></h2>
+<p><img src="cs/../images/risc-v/riscv_interrupt_enter.png" alt="进入中断" /></p>
+<p><img src="cs/../images/risc-v/riscv_interrupt_exit.png" alt="退出中断" /></p>
+<h3 id="中断和异常相关的寄存器"><a class="header" href="#中断和异常相关的寄存器">中断和异常相关的寄存器</a></h3>
+<p><img src="cs/../images/risc-v/riscv_exception_csr_registers.png" alt="异常相关的CSR寄存器" /></p>
+<p><img src="cs/../images/risc-v/riscv_exception_csr_register_definitions.png" alt="异常相关的CSR寄存器具体定义" /></p>
+<h3 id="mstatus"><a class="header" href="#mstatus">mstatus</a></h3>
+<ul>
+<li>MIE：为1表示中断的全局开关打开，中断能够被正常响应</li>
+<li>FS：维护浮点单元的状态。上电默认为0,表示Off，为了能够正常使用浮点单元，软件需要使用 CSR 写指令将 FS 的值改写为非 0 值以打开浮点单元的功能。操作系统在进行上下文切换的时候，需要通过该值来判断是否需要对浮点单元进行上下文的保存</li>
+<li>XS：维护用户自定义的扩展指令单元状态，类似与 FS</li>
+</ul>
+<h3 id="mtvec"><a class="header" href="#mtvec">mtvec</a></h3>
+<p><img src="cs/../images/risc-v/riscv_exception_mtvec_register.png" alt="mtvec寄存器" /></p>
+<h3 id="异常代码"><a class="header" href="#异常代码">异常代码</a></h3>
+<p><img src="cs/../images/risc-v/riscv_machine_exception_codes.png" alt="异常代码" /></p>
+<h3 id="中断返回"><a class="header" href="#中断返回">中断返回</a></h3>
+<p><img src="cs/../images/risc-v/riscv_exception_return.png" alt="中断返回" /></p>
+<h3 id="中断屏蔽与中断等待"><a class="header" href="#中断屏蔽与中断等待">中断屏蔽与中断等待</a></h3>
+<p><img src="cs/../images/risc-v/riscv_interrupt_enable_pending.png" alt="中断屏蔽和等待相关额寄存器" /></p>
+<h3 id="中断优先级"><a class="header" href="#中断优先级">中断优先级</a></h3>
+<p><img src="cs/../images/risc-v/riscv_interrupt_priority.png" alt="中断优先级" /></p>
+<h3 id="单指令数据通路的中断响应与退出"><a class="header" href="#单指令数据通路的中断响应与退出">单指令数据通路的中断响应与退出</a></h3>
+<p><img src="cs/../images/risc-v/riscv_one_cycle_intruction_interrupt_enter.png" alt="中断响应" /></p>
+<p><img src="cs/../images/risc-v/riscv_one_cycle_intruction_interrupt_exit.png" alt="中断退出" /></p>
+<h2 id="risc-v-架构的可扩展性"><a class="header" href="#risc-v-架构的可扩展性">RISC-V 架构的可扩展性</a></h2>
+<h3 id="指令集的扩展"><a class="header" href="#指令集的扩展">指令集的扩展</a></h3>
+<p><img src="cs/../images/risc-v/riscv_isa_extension.png" alt="指令集扩展" /></p>
+<h3 id="指令编码空间的扩展"><a class="header" href="#指令编码空间的扩展">指令编码空间的扩展</a></h3>
+<p><img src="cs/../images/risc-v/riscv_isa_custom_instruction.png" alt="指令编码空间的扩展" /></p>
+<ul>
+<li>custom-0、custom-1用于 RV32 的自定义指令集扩展</li>
+<li>custom-2、custom-3预留给 RV128，也可以用于 RV32、RV64的用户自定义指令集扩展</li>
+</ul>
+<h2 id="常用伪指令"><a class="header" href="#常用伪指令">常用伪指令</a></h2>
+<h5 id="赋值指令"><a class="header" href="#赋值指令">赋值指令</a></h5>
+<pre><code class="language-assembly">mv rd, rs # 等效于 addi rd, rs, x0
+</code></pre>
+<h5 id="加载立即数"><a class="header" href="#加载立即数">加载立即数</a></h5>
+<pre><code class="language-assembly">li rd, 13 # 等效于 addi rd, x0, 13
+</code></pre>
+<h5 id="函数调用和返回"><a class="header" href="#函数调用和返回">函数调用和返回</a></h5>
+<pre><code class="language-assembly">jal my_foo # 函数调用
+ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="openwrt-基础"><a class="header" href="#openwrt-基础">OpenWRT 基础</a></h1>
 <h2 id="flash-分区"><a class="header" href="#flash-分区">Flash 分区</a></h2>
 <p>Linux系统对闪存类存储器是采用MTD设备驱动实现的。</p>
@@ -1167,22 +1661,111 @@ $$</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="视频处理"><a class="header" href="#视频处理">视频处理</a></h1>
 <p><img src="cs/../images/video-process/video-process-flow.jpg" alt="视频处理工作流程" /></p>
 <h2 id="图像的基本概念"><a class="header" href="#图像的基本概念">图像的基本概念</a></h2>
-<h3 id="像素"><a class="header" href="#像素">像素</a></h3>
-<p>像素是图像的基本单元，一个个像素就组成了图像。可以认为像素就是图像中的一个点。</p>
-<h3 id="分辨率"><a class="header" href="#分辨率">分辨率</a></h3>
-<p>图像（或视频）的分辨率是指图像的大小或尺寸。视频行业常见的分辨率有：</p>
-<div class="table-wrapper"><table><thead><tr><th>分辨率</th><th>宽度</th><th>高度</th></tr></thead><tbody>
-<tr><td>QCIF</td><td>176</td><td>144</td></tr>
-<tr><td>CIF</td><td>352</td><td>288</td></tr>
-<tr><td>D1</td><td>720</td><td>576</td></tr>
-<tr><td>360P</td><td>640</td><td>360</td></tr>
-<tr><td>720P</td><td>1280</td><td>720</td></tr>
-<tr><td>1080P</td><td>1920</td><td>1080</td></tr>
-<tr><td>4K</td><td>3840</td><td>2160</td></tr>
-<tr><td>8K</td><td>7680</td><td>4320</td></tr>
-</tbody></table>
-</div>
-<p><strong>不能简单地认为分辨率数值越高的图像就越清晰。</strong></p>
+<p><img src="cs/../images/video-process/image-basis.jpg" alt="视频图像基础" /></p>
+<ul>
+<li>存取一幅图像需要特别注意 Stride 这个参数，它跟分辨率中的 Width 是不一样的。为了快速存取，往往会选择以内存对齐的方式存储一行像素（比如 16 字节）。</li>
+</ul>
+<h3 id="color-range"><a class="header" href="#color-range">Color Range</a></h3>
+<p>对于一个 8bit 的 RGB 图像，<strong>Full Range</strong> 的 R、G、B 取值范围是 0~255， 而 <strong>Limited Range</strong> 的 R、G、B 取值范围是 16~235。</p>
+<h2 id="颜色空间"><a class="header" href="#颜色空间">颜色空间</a></h2>
+<h3 id="rgb"><a class="header" href="#rgb">RGB</a></h3>
+<p><img src="cs/../images/video-process/RGB-format.png" alt="RGB存储格式" /></p>
+<ul>
+<li>OpenCV 使用的是 BGR 格式，而不是 RGB。</li>
+<li>RGB 三个颜色是有<strong>相关性</strong>的，所以不太方便做图像压缩编码。</li>
+</ul>
+<h3 id="yuv"><a class="header" href="#yuv">YUV</a></h3>
+<p>YUV 图像将亮度信息 Y 与色彩信息 U、V 分离开来。Y 表示亮度(Luma)，是图像的总体轮廓，U、V 表示色度(Chroma)，主要描绘图像的色彩等信息。</p>
+<p>根据采样方式的不同，YUV 主要分为 YUV 4:4:4、YUV 4:2:2、YUV 4:2:0 三种。</p>
+<p>根据存储方式的不同，YUV 还可以分成两大类：<strong>Planar</strong> 和 <strong>Packed</strong>。Planar 格式的 YUV 是先连续存储所有像素点的 Y，然后存储所有像素点的 U（或者 V），之后再存储所有像素点的 V（或者 U）。Packed 格式的 YUV 是先存储完所有像素的 Y，然后 U、V 连续地交错存储。</p>
+<h4 id="yuv444"><a class="header" href="#yuv444">YUV444</a></h4>
+<p><img src="cs/../images/video-process/yuv444-sample.jpg" alt="YUV444采样" /></p>
+<p>Planar 存储格式:
+<img src="cs/../images/video-process/yuv444-storage.jpg" alt="YUV444存储" /></p>
+<h4 id="yuv422"><a class="header" href="#yuv422">YUV422</a></h4>
+<p><img src="cs/../images/video-process/yuv422-sample.jpg" alt="YUV422采样" /></p>
+<p>Planar 存储格式:
+<img src="cs/../images/video-process/yuv422-storage-planar.jpg" alt="YUV422P存储" /></p>
+<p>Packed 存储格式:
+<img src="cs/../images/video-process/yuv422-storage-packed.jpg" alt="YUV422SP存储" /></p>
+<h4 id="yuv420-最常用"><a class="header" href="#yuv420-最常用">YUV420 (最常用)</a></h4>
+<p><img src="cs/../images/video-process/yuv420-sample.jpg" alt="YUV420采样" /></p>
+<p>Planar 存储格式:
+<img src="cs/../images/video-process/yuv420-storage-planar.jpg" alt="YUV420P存储" /></p>
+<p>Packed 存储格式:
+<img src="cs/../images/video-process/yuv420-storage-packed.jpg" alt="YUV420SP存储" /></p>
+<h3 id="rgb-与-yuv-转换"><a class="header" href="#rgb-与-yuv-转换">RGB 与 YUV 转换</a></h3>
+<p><strong>RGB 和 YUV 格式转换需要双方确定好转换标准和 Color Range</strong>。</p>
+<h4 id="bt601-标准标清"><a class="header" href="#bt601-标准标清">BT601 标准（标清）</a></h4>
+<p><strong>Limited Range</strong>:</p>
+<p>RGB-&gt;YUV 转换公式</p>
+<p>$$
+\begin{cases}
+Y &amp;= 0.299 * R + 0.587 * G + 0.114 * B \\
+U &amp;= -0.172 * R - 0.339 * G + 0.511 * B + 128 \\
+V &amp;= 0.511 * R - 0.428 * G - 0.083 * B + 128
+\end{cases}
+$$</p>
+<p>YUV-&gt;RGB 转换公式</p>
+<p>$$
+\begin{cases}
+R &amp;= Y + 1.371 * (V - 128) \\
+G &amp;= Y - 0.336 * (U - 128) - 0.698 * (V - 128) \\
+B &amp;= Y + 1.732 * (U - 128)
+\end{cases}
+$$</p>
+<p><strong>Full Range</strong>:</p>
+<p>RGB-&gt;YUV 转换公式</p>
+<p>$$
+\begin{cases}
+Y &amp;= 16 + 0.257 * R + 0.504 * G + 0.098 * B \\
+U &amp;= 128 - 0.148 * R - 0.291 * G + 0.439 * B \\
+V &amp;= 128 + 0.439 * R - 0.368 * G - 0.071 * B
+\end{cases}
+$$</p>
+<p>YUV-&gt;RGB 转换公式</p>
+<p>$$
+\begin{cases}
+R &amp;= 1.164 * (Y - 16) + 1.596 * (V - 128) \\
+G &amp;= 1.164 * (Y - 16) - 0.392 * (U - 128) - 0.812 * (V - 128) \\
+B &amp;= 1.164 * (Y - 16) + 2.016 * (U - 128)
+\end{cases}
+$$</p>
+<h4 id="bt709-标准高清"><a class="header" href="#bt709-标准高清">BT709 标准（高清）</a></h4>
+<p><strong>Limited Range</strong>:</p>
+<p>RGB-&gt;YUV 转换公式</p>
+<p>$$
+\begin{cases}
+Y &amp;= 0.213 * R + 0.715 * G + 0.072 * B \\
+U &amp;= -0.117 * R - 0.394 * G + 0.511 * B + 128 \\
+V &amp;= 0.511 * R - 0.464 * G - 0.047 * B + 128
+\end{cases}
+$$</p>
+<p>YUV-&gt;RGB 转换公式</p>
+<p>$$
+\begin{cases}
+R &amp;= Y + 1.540 * (V - 128) \\
+G &amp;= Y - 0.183 * (U - 128) - 0.459 * (V - 128) \\
+B &amp;= Y + 1.816 * (U - 128)
+\end{cases}
+$$</p>
+<p><strong>Full Range</strong>:</p>
+<p>RGB-&gt;YUV 转换公式</p>
+<p>$$
+\begin{cases}
+Y &amp;= 16 + 0.183 * R + 0.614 * G + 0.062 * B \\
+U &amp;= 128 - 0.101 * R - 0.339 * G + 0.439 * B \\
+V &amp;= 128 + 0.439 * R - 0.339 * G - 0.040 * B
+\end{cases}
+$$</p>
+<p>YUV-&gt;RGB 转换公式</p>
+<p>$$
+\begin{cases}
+R &amp;= 1.164 * (Y - 16) + 1.792 * (V - 128) \\
+G &amp;= 1.164 * (Y - 16) - 0.213 * (U - 128) - 0.534 * (V - 128) \\
+B &amp;= 1.164 * (Y - 16) + 2.114 * (U - 128)
+\end{cases}
+$$</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usb-基础"><a class="header" href="#usb-基础">USB 基础</a></h1>
 <h2 id="usb-基本概念"><a class="header" href="#usb-基本概念">USB 基本概念</a></h2>
 <h3 id="usb-协议标准"><a class="header" href="#usb-协议标准">USB 协议标准</a></h3>

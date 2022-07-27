@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">1.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">2.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html" class="active"><strong aria-hidden="true">3.</strong> 视频处理</a></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">4.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">5.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">6.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/risc-v.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">2.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">3.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html" class="active"><strong aria-hidden="true">4.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">5.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">6.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">7.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -145,22 +145,111 @@
                         <h1 id="视频处理"><a class="header" href="#视频处理">视频处理</a></h1>
 <p><img src="../images/video-process/video-process-flow.jpg" alt="视频处理工作流程" /></p>
 <h2 id="图像的基本概念"><a class="header" href="#图像的基本概念">图像的基本概念</a></h2>
-<h3 id="像素"><a class="header" href="#像素">像素</a></h3>
-<p>像素是图像的基本单元，一个个像素就组成了图像。可以认为像素就是图像中的一个点。</p>
-<h3 id="分辨率"><a class="header" href="#分辨率">分辨率</a></h3>
-<p>图像（或视频）的分辨率是指图像的大小或尺寸。视频行业常见的分辨率有：</p>
-<div class="table-wrapper"><table><thead><tr><th>分辨率</th><th>宽度</th><th>高度</th></tr></thead><tbody>
-<tr><td>QCIF</td><td>176</td><td>144</td></tr>
-<tr><td>CIF</td><td>352</td><td>288</td></tr>
-<tr><td>D1</td><td>720</td><td>576</td></tr>
-<tr><td>360P</td><td>640</td><td>360</td></tr>
-<tr><td>720P</td><td>1280</td><td>720</td></tr>
-<tr><td>1080P</td><td>1920</td><td>1080</td></tr>
-<tr><td>4K</td><td>3840</td><td>2160</td></tr>
-<tr><td>8K</td><td>7680</td><td>4320</td></tr>
-</tbody></table>
-</div>
-<p><strong>不能简单地认为分辨率数值越高的图像就越清晰。</strong></p>
+<p><img src="../images/video-process/image-basis.jpg" alt="视频图像基础" /></p>
+<ul>
+<li>存取一幅图像需要特别注意 Stride 这个参数，它跟分辨率中的 Width 是不一样的。为了快速存取，往往会选择以内存对齐的方式存储一行像素（比如 16 字节）。</li>
+</ul>
+<h3 id="color-range"><a class="header" href="#color-range">Color Range</a></h3>
+<p>对于一个 8bit 的 RGB 图像，<strong>Full Range</strong> 的 R、G、B 取值范围是 0~255， 而 <strong>Limited Range</strong> 的 R、G、B 取值范围是 16~235。</p>
+<h2 id="颜色空间"><a class="header" href="#颜色空间">颜色空间</a></h2>
+<h3 id="rgb"><a class="header" href="#rgb">RGB</a></h3>
+<p><img src="../images/video-process/RGB-format.png" alt="RGB存储格式" /></p>
+<ul>
+<li>OpenCV 使用的是 BGR 格式，而不是 RGB。</li>
+<li>RGB 三个颜色是有<strong>相关性</strong>的，所以不太方便做图像压缩编码。</li>
+</ul>
+<h3 id="yuv"><a class="header" href="#yuv">YUV</a></h3>
+<p>YUV 图像将亮度信息 Y 与色彩信息 U、V 分离开来。Y 表示亮度(Luma)，是图像的总体轮廓，U、V 表示色度(Chroma)，主要描绘图像的色彩等信息。</p>
+<p>根据采样方式的不同，YUV 主要分为 YUV 4:4:4、YUV 4:2:2、YUV 4:2:0 三种。</p>
+<p>根据存储方式的不同，YUV 还可以分成两大类：<strong>Planar</strong> 和 <strong>Packed</strong>。Planar 格式的 YUV 是先连续存储所有像素点的 Y，然后存储所有像素点的 U（或者 V），之后再存储所有像素点的 V（或者 U）。Packed 格式的 YUV 是先存储完所有像素的 Y，然后 U、V 连续地交错存储。</p>
+<h4 id="yuv444"><a class="header" href="#yuv444">YUV444</a></h4>
+<p><img src="../images/video-process/yuv444-sample.jpg" alt="YUV444采样" /></p>
+<p>Planar 存储格式:
+<img src="../images/video-process/yuv444-storage.jpg" alt="YUV444存储" /></p>
+<h4 id="yuv422"><a class="header" href="#yuv422">YUV422</a></h4>
+<p><img src="../images/video-process/yuv422-sample.jpg" alt="YUV422采样" /></p>
+<p>Planar 存储格式:
+<img src="../images/video-process/yuv422-storage-planar.jpg" alt="YUV422P存储" /></p>
+<p>Packed 存储格式:
+<img src="../images/video-process/yuv422-storage-packed.jpg" alt="YUV422SP存储" /></p>
+<h4 id="yuv420-最常用"><a class="header" href="#yuv420-最常用">YUV420 (最常用)</a></h4>
+<p><img src="../images/video-process/yuv420-sample.jpg" alt="YUV420采样" /></p>
+<p>Planar 存储格式:
+<img src="../images/video-process/yuv420-storage-planar.jpg" alt="YUV420P存储" /></p>
+<p>Packed 存储格式:
+<img src="../images/video-process/yuv420-storage-packed.jpg" alt="YUV420SP存储" /></p>
+<h3 id="rgb-与-yuv-转换"><a class="header" href="#rgb-与-yuv-转换">RGB 与 YUV 转换</a></h3>
+<p><strong>RGB 和 YUV 格式转换需要双方确定好转换标准和 Color Range</strong>。</p>
+<h4 id="bt601-标准标清"><a class="header" href="#bt601-标准标清">BT601 标准（标清）</a></h4>
+<p><strong>Limited Range</strong>:</p>
+<p>RGB-&gt;YUV 转换公式</p>
+<p>$$
+\begin{cases}
+Y &amp;= 0.299 * R + 0.587 * G + 0.114 * B \\
+U &amp;= -0.172 * R - 0.339 * G + 0.511 * B + 128 \\
+V &amp;= 0.511 * R - 0.428 * G - 0.083 * B + 128
+\end{cases}
+$$</p>
+<p>YUV-&gt;RGB 转换公式</p>
+<p>$$
+\begin{cases}
+R &amp;= Y + 1.371 * (V - 128) \\
+G &amp;= Y - 0.336 * (U - 128) - 0.698 * (V - 128) \\
+B &amp;= Y + 1.732 * (U - 128)
+\end{cases}
+$$</p>
+<p><strong>Full Range</strong>:</p>
+<p>RGB-&gt;YUV 转换公式</p>
+<p>$$
+\begin{cases}
+Y &amp;= 16 + 0.257 * R + 0.504 * G + 0.098 * B \\
+U &amp;= 128 - 0.148 * R - 0.291 * G + 0.439 * B \\
+V &amp;= 128 + 0.439 * R - 0.368 * G - 0.071 * B
+\end{cases}
+$$</p>
+<p>YUV-&gt;RGB 转换公式</p>
+<p>$$
+\begin{cases}
+R &amp;= 1.164 * (Y - 16) + 1.596 * (V - 128) \\
+G &amp;= 1.164 * (Y - 16) - 0.392 * (U - 128) - 0.812 * (V - 128) \\
+B &amp;= 1.164 * (Y - 16) + 2.016 * (U - 128)
+\end{cases}
+$$</p>
+<h4 id="bt709-标准高清"><a class="header" href="#bt709-标准高清">BT709 标准（高清）</a></h4>
+<p><strong>Limited Range</strong>:</p>
+<p>RGB-&gt;YUV 转换公式</p>
+<p>$$
+\begin{cases}
+Y &amp;= 0.213 * R + 0.715 * G + 0.072 * B \\
+U &amp;= -0.117 * R - 0.394 * G + 0.511 * B + 128 \\
+V &amp;= 0.511 * R - 0.464 * G - 0.047 * B + 128
+\end{cases}
+$$</p>
+<p>YUV-&gt;RGB 转换公式</p>
+<p>$$
+\begin{cases}
+R &amp;= Y + 1.540 * (V - 128) \\
+G &amp;= Y - 0.183 * (U - 128) - 0.459 * (V - 128) \\
+B &amp;= Y + 1.816 * (U - 128)
+\end{cases}
+$$</p>
+<p><strong>Full Range</strong>:</p>
+<p>RGB-&gt;YUV 转换公式</p>
+<p>$$
+\begin{cases}
+Y &amp;= 16 + 0.183 * R + 0.614 * G + 0.062 * B \\
+U &amp;= 128 - 0.101 * R - 0.339 * G + 0.439 * B \\
+V &amp;= 128 + 0.439 * R - 0.339 * G - 0.040 * B
+\end{cases}
+$$</p>
+<p>YUV-&gt;RGB 转换公式</p>
+<p>$$
+\begin{cases}
+R &amp;= 1.164 * (Y - 16) + 1.792 * (V - 128) \\
+G &amp;= 1.164 * (Y - 16) - 0.213 * (U - 128) - 0.534 * (V - 128) \\
+B &amp;= 1.164 * (Y - 16) + 2.114 * (U - 128)
+\end{cases}
+$$</p>
 
                     </main>
 
