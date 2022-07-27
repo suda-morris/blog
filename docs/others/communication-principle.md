@@ -1,11 +1,5 @@
-title: Communication Principle
-tags:
-  - Communication
-categories:
-  - Academic
-author: suda-morris
-date: 2016-04-18 16:40:31 +0800
----
+# 通信原理
+
 ## 消息
 1. 语音信号的带宽大约4KHz，图像信号的带宽大约是6MHz，音乐信号的带宽大约20KHz
 

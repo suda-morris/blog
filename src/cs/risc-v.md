@@ -1,14 +1,14 @@
-## 𝑹𝑰𝑺𝑪-𝑽 基础
+# RISC-V 基础
 
 ## 单核 CPU 组成结构
 
-![ALU](../.vuepress/public/images/cs/risc-v/riscv_alu.png)
+![ALU](../images/risc-v/riscv_alu.png)
 
 **数据通路**是处理器中执行处理器所需操作的硬件部分，就像是处理器的四肢。
 
 **控制器**是对数据通路要做什么操作进行行为调度的硬件结构，就像是处理器的大脑。
 
-![ALU](../.vuepress/public/images/cs/risc-v/riscv_data_path.png)
+![ALU](../images/risc-v/riscv_data_path.png)
 
 ## 指令集划分
 
@@ -29,11 +29,11 @@
 
 ## 基本指令集类型
 
-![指令编码格式](../.vuepress/public/images/cs/risc-v/riscv_instruction_type.png)
+![指令编码格式](../images/risc-v/riscv_instruction_type.png)
 
 ### R(Register)型指令
 
-![R型指令](../.vuepress/public/images/cs/risc-v/riscv_R_instruction.png)
+![R型指令](../images/risc-v/riscv_R_instruction.png)
 
 #### 指令汇编格式
 
@@ -99,7 +99,7 @@ sra rd, rs1, rs2
 
 ### I(Immediate)型指令
 
-![I型指令](../.vuepress/public/images/cs/risc-v/riscv_I_instruction.png)
+![I型指令](../images/risc-v/riscv_I_instruction.png)
 
 #### 指令汇编格式
 
@@ -159,7 +159,7 @@ srai rd, rs1, shamt[4:0]
 
 ### Load/Store 指令
 
-![Load/Store 指令](../.vuepress/public/images/cs/risc-v/riscv_load_store_instruction.png)
+![Load/Store 指令](../images/risc-v/riscv_load_store_instruction.png)
 
 #### 指令汇编格式
 
@@ -213,7 +213,7 @@ sb rs2, offset[11:0](rs1)
 
 ### B(Branch)型指令
 
-![B型指令](../.vuepress/public/images/cs/risc-v/riscv_B_instruction.png)
+![B型指令](../images/risc-v/riscv_B_instruction.png)
 
 #### 指令汇编格式
 
@@ -255,7 +255,7 @@ bgeu rs1, rs2, label
 
 ### J(Jump)型指令
 
-![J型指令](../.vuepress/public/images/cs/risc-v/riscv_jump_instruction.png)
+![J型指令](../images/risc-v/riscv_jump_instruction.png)
 
 #### 指令汇编格式
 
@@ -289,7 +289,7 @@ jalr x0, x1, <lo12bits>
 
 ### U(Upper immediate)型指令
 
-![U型指令](../.vuepress/public/images/cs/risc-v/riscv_U_instruction.png)
+![U型指令](../images/risc-v/riscv_U_instruction.png)
 
 #### 指令汇编格式
 
@@ -329,7 +329,7 @@ Label: auipc x10, 0 # 将 Label 的地址保存在 x10 寄存器中
 
 ## ALU 的设计
 
-![ALU设计框图](../.vuepress/public/images/cs/risc-v/riscv_alu_design.png)
+![ALU设计框图](../images/risc-v/riscv_alu_design.png)
 
 ### 加法运算的实现
 
@@ -409,11 +409,11 @@ endmodule
 * CPI (Clock Cycle Per Instruction)：执行每条指令所需的时钟周期数的平均值
 * 单指令周期CPU：全部指令选用一个 CPU 周期完成的系统
 
-![单指令周期 CPU](../.vuepress/public/images/cs/risc-v/single_instruction_CPU.png)
+![单指令周期 CPU](../images/risc-v/single_instruction_CPU.png)
 
 ### 寄存器堆的实现
 
-![寄存器堆](../.vuepress/public/images/cs/risc-v/register_file.png)
+![寄存器堆](../images/risc-v/register_file.png)
 
 ```verilog
 module regfile(rna, rnb, d, wn, we, clk, clrn, qa, qb);
@@ -441,7 +441,7 @@ endmodule
 
 ### 完整的数据通路
 
-![完整的数据通路](../.vuepress/public/images/cs/risc-v/riscv_full_data_path.png)
+![完整的数据通路](../images/risc-v/riscv_full_data_path.png)
 
 * 译码阶段，会将指令的功能码和操作码发送给**控制器**，来产生相应的控制信号
 * 立即数扩展信号：ImmSel
@@ -449,66 +449,68 @@ endmodule
 
 ### 控制器的设计
 
-![控制器的设计](../.vuepress/public/images/cs/risc-v/riscv_cpu_controller_truth_table.png)
+![控制器的设计](../images/risc-v/riscv_cpu_controller_truth_table.png)
 
 ### R 型指令数据通路
 
-![R型指令数据通路](../.vuepress/public/images/cs/risc-v/riscv_R_instruction_data_path.png)
+![R型指令数据通路](../images/risc-v/riscv_R_instruction_data_path.png)
 
 * `ALUSel` 会根据指令的 `funct3`来取不同的值
 
 ### I 型指令数据通路
 
-![I型指令数据通路](../.vuepress/public/images/cs/risc-v/riscv_I_instruction_data_path.png)
+![I型指令数据通路](../images/risc-v/riscv_I_instruction_data_path.png)
 
 ### Load 指令数据通路
 
-![Load指令数据通路](../.vuepress/public/images/cs/risc-v/riscv_load_instruction_data_path.png)
+![Load指令数据通路](../images/risc-v/riscv_load_instruction_data_path.png)
 
 ### Store 指令数据通路
 
-![Store指令数据通路](../.vuepress/public/images/cs/risc-v/riscv_store_instruction_data_path.png)
+![Store指令数据通路](../images/risc-v/riscv_store_instruction_data_path.png)
 
 * 立即数来自`inst[31:25][11:7]`，这个和Load不同
 * Store指令没有**写回**阶段
 
 ### B 型指令数据通路
 
-![B指令数据通路](../.vuepress/public/images/cs/risc-v/riscv_B_instruction_data_path.png)
+![B指令数据通路](../images/risc-v/riscv_B_instruction_data_path.png)
 
 * 无**访存**和**写回**阶段
 
 ### jalr 指令数据通路
 
-![jalr指令数据通路](../.vuepress/public/images/cs/risc-v/riscv_jalr_instruction_data_path.png)
+![jalr指令数据通路](../images/risc-v/riscv_jalr_instruction_data_path.png)
 
 * PC+4 的值会保存到`rd` 中
 
 ### jal 指令数据通路
 
-![jal指令数据通路](../.vuepress/public/images/cs/risc-v/riscv_jal_instruction_data_path.png)
+![jal指令数据通路](../images/risc-v/riscv_jal_instruction_data_path.png)
 
 ## 流水线技术
 
-![流水线技术](../.vuepress/public/images/cs/risc-v/riscv_pipeline.png)
+![流水线技术](../images/risc-v/riscv_pipeline.png)
 
 ### 处理器性能公式
 
-$$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{Time}{Cycle}$$
+$$
+ProgramTime = \frac{Instructions}{Program} * \frac{Cycle s}{Instruction} * \frac{Time}{Cycle}
+$$
 
 ### 流水线阶段寄存器
 
 为了确保硬件共享的时候，前一阶段的数据不被丢失，需要在流水线之间插入“阶段寄存器”来保存中间值和控制信号。
 
-![流水线寄存器](../.vuepress/public/images/cs/risc-v/riscv_pipeline_registers.png)
+![流水线寄存器](../images/risc-v/riscv_pipeline_registers.png)
 
 ## Cache
 
-![Cache](../.vuepress/public/images/cs/risc-v/riscv_cache.png)
+![Cache](../images/risc-v/riscv_cache.png)
 
 ### Cache 的结构
 
-![Cache的结构](../.vuepress/public/images/cs/risc-v/riscv_cache_structure.png)
+![Cache的结构](../images/risc-v/riscv_cache_structure.png)
 
 * 块（block）：两级存储器层次结构中存储器信息交换的最小单元
 * 命中（hit）：如果处理器需要的数据存放在高层存储器中的某个块中，称为一次命中
@@ -525,9 +527,9 @@ $$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{T
 
 有效位：表中的一个字段，用来标识一个块是否包含有一个有效数据
 
-![Cache直接映射](../.vuepress/public/images/cs/risc-v/riscv_cache_direct_mapping.png)
+![Cache直接映射](../images/risc-v/riscv_cache_direct_mapping.png)
 
-![Cache直接映射示例](../.vuepress/public/images/cs/risc-v/riscv_cache_direct_mapping_example.png)
+![Cache直接映射示例](../images/risc-v/riscv_cache_direct_mapping_example.png)
 
 缺点：利用率低，命中率低
 
@@ -535,9 +537,9 @@ $$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{T
 
 全相联映射：一个块可以被放置在 cache 中的任何位置
 
-![Cache全相联映射](../.vuepress/public/images/cs/risc-v/riscv_cache_full_association_mapping.png)
+![Cache全相联映射](../images/risc-v/riscv_cache_full_association_mapping.png)
 
-![Cache全相联映射示例](../.vuepress/public/images/cs/risc-v/riscv_cache_full_association_mapping_example.png)
+![Cache全相联映射示例](../images/risc-v/riscv_cache_full_association_mapping_example.png)
 
 缺点：硬件开销大（有多少cache块就配有相等数量的比较器）
 
@@ -545,9 +547,9 @@ $$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{T
 
 在组相联映射中，每个块可被放置的位置数是固定的，每个块有 n 个位置可放的 cache 被称为 n 路组相联 Cache
 
-![Cache组相联映射](../.vuepress/public/images/cs/risc-v/riscv_set_associative_cache.png)
+![Cache组相联映射](../images/risc-v/riscv_set_associative_cache.png)
 
-![Cache组相联映射示例](../.vuepress/public/images/cs/risc-v/riscv_set_associative_cache_example.png)
+![Cache组相联映射示例](../images/risc-v/riscv_set_associative_cache_example.png)
 
 四路组相联 Cache：
 
@@ -565,11 +567,11 @@ $$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{T
 
 ## 虚拟地址
 
-![虚拟存储器管理](../.vuepress/public/images/cs/risc-v/riscv_mmu.png)
+![虚拟存储器管理](../images/risc-v/riscv_mmu.png)
 
 ### 分段管理
 
-![分段管理](../.vuepress/public/images/cs/risc-v/riscv_mmu_segment_manage.png)
+![分段管理](../images/risc-v/riscv_mmu_segment_manage.png)
 
 分段管理：将一个程序按照逻辑单元分成多个程序段，每一个段使用自己单独的虚拟地址空间。
 
@@ -579,29 +581,29 @@ $$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{T
 
 ### 分页管理
 
-![分页管理](../.vuepress/public/images/cs/risc-v/riscv_mmu_page_manage.png)
+![分页管理](../images/risc-v/riscv_mmu_page_manage.png)
 
 * 如果页表项为4字节，那么整张页表会占据4MB大小的内存空间
 
 ### 两级分页管理
 
-![两级分页管理](../.vuepress/public/images/cs/risc-v/riscv_mmu_two_level_page_manage.png)
+![两级分页管理](../images/risc-v/riscv_mmu_two_level_page_manage.png)
 
 * 4KB的页目录+4KB的页表
 
 ### 快速地址转换 TLB
 
-![块表](../.vuepress/public/images/cs/risc-v/riscv_tlb.png)
+![块表](../images/risc-v/riscv_tlb.png)
 
 块表（Translation-Lookaside Buffer）：用于记录最近使用地址的映射信息的高速缓存，从而可以避免每次都要访问页表
 
 ### 使用 TLB 进行地址转换
 
-![TLB的位置](../.vuepress/public/images/cs/risc-v/riscv_tlb_location.png)
+![TLB的位置](../images/risc-v/riscv_tlb_location.png)
 
-![TLB实现地址转换的原理](../.vuepress/public/images/cs/risc-v/riscv_tlb_translation.png)
+![TLB实现地址转换的原理](../images/risc-v/riscv_tlb_translation.png)
 
-![TLB虚实地址转换](../.vuepress/public/images/cs/risc-v/riscv_vma_pma_translation.png)
+![TLB虚实地址转换](../images/risc-v/riscv_vma_pma_translation.png)
 
 ## 通用寄存器组
 
@@ -632,11 +634,11 @@ $$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{T
 
 ### 独立的12位地址编码空间
 
-![CSR寄存器访问指令的编码](../.vuepress/public/images/cs/risc-v/csr_register_encoding.png)
+![CSR寄存器访问指令的编码](../images/risc-v/csr_register_encoding.png)
 
 ### 专用的 CSR 指令读写 CSR 寄存器
 
-![CSR寄存器访问指令](../.vuepress/public/images/cs/risc-v/riscv_csr_register_access_instruction.png)
+![CSR寄存器访问指令](../images/risc-v/riscv_csr_register_access_instruction.png)
 
 ### 标准寄存器列表
 
@@ -680,15 +682,15 @@ $$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{T
 
 ## RISC-V 的中断
 
-![进入中断](../.vuepress/public/images/cs/risc-v/riscv_interrupt_enter.png)
+![进入中断](../images/risc-v/riscv_interrupt_enter.png)
 
-![退出中断](../.vuepress/public/images/cs/risc-v/riscv_interrupt_exit.png)
+![退出中断](../images/risc-v/riscv_interrupt_exit.png)
 
 ### 中断和异常相关的寄存器
 
-![异常相关的CSR寄存器](../.vuepress/public/images/cs/risc-v/riscv_exception_csr_registers.png)
+![异常相关的CSR寄存器](../images/risc-v/riscv_exception_csr_registers.png)
 
-![异常相关的CSR寄存器具体定义](../.vuepress/public/images/cs/risc-v/riscv_exception_csr_register_definitions.png)
+![异常相关的CSR寄存器具体定义](../images/risc-v/riscv_exception_csr_register_definitions.png)
 
 ### mstatus
 
@@ -698,39 +700,39 @@ $$ProgramTime = \frac{Instructions}{Program}*\frac{Cycle s}{Instruction}*\frac{T
 
 ### mtvec
 
-![mtvec寄存器](../.vuepress/public/images/cs/risc-v/riscv_exception_mtvec_register.png)
+![mtvec寄存器](../images/risc-v/riscv_exception_mtvec_register.png)
 
 ### 异常代码
 
-![异常代码](../.vuepress/public/images/cs/risc-v/riscv_machine_exception_codes.png)
+![异常代码](../images/risc-v/riscv_machine_exception_codes.png)
 
 ### 中断返回
 
-![中断返回](../.vuepress/public/images/cs/risc-v/riscv_exception_return.png)
+![中断返回](../images/risc-v/riscv_exception_return.png)
 
 ### 中断屏蔽与中断等待
 
-![中断屏蔽和等待相关额寄存器](../.vuepress/public/images/cs/risc-v/riscv_interrupt_enable_pending.png)
+![中断屏蔽和等待相关额寄存器](../images/risc-v/riscv_interrupt_enable_pending.png)
 
 ### 中断优先级
 
-![中断优先级](../.vuepress/public/images/cs/risc-v/riscv_interrupt_priority.png)
+![中断优先级](../images/risc-v/riscv_interrupt_priority.png)
 
 ### 单指令数据通路的中断响应与退出
 
-![中断响应](../.vuepress/public/images/cs/risc-v/riscv_one_cycle_intruction_interrupt_enter.png)
+![中断响应](../images/risc-v/riscv_one_cycle_intruction_interrupt_enter.png)
 
-![中断退出](../.vuepress/public/images/cs/risc-v/riscv_one_cycle_intruction_interrupt_exit.png)
+![中断退出](../images/risc-v/riscv_one_cycle_intruction_interrupt_exit.png)
 
 ## RISC-V 架构的可扩展性
 
 ### 指令集的扩展
 
-![指令集扩展](../.vuepress/public/images/cs/risc-v/riscv_isa_extension.png)
+![指令集扩展](../images/risc-v/riscv_isa_extension.png)
 
 ### 指令编码空间的扩展
 
-![指令编码空间的扩展](../.vuepress/public/images/cs/risc-v/riscv_isa_custom_instruction.png)
+![指令编码空间的扩展](../images/risc-v/riscv_isa_custom_instruction.png)
 
 * custom-0、custom-1用于 RV32 的自定义指令集扩展
 * custom-2、custom-3预留给 RV128，也可以用于 RV32、RV64的用户自定义指令集扩展

@@ -1,11 +1,5 @@
-title: FreeRTOS Introduction---Based on ESP32
-tags:
-  - FreeRTOS
-categories:
-  - Geek Hobbies
-author: suda-morris
-date: 2018-05-30 20:56:00
----
+# FreeRTOS 基础
+
 ## FreeRTOS系统配置
 
 > FreeRTOS的系统配置文件为FreeRTOSConfig.h，在此配置文件中可以完成FreeRTOS的裁剪和配置。FreeRTOS中的裁剪和配置使用条件编译的方式来实现。
@@ -31,7 +25,6 @@ date: 2018-05-30 20:56:00
     * ![PEv1LF.png](https://s1.ax1x.com/2018/07/04/PEv1LF.png)
   * `configMAX_SYSCALL_INTERRUPT_PRIORITY`设置了FreeRTOS系统可管理的最大优先级，这里实际值为*3*，高于此优先级的中断是不会被FreeRTOS内核屏蔽的，对实时性要求严格的任务就可以使用这些优先级，中断服务函数也不能调用FreeRTOS的API函数；低于（包括本身）此优先级的中断可以安全地调用以FromISR结尾的API函数
     * ![PExpTJ.png](https://s1.ax1x.com/2018/07/04/PExpTJ.png)
-
 
 
 ## FreeRTOS中的Task
