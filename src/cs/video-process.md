@@ -20,14 +20,15 @@
 
 * OpenCV 使用的是 BGR 格式，而不是 RGB。
 * RGB 三个颜色是有**相关性**的，所以不太方便做图像压缩编码。
+* RGB 颜色空间更适合图像采集和显示。
 
 ### YUV
 
-YUV 图像将亮度信息 Y 与色彩信息 U、V 分离开来。Y 表示亮度(Luma)，是图像的总体轮廓，U、V 表示色度(Chroma)，主要描绘图像的色彩等信息。
+YUV 图像将亮度信息 Y 与色彩信息 U、V 分离开来。Y 表示亮度(Luma)，是图像的总体轮廓，U、V 表示色度(Chroma)，主要描绘图像的色彩等信息。YUV 颜色空间更适合于编码和存储。
 
 根据采样方式的不同，YUV 主要分为 YUV 4:4:4、YUV 4:2:2、YUV 4:2:0 三种。
 
-根据存储方式的不同，YUV 还可以分成两大类：**Planar** 和 **Packed**。Planar 格式的 YUV 是先连续存储所有像素点的 Y，然后存储所有像素点的 U（或者 V），之后再存储所有像素点的 V（或者 U）。Packed 格式的 YUV 是先存储完所有像素的 Y，然后 U、V 连续地交错存储。
+根据存储方式的不同，YUV 还可以分成三大类：**Planar**， **Semi-Planar** 和 **Packed**。Planar 格式的 YUV 是先连续存储所有像素点的 Y，然后存储所有像素点的 U（或者 V），之后再存储所有像素点的 V（或者 U）。Semi-planar 格式的 YUV 是先存储完所有像素的 Y，然后 U、V 连续地交错存储。packed 格式的 YUV 是连续交错存储的。
 
 #### YUV444
 
@@ -43,8 +44,8 @@ Planar 存储格式:
 Planar 存储格式:
 ![YUV422P存储](../images/video-process/yuv422-storage-planar.jpg)
 
-Packed 存储格式:
-![YUV422SP存储](../images/video-process/yuv422-storage-packed.jpg)
+Semi-Planar 存储格式:
+![YUV422SP存储](../images/video-process/yuv422-storage-semiplanar.jpg)
 
 #### YUV420 (最常用)
 
@@ -53,8 +54,8 @@ Packed 存储格式:
 Planar 存储格式:
 ![YUV420P存储](../images/video-process/yuv420-storage-planar.jpg)
 
-Packed 存储格式:
-![YUV420SP存储](../images/video-process/yuv420-storage-packed.jpg)
+Semi-Planar 存储格式:
+![YUV420SP存储](../images/video-process/yuv420-storage-semiplanar.jpg)
 
 ### RGB 与 YUV 转换
 
@@ -151,3 +152,15 @@ G &= 1.164 * (Y - 16) - 0.213 * (U - 128) - 0.534 * (V - 128) \\\\
 B &= 1.164 * (Y - 16) + 2.114 * (U - 128)
 \end{cases}
 $$
+
+### 使用 ffmpeg 将 png 图片转成 YUV 格式
+
+[获取 png 图片](https://fakeimg.pl/320x320/448aff/fff/?text=hello&font=lobster)
+
+```bash
+ffmpeg -i hello.png -pix_fmt yuv420p hello-yuv420p.yuv
+```
+
+转换得到的 yuv 图像可以使用 [YUView](https://github.com/IENT/YUView) 软件打开（注意，需要自行设置图片的分辨率等参数，否则不能正确显示）。
+
+由于 yuv 图片除了原始的像素数据，没有保存额外的数据，因此转换得到的图像大小为：320\*320\*3/2 = 153600 字节。
