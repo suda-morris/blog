@@ -1673,11 +1673,12 @@ $$</p>
 <ul>
 <li>OpenCV 使用的是 BGR 格式，而不是 RGB。</li>
 <li>RGB 三个颜色是有<strong>相关性</strong>的，所以不太方便做图像压缩编码。</li>
+<li>RGB 颜色空间更适合图像采集和显示。</li>
 </ul>
 <h3 id="yuv"><a class="header" href="#yuv">YUV</a></h3>
-<p>YUV 图像将亮度信息 Y 与色彩信息 U、V 分离开来。Y 表示亮度(Luma)，是图像的总体轮廓，U、V 表示色度(Chroma)，主要描绘图像的色彩等信息。</p>
+<p>YUV 图像将亮度信息 Y 与色彩信息 U、V 分离开来。Y 表示亮度(Luma)，是图像的总体轮廓，U、V 表示色度(Chroma)，主要描绘图像的色彩等信息。YUV 颜色空间更适合于编码和存储。</p>
 <p>根据采样方式的不同，YUV 主要分为 YUV 4:4:4、YUV 4:2:2、YUV 4:2:0 三种。</p>
-<p>根据存储方式的不同，YUV 还可以分成两大类：<strong>Planar</strong> 和 <strong>Packed</strong>。Planar 格式的 YUV 是先连续存储所有像素点的 Y，然后存储所有像素点的 U（或者 V），之后再存储所有像素点的 V（或者 U）。Packed 格式的 YUV 是先存储完所有像素的 Y，然后 U、V 连续地交错存储。</p>
+<p>根据存储方式的不同，YUV 还可以分成三大类：<strong>Planar</strong>， <strong>Semi-Planar</strong> 和 <strong>Packed</strong>。Planar 格式的 YUV 是先连续存储所有像素点的 Y，然后存储所有像素点的 U（或者 V），之后再存储所有像素点的 V（或者 U）。Semi-planar 格式的 YUV 是先存储完所有像素的 Y，然后 U、V 连续地交错存储。packed 格式的 YUV 是连续交错存储的。</p>
 <h4 id="yuv444"><a class="header" href="#yuv444">YUV444</a></h4>
 <p><img src="cs/../images/video-process/yuv444-sample.jpg" alt="YUV444采样" /></p>
 <p>Planar 存储格式:
@@ -1686,14 +1687,14 @@ $$</p>
 <p><img src="cs/../images/video-process/yuv422-sample.jpg" alt="YUV422采样" /></p>
 <p>Planar 存储格式:
 <img src="cs/../images/video-process/yuv422-storage-planar.jpg" alt="YUV422P存储" /></p>
-<p>Packed 存储格式:
-<img src="cs/../images/video-process/yuv422-storage-packed.jpg" alt="YUV422SP存储" /></p>
+<p>Semi-Planar 存储格式:
+<img src="cs/../images/video-process/yuv422-storage-semiplanar.jpg" alt="YUV422SP存储" /></p>
 <h4 id="yuv420-最常用"><a class="header" href="#yuv420-最常用">YUV420 (最常用)</a></h4>
 <p><img src="cs/../images/video-process/yuv420-sample.jpg" alt="YUV420采样" /></p>
 <p>Planar 存储格式:
 <img src="cs/../images/video-process/yuv420-storage-planar.jpg" alt="YUV420P存储" /></p>
-<p>Packed 存储格式:
-<img src="cs/../images/video-process/yuv420-storage-packed.jpg" alt="YUV420SP存储" /></p>
+<p>Semi-Planar 存储格式:
+<img src="cs/../images/video-process/yuv420-storage-semiplanar.jpg" alt="YUV420SP存储" /></p>
 <h3 id="rgb-与-yuv-转换"><a class="header" href="#rgb-与-yuv-转换">RGB 与 YUV 转换</a></h3>
 <p><strong>RGB 和 YUV 格式转换需要双方确定好转换标准和 Color Range</strong>。</p>
 <h4 id="bt601-标准标清"><a class="header" href="#bt601-标准标清">BT601 标准（标清）</a></h4>
@@ -1766,6 +1767,12 @@ G &amp;= 1.164 * (Y - 16) - 0.213 * (U - 128) - 0.534 * (V - 128) \\
 B &amp;= 1.164 * (Y - 16) + 2.114 * (U - 128)
 \end{cases}
 $$</p>
+<h3 id="使用-ffmpeg-将-png-图片转成-yuv-格式"><a class="header" href="#使用-ffmpeg-将-png-图片转成-yuv-格式">使用 ffmpeg 将 png 图片转成 YUV 格式</a></h3>
+<p><a href="https://fakeimg.pl/320x320/448aff/fff/?text=hello&amp;font=lobster">获取 png 图片</a></p>
+<pre><code class="language-bash">ffmpeg -i hello.png -pix_fmt yuv420p hello-yuv420p.yuv
+</code></pre>
+<p>转换得到的 yuv 图像可以使用 <a href="https://github.com/IENT/YUView">YUView</a> 软件打开（注意，需要自行设置图片的分辨率等参数，否则不能正确显示）。</p>
+<p>由于 yuv 图片除了原始的像素数据，没有保存额外的数据，因此转换得到的图像大小为：320*320*3/2 = 153600 字节。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usb-基础"><a class="header" href="#usb-基础">USB 基础</a></h1>
 <h2 id="usb-基本概念"><a class="header" href="#usb-基本概念">USB 基本概念</a></h2>
 <h3 id="usb-协议标准"><a class="header" href="#usb-协议标准">USB 协议标准</a></h3>
