@@ -1,12 +1,5 @@
-title: Learn Altium Designer
-tags:
-  - PCB
-  - Altium
-categories:
-  - Geek Hobbies
-author: suda-morris
-date: 2017-07-01 23:03:00
----
+# Altium Designer 基础
+
 ### 软件汉化
 
 1. DXP->Preferences
@@ -267,5 +260,3 @@ $1mil = 1/1000inch = 0.0254mm$
 * 需要对RX±、TX±差分对进行阻抗匹配，通常阻抗控制在100欧姆，长度差控制在5mil以内
 ![差分线的处理](http://i.imgur.com/vRC72Aa.jpg)
 ![变压器集成在网口的以太网PCB布局](http://i.imgur.com/TvV6dym.jpg)
-
-![suda-morris](http://i.imgur.com/Nn7Krru.gif)
