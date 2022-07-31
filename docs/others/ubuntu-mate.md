@@ -1,11 +1,4 @@
-title: Install Ubuntu Mate LTS
-tags:
-  - Ubuntu
-categories:
-  - Geek Hobbies
-author: suda-morris
-date: 2015-05-24 20:02:00
----
+# Ubuntu 基础
 
 ## Ubuntu-Mate14.04.2-LTS安装
 
@@ -140,5 +133,3 @@ Categories=Development;IDE;Java;
 ```
 4. 如何通过搜索的方式安装软件
 	1. 例如：`sudo apt-cache search nfs-`
-
-![suda-morris](http://i.imgur.com/Nn7Krru.gif)
