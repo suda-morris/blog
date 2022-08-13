@@ -256,6 +256,41 @@ $$
 $$
 y(t)=x(t)
 $$</p>
+<h2 id="一阶滞后系统的阶跃响应"><a class="header" href="#一阶滞后系统的阶跃响应">一阶滞后系统的阶跃响应</a></h2>
+<p>一阶滞后系统的传递函数模型可以表示为：
+$$
+\mathcal{P}(s) = \frac{K}{Ts + 1}
+$$
+\(K\) 是滞后系统的<strong>增益</strong>，\(T\) 是滞后系统的<strong>时间常数</strong>。
+时间常数指的是达到稳定值的 63.2% 时所需的时间，它决定了系统的响应速度。</p>
+<p><img src="../images/control/step-response-first-order-system.png" alt="一阶滞后系统的阶跃响应" /></p>
+<h3 id="推导一阶滞后系统在时域上的阶跃响应"><a class="header" href="#推导一阶滞后系统在时域上的阶跃响应">推导一阶滞后系统在时域上的阶跃响应</a></h3>
+<p>$$
+y(s) = \frac{K}{Ts+1}\frac{1}{s} = K(\frac{1}{s} - \frac{T}{Ts+1}) = K(\frac{1}{s} - \frac{1}{s+\frac{1}{T}})
+$$</p>
+<p>对其进行拉普拉斯逆变换得到
+$$
+y(t) = K(1-e^{-\frac{1}{T}t})
+$$</p>
+<p>当 T &gt; 0 时，\(y(\infty)=K, y(T)=1-e^{-1}=0.632\)</p>
+<h2 id="二阶滞后系统的阶跃响应"><a class="header" href="#二阶滞后系统的阶跃响应">二阶滞后系统的阶跃响应</a></h2>
+<p>二阶滞后系统的传递函数模型可以表示为：
+$$
+\mathcal{P}(s) = \frac{K\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}
+$$
+\(\zeta\)称为<strong>阻尼系数</strong>，\(\omega_n\)称为<strong>无阻尼自然振荡频率</strong>。</p>
+<p><img src="../images/control/step-response-second-order-system.png" alt="二阶滞后系统的阶跃响应" /></p>
+<p>阻尼系数是确定阻尼特性（稳定度）的参数:</p>
+<ul>
+<li>当\(\zeta\) 为负值时，输出会发散</li>
+<li>当\(\zeta\) 为正值时，输出会收敛于稳定值:
+<ul>
+<li>当\(0&lt;\zeta&lt;1\)时，系统振荡而收敛，在 \(T_p = \frac{\pi}{\omega_n \sqrt{1-\zeta^2}}\)处取得最大值 \(y_{max}=K(1+e^{-\zeta\omega_nT_p})\)</li>
+<li>当\(\zeta \geq 1\)时系统不振荡而收敛</li>
+</ul>
+</li>
+</ul>
+<p>无阻尼自然振荡频率\(\omega_n\)类似于一阶滞后系统中的时间常数T,决定了响应速度的快慢。</p>
 
                     </main>
 
