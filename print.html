@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="cs/risc-v.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">2.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">3.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">4.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">5.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">6.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">7.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="cs/risc-v.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">3.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">4.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">5.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">6.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="ee/yosys.html"><strong aria-hidden="true">7.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">8.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">9.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -213,6 +213,14 @@
 <li>详见 <a href="https://github.com/espressif/esp-idf/tree/master/components/esp_lcd">GitHub 项目地址</a></li>
 </ul>
 </li>
+<li>
+<p><strong>BSP 软件包</strong></p>
+<p><em>BSP, Interface Segregation Principle</em></p>
+<ul>
+<li>定义并实现可寻址灯带 <a href="https://components.espressif.com/component/espressif/led_strip">led-strip</a> 设备的操作接口</li>
+<li>定义并实现直流有刷电机 <a href="https://components.espressif.com/component/espressif/bdc_motor">bdc-motor</a> 设备的操作接口</li>
+</ul>
+</li>
 </ul>
 <h2 id="-技能清单"><a class="header" href="#-技能清单">🛠 技能清单</a></h2>
 <ul>
@@ -231,7 +239,7 @@
 <h2 id="-业余爱好"><a class="header" href="#-业余爱好">⛵️ 业余爱好</a></h2>
 <ul>
 <li>媒体: 用博客、视频记录工作与生活</li>
-<li>创客: 接触最新最好玩的创客玩具(树莓派, openwrt, XMOS, PSoC)</li>
+<li>创客: 接触最新最好玩的创客玩具(树莓派, OpenWRT, XMOS, PSoC)</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="risc-v-基础"><a class="header" href="#risc-v-基础">RISC-V 基础</a></h1>
 <h2 id="单核-cpu-组成结构"><a class="header" href="#单核-cpu-组成结构">单核 CPU 组成结构</a></h2>
@@ -240,24 +248,57 @@
 <p><strong>控制器</strong>是对数据通路要做什么操作进行行为调度的硬件结构，就像是处理器的大脑。</p>
 <p><img src="cs/../images/risc-v/riscv_data_path.png" alt="ALU" /></p>
 <h2 id="指令集划分"><a class="header" href="#指令集划分">指令集划分</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>基本指令集</th><th>指令数</th><th>描述</th></tr></thead><tbody>
-<tr><td>RV32I</td><td>47</td><td>32位地址空间与整数指令,支持32个通用整数寄存器</td></tr>
-<tr><td>RV32E</td><td>47</td><td>仅支持16个通用整数寄存器</td></tr>
-<tr><td>RV64I</td><td>59</td><td>64位地址空间与整数指令,以及一部分64位和32位的指令</td></tr>
-<tr><td>RV128I</td><td>71</td><td>128位地址空间与整数指令,以及一部分64位和32位的指令</td></tr>
-</tbody></table>
-</div><div class="table-wrapper"><table><thead><tr><th>扩展指令集</th><th>指令数</th><th>描述</th></tr></thead><tbody>
-<tr><td>M</td><td>8</td><td>整数乘法与除法指令</td></tr>
-<tr><td>A</td><td>11</td><td>存储器原子操作和Load-Reserved/Store-Conditional指令</td></tr>
-<tr><td>F</td><td>26</td><td>单精度(32bit)浮点指令</td></tr>
-<tr><td>D</td><td>26</td><td>双精度(32bit)浮点指令,必须支持F扩展指令</td></tr>
-<tr><td>C</td><td>46</td><td>压缩指令,指令长度为16位</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>名称</th><th>类别</th><th>说明</th></tr></thead><tbody>
+<tr><td>RV32I</td><td>基础指令</td><td>整数指令，包含算术、分支、逻辑、访存指令，有32个32位寄存器，能寻址32位地址空间</td></tr>
+<tr><td>RV32E</td><td>基础指令</td><td>与RV32I一样，只不过只能使用前16个32位寄存器</td></tr>
+<tr><td>RV64I</td><td>基础指令</td><td>整数指令，包含算术、分支、逻辑、访存指令，有32个64位寄存器，能寻址64位地址空间</td></tr>
+<tr><td>RV128I</td><td>基础指令</td><td>整数指令，包含算术、分支、逻辑、访存指令，有32个128位寄存器，能寻址128位地址空间</td></tr>
+<tr><td>M</td><td>扩展指令</td><td>包含乘法、除法、求模取余指令</td></tr>
+<tr><td>F</td><td>扩展指令</td><td>单精度(32bit)浮点指令</td></tr>
+<tr><td>D</td><td>扩展指令</td><td>双精度(32bit)浮点指令,必须要同时支持F扩展指令</td></tr>
+<tr><td>Q</td><td>扩展指令</td><td>四倍精度浮点指令</td></tr>
+<tr><td>A</td><td>扩展指令</td><td>存储器原子操作指令，比如比较并交换，读-改-写等指令</td></tr>
+<tr><td>C</td><td>扩展指令</td><td>压缩指令,指令长度为16位，主要用于改善程序大小</td></tr>
+<tr><td>P</td><td>扩展指令</td><td>单指令多数据（Packed-SIMD)指令</td></tr>
+<tr><td>B</td><td>扩展指令</td><td>位操作指令</td></tr>
+<tr><td>H</td><td>扩展指令</td><td>支持 Hypervisor 管理指令</td></tr>
+<tr><td>J</td><td>扩展指令</td><td>动态翻译语言的指令</td></tr>
+<tr><td>L</td><td>扩展指令</td><td>十进制浮点指令</td></tr>
+<tr><td>N</td><td>扩展指令</td><td>用户中断指令</td></tr>
+<tr><td>G</td><td>通用指令</td><td>包含 I、M、A、F、D指令</td></tr>
 </tbody></table>
 </div>
-<h2 id="基本指令集类型"><a class="header" href="#基本指令集类型">基本指令集类型</a></h2>
-<p><img src="cs/../images/risc-v/riscv_instruction_type.png" alt="指令编码格式" /></p>
-<h3 id="rregister型指令"><a class="header" href="#rregister型指令">R(Register)型指令</a></h3>
-<p><img src="cs/../images/risc-v/riscv_R_instruction.png" alt="R型指令" /></p>
+<h3 id="rv32i-基础指令集"><a class="header" href="#rv32i-基础指令集">RV32I 基础指令集</a></h3>
+<p><img src="cs/../images/risc-v/rv32i.png" alt="RV32I" /></p>
+<h3 id="rv32i-通用寄存器"><a class="header" href="#rv32i-通用寄存器">RV32I 通用寄存器</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>寄存器</th><th>ABI 名字</th><th>描述</th><th>Saver</th></tr></thead><tbody>
+<tr><td>x0</td><td>zero</td><td>0值寄存器，硬编码为0,写入数据忽略，读取永远为0</td><td>-</td></tr>
+<tr><td>x1</td><td>ra</td><td>返回地址</td><td>Caller</td></tr>
+<tr><td>x2</td><td>sp</td><td>栈指针</td><td>Callee</td></tr>
+<tr><td>x3</td><td>gp</td><td>全局指针</td><td>-</td></tr>
+<tr><td>x4</td><td>tp</td><td>线程指针</td><td>-</td></tr>
+<tr><td>x5</td><td>t0</td><td>临时寄存器或者备用的链接寄存器</td><td>Caller</td></tr>
+<tr><td>x6-x7</td><td>t1-t2</td><td>临时寄存器</td><td>Caller</td></tr>
+<tr><td>x8</td><td>s0/fp</td><td>需要保存的寄存器或者帧指针寄存器</td><td>Callee</td></tr>
+<tr><td>x9</td><td>s1</td><td>需要保存的寄存器，保存原进程中的关键数据，避免在函数调用过程中被破坏</td><td>Callee</td></tr>
+<tr><td>x10-x11</td><td>a0-a1</td><td>函数参数/返回值</td><td>Caller</td></tr>
+<tr><td>x12-x17</td><td>a2-a7</td><td>函数参数</td><td>Caller</td></tr>
+<tr><td>x18-x27</td><td>s2-s11</td><td>需要保存的寄存器</td><td>Callee</td></tr>
+<tr><td>x28-x31</td><td>t3-t6</td><td>临时寄存器</td><td>Caller</td></tr>
+</tbody></table>
+</div>
+<h4 id="函数调用时保留的寄存器"><a class="header" href="#函数调用时保留的寄存器">函数调用时保留的寄存器</a></h4>
+<p>被调用函数一般不会使用这些寄存器，即便使用也会提前保存好原值，可以信任。这些寄存器有：sp, gp, tp 和 s0-s11 寄存器。</p>
+<h4 id="函数调用时不保存的寄存器"><a class="header" href="#函数调用时不保存的寄存器">函数调用时不保存的寄存器</a></h4>
+<p>有可能被调用函数使用更改，需要caller在调用前对自己用到的寄存器进行保存。这些寄存器有：参数与返回地址寄存器 a0-a7，返回地址寄存器 ra，临时寄存器 t0-t6</p>
+<h2 id="rv32i-基础指令格式"><a class="header" href="#rv32i-基础指令格式">RV32I 基础指令格式</a></h2>
+<p><img src="cs/../images/risc-v/rv32i_instruction_format.webp" alt="RV32I 指令编码格式" /></p>
+<ul>
+<li>源寄存器和目标寄存器都设计固定在所有 RISC-V 指令同样的位置上，指令译码相对简单，所以指令在 CPU 流水线中执行时，可以先开始访问寄存器，然后再完成指令解码。</li>
+<li>所有立即数的<strong>符号位</strong>总是在指令的<strong>最高位</strong>。这么做的好处是，有可能成为关键路径的<strong>立即数符号扩展</strong>可以在指令解码前进行，有利于 CPU 流水线的时序优化。</li>
+</ul>
+<h3 id="寄存器-寄存器的算术指令"><a class="header" href="#寄存器-寄存器的算术指令">寄存器-寄存器的算术指令</a></h3>
+<p><img src="cs/../images/risc-v/rv32i_instruction_arithmetic_reg2reg.webp" alt="RV32I 寄存器-寄存器的算术指令" /></p>
 <h4 id="指令汇编格式"><a class="header" href="#指令汇编格式">指令汇编格式</a></h4>
 <h5 id="加法"><a class="header" href="#加法">加法</a></h5>
 <pre><code class="language-assembly">add rd, rs1, rs2
@@ -289,8 +330,11 @@
 <h5 id="算数右移"><a class="header" href="#算数右移">算数右移</a></h5>
 <pre><code class="language-assembly">sra rd, rs1, rs2
 </code></pre>
-<h3 id="iimmediate型指令"><a class="header" href="#iimmediate型指令">I(Immediate)型指令</a></h3>
-<p><img src="cs/../images/risc-v/riscv_I_instruction.png" alt="I型指令" /></p>
+<h3 id="立即数的算术指令"><a class="header" href="#立即数的算术指令">立即数的算术指令</a></h3>
+<p><img src="cs/../images/risc-v/rv32i_instruction_arithmetic_immediate.webp" alt="RV32I 立即数的算术指令" /></p>
+<blockquote>
+<p>注意，在立即数算术指令中，没有减法运算。</p>
+</blockquote>
 <h4 id="指令汇编格式-1"><a class="header" href="#指令汇编格式-1">指令汇编格式</a></h4>
 <h5 id="立即数加法"><a class="header" href="#立即数加法">立即数加法</a></h5>
 <pre><code class="language-assembly">addi rd, rs1, imm[11:0]
@@ -308,7 +352,7 @@
 <pre><code class="language-assembly">slti rd, rs1, imm[11:0]
 </code></pre>
 <h5 id="立即数无符号小于比较"><a class="header" href="#立即数无符号小于比较">立即数无符号小于比较</a></h5>
-<pre><code class="language-assembly">sltui rd, rs1, imm[11:0]
+<pre><code class="language-assembly">sltiu rd, rs1, imm[11:0]
 </code></pre>
 <h5 id="立即数逻辑左移"><a class="header" href="#立即数逻辑左移">立即数逻辑左移</a></h5>
 <pre><code class="language-assembly">slli rd, rs1, shamt[4:0]
@@ -320,7 +364,11 @@
 <pre><code class="language-assembly">srai rd, rs1, shamt[4:0]
 </code></pre>
 <h3 id="loadstore-指令"><a class="header" href="#loadstore-指令">Load/Store 指令</a></h3>
-<p><img src="cs/../images/risc-v/riscv_load_store_instruction.png" alt="Load/Store 指令" /></p>
+<p><img src="cs/../images/risc-v/rv32i_instruction_load_store.webp" alt="RV32I Load/Store 指令" /></p>
+<p>Load 和 Store 的寻址模式只能是符号扩展 12 位的立即数，加上基地址寄存器得到访问的存储器地址。因为没有了复杂的内存寻址方式，这让 CPU 流水线可以对数据冲突提前做出判断，并通过流水线各级之间的转送加以处理，而不需要插入空操作（NOP），极大提高了代码的执行效率。</p>
+<blockquote>
+<p>注意，Load指令属于 <strong>I</strong> 型指令，而 Store 指令属于 <strong>S</strong> 型指令。</p>
+</blockquote>
 <h4 id="指令汇编格式-2"><a class="header" href="#指令汇编格式-2">指令汇编格式</a></h4>
 <h5 id="字加载"><a class="header" href="#字加载">字加载</a></h5>
 <pre><code class="language-assembly">lw rd, offset[11:0](rs1)
@@ -346,8 +394,8 @@
 <h5 id="字节存储"><a class="header" href="#字节存储">字节存储</a></h5>
 <pre><code class="language-assembly">sb rs2, offset[11:0](rs1)
 </code></pre>
-<h3 id="bbranch型指令"><a class="header" href="#bbranch型指令">B(Branch)型指令</a></h3>
-<p><img src="cs/../images/risc-v/riscv_B_instruction.png" alt="B型指令" /></p>
+<h3 id="有条件分支跳转指令"><a class="header" href="#有条件分支跳转指令">有条件分支跳转指令</a></h3>
+<p><img src="cs/../images/risc-v/rv32i_instruction_branch_condition.webp" alt="有条件分支跳转指令" /></p>
 <h4 id="指令汇编格式-3"><a class="header" href="#指令汇编格式-3">指令汇编格式</a></h4>
 <h5 id="相等跳转"><a class="header" href="#相等跳转">相等跳转</a></h5>
 <pre><code class="language-assembly">beq rs1, rs2, label
@@ -367,14 +415,27 @@
 <h5 id="无符号大于等于跳转"><a class="header" href="#无符号大于等于跳转">无符号大于等于跳转</a></h5>
 <pre><code class="language-assembly">bgeu rs1, rs2, label
 </code></pre>
-<h3 id="jjump型指令"><a class="header" href="#jjump型指令">J(Jump)型指令</a></h3>
-<p><img src="cs/../images/risc-v/riscv_jump_instruction.png" alt="J型指令" /></p>
+<h3 id="无条件跳转指令"><a class="header" href="#无条件跳转指令">无条件跳转指令</a></h3>
+<blockquote>
+<p>注意，直接跳转是 <strong>J</strong> 型指令，而相对跳转是 <strong>I</strong> 型指令。</p>
+</blockquote>
+<h4 id="直接跳转指令"><a class="header" href="#直接跳转指令">直接跳转指令</a></h4>
+<p><img src="cs/../images/risc-v/rv32i_instruction_branch_direct.webp" alt="无条件直接跳转" /></p>
+<p>JAL 指令的执行过程：</p>
+<ol>
+<li>首先，把 20 位的立即数做符号扩展，并左移一位，产生一个 32 位的符号数</li>
+<li>然后，将该 32 位符号数和 PC 相加来产生目标地址（这样 JAL 可以作为短跳转指令，跳转至 PC±1MB 的地址范围内）</li>
+<li>同时，JAL 会把紧随其后的那条指令的地址，存入目标寄存器中。这样，如果目标寄存器是0,则 JAL 就等同于 goto 指令；如果目标寄存器不为零，JAL 可以实现函数调用的功能</li>
+</ol>
+<h4 id="相对跳转指令"><a class="header" href="#相对跳转指令">相对跳转指令</a></h4>
+<p><img src="cs/../images/risc-v/rv32i_instruction_branch_relative.webp" alt="无条件相对跳转" /></p>
+<p>JALR 指令会把 12 位立即数和源寄存器相加，并把相加的结果末位清零，作为新的跳转地址。和 JAL 指令一样，JALR 也会把紧随其后的那条指令的地址，存入目标寄存器中。</p>
 <h4 id="指令汇编格式-4"><a class="header" href="#指令汇编格式-4">指令汇编格式</a></h4>
-<h5 id="无条件跳转"><a class="header" href="#无条件跳转">无条件跳转</a></h5>
+<h5 id="无条件直接跳转"><a class="header" href="#无条件直接跳转">无条件直接跳转</a></h5>
 <pre><code class="language-assembly">jal rd, label # 将 PC+4 的值保存到 rd 寄存器中，然后设置 PC = PC + offset
 </code></pre>
 <p>伪指令 <code>j</code> 实际上就是jal指令的变体，此时 rd 会被设置为 x0,表示丢弃返回地址</p>
-<h5 id="无条件相对跳转-i-类型指令"><a class="header" href="#无条件相对跳转-i-类型指令">无条件相对跳转 (I 类型指令)</a></h5>
+<h5 id="无条件相对跳转"><a class="header" href="#无条件相对跳转">无条件相对跳转</a></h5>
 <pre><code class="language-assembly">jalr rd, rs1, imm # 将 PC+4 保存到 rd 寄存器中，然后设置 PC = rs1  + imm
 </code></pre>
 <p>跳转到任意 32 位绝对地址处</p>
@@ -389,7 +450,7 @@ jalr x0, x1, &lt;lo12bits&gt;
 <p><img src="cs/../images/risc-v/riscv_U_instruction.png" alt="U型指令" /></p>
 <h4 id="指令汇编格式-5"><a class="header" href="#指令汇编格式-5">指令汇编格式</a></h4>
 <h5 id="lui-指令-load-upper-immediate"><a class="header" href="#lui-指令-load-upper-immediate">lui 指令 (Load Upper Immediate)</a></h5>
-<pre><code class="language-assembly">lui rs, imm # 将 20 位的立即数左移12位，低 12 位补零，并写回寄存器 rd 中
+<pre><code class="language-assembly">lui rd, imm # 将 20 位的立即数左移12位，低 12 位补零，并写回寄存器 rd 中
 </code></pre>
 <p>配合 addi 指令（设置低 12 比特）可实现讲寄存器设置为任意 32 比特的立即数，例如：</p>
 <pre><code class="language-assembly">lui x10, 0x87654     # x10 = 0x87654000
@@ -399,13 +460,24 @@ addi x10, x10, 0x321 # x10 = 0x87654321
 <pre><code class="language-assembly">lui x10, 0xDEADB     # x10 = 0xDEADB000
 addi x10, x10, 0xEEF # x10 = 0xDEADBEEF
 </code></pre>
-<p>解决这个问题的一种方法是，如果低 12 位的立即数的符号位是 1 ,那就预先给高 20 位的数加 1。<code>li</code> 伪指令可以替我们处理好这中特殊情况。</p>
+<p>解决这个问题的一种方法是，如果低 12 位的立即数的符号位是 1 ,那就预先给高 20 位的数加 1。<code>li</code> 伪指令可以替我们处理好这种特殊情况。</p>
 <h5 id="auipc-指令-add-upper-immediate-to-pc"><a class="header" href="#auipc-指令-add-upper-immediate-to-pc">auipc 指令 (Add Upper Immediate to PC)</a></h5>
 <pre><code class="language-assembly">auipc rd, imm # 将 20 位的立即数左移12位，低 12 位补零，将得到的 32 位数与 pc 的值相加，最后写回寄存器 rd 中
 </code></pre>
 <p>具体应用有：</p>
 <pre><code class="language-assembly">Label: auipc x10, 0 # 将 Label 的地址保存在 x10 寄存器中
 </code></pre>
+<h2 id="csr-寄存器指令"><a class="header" href="#csr-寄存器指令">CSR 寄存器指令</a></h2>
+<p>除了内存地址空间和通用寄存器地址空间外，RISC-V 中还定义了一个独立的控制与状态寄存器（CSR）地址空间。</p>
+<h3 id="独立的-12-位地址编码空间"><a class="header" href="#独立的-12-位地址编码空间">独立的 12 位地址编码空间</a></h3>
+<p><img src="cs/../images/risc-v/csr_register_encoding.png" alt="CSR寄存器访问指令的编码" /></p>
+<h3 id="专用的-csr-指令"><a class="header" href="#专用的-csr-指令">专用的 CSR 指令</a></h3>
+<p><img src="cs/../images/risc-v/rv32i_csr_instruction.webp" alt="CSR 指令" /></p>
+<h2 id="其他指令"><a class="header" href="#其他指令">其他指令</a></h2>
+<ul>
+<li>系统调用 <code>ecall</code> 指令</li>
+<li>调试时用于将控制转移到调试环境的 <code>ebreak</code> 指令</li>
+</ul>
 <h2 id="alu-的设计"><a class="header" href="#alu-的设计">ALU 的设计</a></h2>
 <p><img src="cs/../images/risc-v/riscv_alu_design.png" alt="ALU设计框图" /></p>
 <h3 id="加法运算的实现"><a class="header" href="#加法运算的实现">加法运算的实现</a></h3>
@@ -620,31 +692,15 @@ $$</p>
 <p><img src="cs/../images/risc-v/riscv_tlb_location.png" alt="TLB的位置" /></p>
 <p><img src="cs/../images/risc-v/riscv_tlb_translation.png" alt="TLB实现地址转换的原理" /></p>
 <p><img src="cs/../images/risc-v/riscv_vma_pma_translation.png" alt="TLB虚实地址转换" /></p>
-<h2 id="通用寄存器组"><a class="header" href="#通用寄存器组">通用寄存器组</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>寄存器</th><th>ABI 名字</th><th>描述</th><th>Saver</th></tr></thead><tbody>
-<tr><td>x0</td><td>zero</td><td>硬件连线0</td><td>-</td></tr>
-<tr><td>x1</td><td>ra</td><td>返回地址</td><td>Caller</td></tr>
-<tr><td>x2</td><td>sp</td><td>栈指针</td><td>Callee</td></tr>
-<tr><td>x3</td><td>gp</td><td>全局指针</td><td>-</td></tr>
-<tr><td>x4</td><td>tp</td><td>线程指针</td><td>-</td></tr>
-<tr><td>x5-x7</td><td>t0-t2</td><td>临时寄存器</td><td>Caller</td></tr>
-<tr><td>x8</td><td>s0/fp</td><td>保存的寄存器/帧指针</td><td>Callee</td></tr>
-<tr><td>x9</td><td>s1</td><td>保存寄存器<br />保存原进程中的关键数据，<br />避免在函数调用过程中被破坏</td><td>Callee</td></tr>
-<tr><td>x10-x11</td><td>a0-a1</td><td>函数参数/返回值</td><td>Caller</td></tr>
-<tr><td>x12-x17</td><td>a2-a7</td><td>函数参数</td><td>Caller</td></tr>
-<tr><td>x18-x27</td><td>s2-s11</td><td>保存寄存器</td><td>Callee</td></tr>
-<tr><td>x28-x31</td><td>t3-t6</td><td>临时寄存器</td><td>Caller</td></tr>
+<h2 id="特权级别"><a class="header" href="#特权级别">特权级别</a></h2>
+<p>一个 RISC-V 的硬件线程在任一时刻只能运行在某一个特权级上，这个特权级由 CSR 指定和配置。</p>
+<div class="table-wrapper"><table><thead><tr><th>名称</th><th>级别</th><th>缩写</th><th>编码</th><th>说明</th></tr></thead><tbody>
+<tr><td>用户应用程序特权级</td><td>0</td><td>U</td><td>00</td><td>运行应用程序，同样也适用于嵌入式系统</td></tr>
+<tr><td>管理员特权级</td><td>1</td><td>S</td><td>01</td><td>主要用于支持现代操作系统，如Linux</td></tr>
+<tr><td>虚拟机监视特权级</td><td>2</td><td>H</td><td>10</td><td>支持虚拟机监视器</td></tr>
+<tr><td>机器特权级</td><td>3</td><td>M</td><td>11</td><td>对内存、I/O和一些必要的底层功能（启动和系统配置）有着完全的控制权</td></tr>
 </tbody></table>
 </div>
-<h3 id="函数调用时保留的寄存器"><a class="header" href="#函数调用时保留的寄存器">函数调用时保留的寄存器</a></h3>
-<p>被调用函数一般不会使用这些寄存器，即便使用也会提前保存好原值，可以信任。这些寄存器有：sp, gp, tp 和 s0-s11 寄存器。</p>
-<h3 id="函数调用时不保存的寄存器"><a class="header" href="#函数调用时不保存的寄存器">函数调用时不保存的寄存器</a></h3>
-<p>有可能被调用函数使用更改，需要caller在调用前对自己用到的寄存器进行保存。这些寄存器有：参数与返回地址寄存器 a0-a7，返回地址寄存器 ra，临时寄存器 t0-t6</p>
-<h2 id="csr-寄存器组"><a class="header" href="#csr-寄存器组">CSR 寄存器组</a></h2>
-<h3 id="独立的12位地址编码空间"><a class="header" href="#独立的12位地址编码空间">独立的12位地址编码空间</a></h3>
-<p><img src="cs/../images/risc-v/csr_register_encoding.png" alt="CSR寄存器访问指令的编码" /></p>
-<h3 id="专用的-csr-指令读写-csr-寄存器"><a class="header" href="#专用的-csr-指令读写-csr-寄存器">专用的 CSR 指令读写 CSR 寄存器</a></h3>
-<p><img src="cs/../images/risc-v/riscv_csr_register_access_instruction.png" alt="CSR寄存器访问指令" /></p>
 <h3 id="标准寄存器列表"><a class="header" href="#标准寄存器列表">标准寄存器列表</a></h3>
 <h4 id="machine-mode"><a class="header" href="#machine-mode">Machine Mode</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>名称</th><th>地址</th><th>属性</th><th>备注</th></tr></thead><tbody>
@@ -727,6 +783,397 @@ $$</p>
 <pre><code class="language-assembly">jal my_foo # 函数调用
 ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="gcc-工具链基础"><a class="header" href="#gcc-工具链基础">GCC 工具链基础</a></h1>
+<p>GCC 实质上不是一个单独的程序，而是多个程序的集合，因此通常称为 GCC 工具链。工具链软件包括 GCC、C 运行库、Binutils 和 GDB 等等。</p>
+<ul>
+<li>GCC（GNU C Compiler）是编译工具，可以将 C/C++ 语言编写的程序转换成为处理器能够执行的二进制代码。</li>
+<li>GDB（GNU Project Debugger）是调试工具，可以用于对程序进行调试。</li>
+</ul>
+<h2 id="binutils"><a class="header" href="#binutils">Binutils</a></h2>
+<p>这是一组二进制程序的处理工具，包括：<code>addr2line</code>、<code>ar</code>、<code>objcopy</code>、<code>objdump</code>、<code>as</code>、<code>ld</code>、<code>ldd</code>、<code>readelf</code>、<code>size</code>等。</p>
+<ul>
+<li>addr2line：用来将程序地址转换成其所对应的程序源文件及所对应的代码行，也可以得到所对应的函数。该工具将帮助调试器在调试的过程中定位对应的源代码位置。</li>
+<li>as：主要用于汇编。</li>
+<li>ld：主要用于链接。</li>
+<li>ar：主要用于创建<strong>静态库</strong>。
+<ul>
+<li>如果要将多个 <code>.o</code> 目标文件生成一个库文件，则存在两种类型的库，一种是静态库，另一种是动态库。</li>
+<li>在 Windows 中静态库是以 <code>.lib</code> 为后缀的文件，共享库是以 <code>.dll</code> 为后缀的文件。在 Linux 中静态库是以 <code>.a</code> 为后缀的文件，共享库是以 <code>.so</code> 为后缀的文件。</li>
+<li>静态库和动态库的不同点在于代码被载入的时刻不同。静态库的代码在编译过程中已经被载入可执行程序，因此体积较大。共享库的代码是在可执行程序运行时才载入内存的，在编译过程中仅简单的引用，因此代码体积较小。在 Linux 系统中，可以用 <code>ldd</code> 命令查看一个可执行程序依赖的共享库。</li>
+<li>如果一个系统中存在多个需要同时运行的程序且这些程序之间存在共享库，那么采用动态库的形式将更节省内存。但是对于嵌入式系统，大多数情况下都是整个软件就是一个可执行程序且不支持动态加载的方式，即以静态库为主。</li>
+</ul>
+</li>
+<li>ldd：可以用于查看一个可执行程序依赖的<strong>共享库</strong>。</li>
+<li>objcopy：将一种对象文件翻译成另一种格式，比如将<code>.bin</code> 转换成 <code>.elf</code>、或者将 <code>.elf</code> 转换成 <code>.bin</code> 等。</li>
+<li>objdump：主要的作用是反汇编。</li>
+<li>readelf：显示有关 <code>ELF</code> 文件的信息。</li>
+<li>size：列出可执行文件每个部分的尺寸和总尺寸，代码段、数据段、总大小等。</li>
+</ul>
+<h2 id="c-运行库"><a class="header" href="#c-运行库">C 运行库</a></h2>
+<p>C语言标准主要由两部分组成：一部分描述 C 的语法，另一部分描述 C 标准库。C 标准库定义了一组标准头文件，每个头文件中包含一些相关的函数、变量、类型声明和宏定义，比如常见的 printf 函数便是一个 C 标准库函数，其原型定义在 stdio 头文件中。</p>
+<p>:::tip</p>
+<p>C 语言标准仅仅定义了 C 标准库函数原型，并没有提供实现。因此，C 编译器需要一个 C 运行时库(C Run Time  Libray,CRT)的支持。</p>
+<p>:::</p>
+<p>glibc (GNU C Library) 是 Linux 下的 C 标准库的实现：</p>
+<ul>
+<li>
+<p>glibc 本身是 GNU 旗下的 C 标准库，后来逐渐成为了 Linux 的标准 C 库。glibc 的主体分布在 Linux 系统的 /lib 与 /usr/lib 目录中，包括 libc 标准 C 函数库、libm 数学函式库等，都以 <code>.so</code> 结尾。</p>
+<p>:::warning</p>
+<p>Linux 系统下的标准 C 库不只有 glibc，还存在 uclibc、klibc、musl 等等，但是 glibc 使用最为广泛。</p>
+<p>嵌入式系统中使用较多的 C 运行库是 <code>newlib</code>。</p>
+<p>:::</p>
+</li>
+<li>
+<p>Linux 系统通常将 libc 库作为操作系统的一部分，它被视为操作系统与用户程序的接口。比如：glibc 不仅实现标准 C 语言中的函数，还封装了操作系统提供的系统调用。</p>
+<ul>
+<li>通常情况，每个特定的系统调用对应了至少一个 glibc 封装的库函数，比如系统调用 <code>sys_open</code> 对应的是glibc 中的 <code>open</code> 函数；其次，glibc 一个单独的 API 可能会调用多个系统调用，比如 <code>printf</code>  函数会调用如  <code>sys_open</code>、<code>sys_mmap</code>、<code>sys_write</code>、<code>sys_close</code> 等系统调用；另外，多个 glibc  API 也可能对应同一个系统调用，如 glibc 下实现的 <code>malloc</code>、<code>free</code> 等函数用来分配和释放内存，都是基于内核的<code>sys_brk</code> 的系统调用。</li>
+</ul>
+</li>
+<li>
+<p>对于 C++ 语言，常用的 C++ 标准库为 <code>libstdc++</code>。通常 <code>libstdc++</code> 与 GCC 捆绑在一起的，即安装 gcc 的时候会把 libstdc++ 装上。而 glibc 并没有和 GCC 捆绑于一起，这是因为 glibc 需要与操作系统内核打交道，因此其与具体的操作系统平台紧密耦合。而 libstdc++ 虽然提供了 c++ 程序的标准库，但其并不与内核打交道。对于系统级别的事件，libstdc++ 会与 glibc 交互，从而和内核通信。</p>
+</li>
+</ul>
+<h2 id="编译过程"><a class="header" href="#编译过程">编译过程</a></h2>
+<h3 id="准备-hello-world-程序"><a class="header" href="#准备-hello-world-程序">准备 Hello World 程序</a></h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+int main(void)
+{
+  printf(&quot;Hello World! \n&quot;);
+  return 0;
+}
+</code></pre>
+<h3 id="预处理"><a class="header" href="#预处理">预处理</a></h3>
+<p>预处理的过程主要包括以下过程：</p>
+<ul>
+<li>将所有的 <code>#define</code> 删除，并且展开所有的宏定义，并且处理所有的条件预编译指令，比如 <code>#if</code> <code>#ifdef</code> <code>#elif</code> <code>#else</code> <code>#endif</code> 等。</li>
+<li>处理 <code>#include</code> 预编译指令，将被包含的文件插入到该预编译指令的位置。</li>
+<li>删除所有注释 <code>//</code> 和 <code>/**/</code>。</li>
+<li>添加行号和文件标识，以便编译时产生调试用的行号及编译错误警告行号。</li>
+<li>保留所有的 <code>#pragma</code> 编译器指令，后续编译过程需要使用它们。</li>
+</ul>
+<p>使用 gcc 进行预处理的命令如下：</p>
+<pre><code class="language-bash">gcc -E hello.c -o hello.i 	# 将源文件 hello.c 文件预处理生成 hello.i
+</code></pre>
+<p>hello.i 文件可以作为普通文本文件打开进行查看，其代码片段如下所示：</p>
+<pre><code class="language-c">extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+# 942 &quot;/usr/include/stdio.h&quot; 3 4
+
+# 2 &quot;hello.c&quot; 2
+
+
+# 3 &quot;hello.c&quot;
+int
+main(void)
+{
+  printf(&quot;Hello World!&quot; &quot;\n&quot;);
+  return 0;
+}
+</code></pre>
+<h3 id="编译"><a class="header" href="#编译">编译</a></h3>
+<p>编译过程就是对预处理完的文件进行一系列的词法分析，语法分析，语义分析及优化后生成相应的汇编代码。</p>
+<p>使用 gcc 进行编译的命令如下：</p>
+<pre><code class="language-bash">gcc -S hello.i -o hello.s 	# 将预处理生成的 hello.i 文件编译生成汇编程序 hello.s
+</code></pre>
+<p>上述命令生成的汇编程序 hello.s 的代码片段如下所示，其全部为汇编代码。</p>
+<pre><code class="language-assembly">main:
+.LFB0:
+    .cfi_startproc
+    pushq   %rbp
+    .cfi_def_cfa_offset 16
+    .cfi_offset 6, -16
+    movq    %rsp, %rbp
+    .cfi_def_cfa_register 6
+    movl    $.LC0, %edi
+    call    puts
+    movl    $0, %eax
+    popq    %rbp
+    .cfi_def_cfa 7, 8
+    ret
+    .cfi_endproc
+</code></pre>
+<h3 id="汇编"><a class="header" href="#汇编">汇编</a></h3>
+<p>汇编过程调用对汇编代码进行处理，生成处理器能识别的指令，保存在后缀为 <code>.o</code> 的目标文件中。由于每一个汇编语句几乎都对应一条处理器指令，因此，汇编相对于编译过程比较简单，通过调用 <code>Binutils</code> 中的汇编器 <code>as</code> 根据汇编指令和处理器指令的对照表一一翻译即可。</p>
+<p>当程序由多个源代码文件构成时，每个文件都要先完成汇编工作，生成 <code>.o</code> 目标文件后，才能进入下一步的链接工作。注意：目标文件已经是最终程序的某一部分了，但是在链接之前还不能运行。</p>
+<p>使用 gcc 进行汇编的命令如下：</p>
+<pre><code class="language-bash">gcc -c hello.s -o hello.o 	# 将编译生成的 hello.s 文件汇编生成目标文件 hello.o
+# 或者直接调用 as 进行汇编
+as -c hello.s -o hello.o 	# 使用 Binutils 中的 as 将 hello.s 文件汇编生成目标文件
+</code></pre>
+<p>:::warning</p>
+<p>hello.o 目标文件为 <code>ELF(Executable and Linkable Format)</code> 格式的可重定向文件。</p>
+<p>:::</p>
+<h3 id="链接"><a class="header" href="#链接">链接</a></h3>
+<p>经过汇编以后的目标文件还不能直接运行，为了变成能够被加载的可执行文件，文件中必须包含固定格式的信息头，还必须与系统提供的启动代码链接起来才能正常运行，这些工作都是由链接器来完成的。</p>
+<p>GCC 可以通过调用 Binutils 中的链接器 <code>ld</code> 来链接程序运行需要的所有目标文件，以及所依赖的其它库文件，最后生成一个 <code>ELF</code> 格式可执行文件。</p>
+<p>如果直接调用 <code>Binutils</code> 中的<code>ld</code> 进行链接，命令如下，则会报出错误：</p>
+<pre><code class="language-bash"># 直接调用ld试图将hello.o文件链接成为最终的可执行文件hello
+ld hello.o –o hello
+ld: warning: cannot find entry symbol _start; defaulting to 00000000004000b0
+hello.o: In function `main':
+hello.c:(.text+0xa): undefined reference to `puts'
+</code></pre>
+<p>之所以直接用 <code>ld</code> 进行链接会报错是因为仅仅依靠一个 <code>hello.o</code> 目标文件还无法链接成为一个完整的可执行文件，需要明确的指明其需要的各种依赖库和引导程序以及链接脚本，此过程在嵌入式软件开发时是必不可少的。而在 <code>Linux</code> 系统中，可以直接使用 <code>gcc</code> 命令执行编译直至链接的过程，gcc 会自动将所需的依赖库以及引导程序链接在一起成为 Linux 系统可以加载的 <code>ELF</code> 格式可执行文件。使用 gcc 进行编译直至链接的命令如下：</p>
+<pre><code class="language-bash">gcc hello.c -o hello  	# 将 hello.c 文件编译汇编链接生成可执行文件 hello
+./hello                 # 成功执行该文件，在终端上会打印 Hello World！字符串 Hello World!
+</code></pre>
+<p>注意：hello 可执行文件为 ELF（Executable and Linkable Format）格式的可执行文件。</p>
+<p>链接分为静态链接和动态链接：</p>
+<ul>
+<li>
+<p>静态链接是指在编译阶段直接把静态库加入到可执行文件中去，这样可执行文件会比较大。链接器将函数的代码从其所在地（不同的目标文件或静态链接库中）拷贝到最终的可执行程序中。为创建可执行文件，链接器必须要完成的主要任务是：符号解析（把目标文件中符号的定义和引用联系起来）和重定位（把符号定义和内存地址对应起来然后修改所有对符号的引用）。</p>
+</li>
+<li>
+<p>而动态链接则是指链接阶段仅仅只加入一些描述信息，而程序执行时再从系统中把相应动态库加载到内存中去。</p>
+<ul>
+<li>在 Linux 系统中，gcc 编译链接时的动态库搜索路径的顺序通常为：首先从 gcc 命令的参数 <code>-L</code> 指定的路径寻找；再从环境变量 <code>LIBRARY_PATH</code> 指定的路径寻址；再从默认路径 <code>/lib</code>、<code>/usr/lib</code>、<code>/usr/local/lib</code> 中寻找。</li>
+<li>在 Linux 系统中，执行二进制文件时的动态库搜索路径的顺序通常为：首先搜索编译目标代码时指定的动态库搜索路径；再从环境变量 <code>LD_LIBRARY_PATH</code> 指定的路径寻址；再从配置文件 <code>/etc/ld.so.conf</code> 中指定的动态库搜索路径；再从默认路径 <code>/lib</code>、<code>/usr/lib</code> 中寻找。</li>
+<li>在 Linux 系统中，可以用 <code>ldd</code> 命令查看一个可执行程序依赖的共享库。</li>
+</ul>
+</li>
+<li>
+<p>由于链接动态库和静态库的路径可能有重合，所以如果在路径中有同名的静态库文件和动态库文件，比如libtest.a 和 libtest.so，gcc 链接时默认优先选择动态库，会链接 libtest.so，如果要让 gcc 选择链接 libtest.a则可以指定 gcc 选项 <code>-static</code>，该选项会强制使用静态库进行链接。</p>
+<ul>
+<li>
+<p>如果使用命令 <code>gcc hello.c -o hello</code> 则会使用动态库进行链接，生成的 ELF 可执行文件的大小（使用Binutils 的 <code>size</code> 命令查看）和链接的动态库（使用 Binutils 的 <code>ldd</code> 命令查看）如下所示：</p>
+<pre><code class="language-bash">$ gcc hello.c -o hello
+$ size hello  	# 使用size查看大小
+   text    data     bss     dec     hex     filename
+   1183     552       8    1743     6cf     hello
+$ ldd hello 	# 可以看出该可执行文件链接了很多其他动态库，主要是 Linux 的 glibc 动态库
+        linux-vdso.so.1 =&gt;  (0x00007fffefd7c000)
+        libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fadcdd82000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fadce14c000)
+</code></pre>
+</li>
+<li>
+<p>如果使用命令 <code>gcc -static hello.c -o hello</code> 则会使用静态库进行链接，生成的 ELF 可执行文件的大小和链接的动态库如下所示：</p>
+<pre><code class="language-bash">$ gcc -static hello.c -o hello
+$ size hello 	# 使用size查看大小
+     text    data     bss     dec     hex   filename
+ 823726    7284    6360  837370   cc6fa     hello 	# 可以看出 text 段的代码尺寸变大
+$ ldd hello
+       not a dynamic executable 	# 说明没有链接动态库
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>链接器链接后生成的最终文件为 ELF 格式可执行文件，一个 ELF 可执行文件通常被链接为不同的段，常见的段有 <code>.text</code>、<code>.data</code>、<code>.rodata</code>、<code>.bss</code> 等。</p>
+<h3 id="一步到位的编译"><a class="header" href="#一步到位的编译">一步到位的编译</a></h3>
+<p>从功能上分，预处理、编译、汇编、链接是四个不同的阶段，但 GCC 的实际操作上，它可以把这四个步骤合并为一个步骤来执行。如下例所示：</p>
+<pre><code class="language-bash">gcc –o test first.c second.c third.c
+# 该命令将同时编译三个源文件，即 first.c、second.c 和 third.c，然后将它们链接成一个可执行文件
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>一个程序无论有一个源文件还是多个源文件，所有被编译和链接的源文件中必须有且仅有一个 <code>main</code> 函数。</li>
+<li>但如果仅仅是把源文件编译成目标文件，因为不会进行链接，所以 <code>main</code> 函数不是必需的。</li>
+</ul>
+<h2 id="分析-elf-文件"><a class="header" href="#分析-elf-文件">分析 ELF 文件</a></h2>
+<h3 id="elf-文件介绍"><a class="header" href="#elf-文件介绍">ELF 文件介绍</a></h3>
+<p>在介绍ELF文件之前，首先将其与另一种常见的二进制文件格式bin进行对比：</p>
+<ul>
+<li>binary文件，其中只有机器码。</li>
+<li>elf文件除了含有机器码之外还有其它信息，如：段加载地址，运行入口地址，数据段等。</li>
+</ul>
+<p>ELF全称Executable and Linkable Format，可执行链接格式。ELF文件格式主要三种：</p>
+<ul>
+<li>可重定向（Relocatable）文件：
+<ul>
+<li>文件保存着代码和适当的数据，用来和其他的目标文件一起来创建一个可执行文件或者是一个共享目标文件。</li>
+</ul>
+</li>
+<li>可执行（Executable）文件：
+<ul>
+<li>文件保存着一个用来执行的程序（例如bash，gcc等）。</li>
+</ul>
+</li>
+<li>共享（Shared）目标文件（Linux下后缀为.so的文件）：
+<ul>
+<li>即所谓共享库。</li>
+</ul>
+</li>
+</ul>
+<h3 id="elf文件的段"><a class="header" href="#elf文件的段">ELF文件的段</a></h3>
+<p>ELF文件格式如图1中所示，位于ELF Header和Section Header Table之间的都是段（Section）。一个典型的ELF文件包含下面几个段：</p>
+<ul>
+<li>.text：已编译程序的指令代码段。</li>
+<li>.rodata：ro代表read only，即只读数据（譬如常数const）。</li>
+<li>.data：已初始化的C程序全局变量和静态局部变量。
+<ul>
+<li>注意：C程序普通局部变量在运行时被保存在堆栈中，既不出现在.data段中，也不出现在.bss段中。此外，如果变量被初始化值为0，也可能会放到bss段。</li>
+</ul>
+</li>
+<li>.bss：未初始化的C程序全局变量和静态局部变量。
+<ul>
+<li>注意：目标文件格式区分初始化和未初始化变量是为了空间效率，在ELF文件中.bss段不占据实际的存储器空间，它仅仅是一个占位符。</li>
+</ul>
+</li>
+<li>.debug：调试符号表，调试器用此段的信息帮助调试。</li>
+<li>上述仅讲解了最常见的节，ELF文件还包含很多其他类型的节，本文在此不做赘述，请感兴趣的读者自行查阅其他资料了解学习。</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2018/11/02/ihFmes.png" alt="ELF文件格式" /></p>
+<h3 id="查看elf文件"><a class="header" href="#查看elf文件">查看ELF文件</a></h3>
+<p>可以使用Binutils中readelf来查看ELF文件的信息，可以通过readelf --help来查看readelf的选项：</p>
+<pre><code class="language-bash">$ readelf --help
+Usage: readelf &lt;option(s)&gt; elf-file(s)
+ Display information about the contents of ELF format files
+ Options are:
+  -a --all               Equivalent to: -h -l -S -s -r -d -V -A -I
+  -h --file-header       Display the ELF file header
+  -l --program-headers   Display the program headers
+     --segments          An alias for --program-headers
+  -S --section-headers   Display the sections' header
+</code></pre>
+<p>以本文Hello World示例，使用readelf -S查看其各个section的信息如下：</p>
+<pre><code class="language-bash">$ readelf -S hello
+There are 31 section headers, starting at offset 0x19d8:
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+……
+  [11] .init             PROGBITS         00000000004003c8  000003c8
+       000000000000001a  0000000000000000  AX       0     0     4
+……
+  [14] .text             PROGBITS         0000000000400430  00000430
+       0000000000000182  0000000000000000  AX       0     0     16
+  [15] .fini             PROGBITS         00000000004005b4  000005b4
+……
+</code></pre>
+<h3 id="反汇编"><a class="header" href="#反汇编">反汇编</a></h3>
+<p>由于ELF文件无法被当做普通文本文件打开，如果希望直接查看一个ELF文件包含的指令和数据，需要使用反汇编的方法。反汇编是用于调试和定位处理器问题时最常用的手段。 可以使用Binutils中objdump来对ELF文件进行反汇编，可以通过objdump --help来查看其选项：</p>
+<pre><code class="language-bash">$ objdump --help
+Usage: objdump &lt;option(s)&gt; &lt;file(s)&gt;
+ Display information from object &lt;file(s)&gt;.
+ At least one of the following switches must be given:
+……
+  -D, --disassemble-all    Display assembler contents of all sections
+  -S, --source             Intermix source code with disassembly
+……
+</code></pre>
+<p>以本文Hello World示例，使用objdump -D对其进行反汇编如下：</p>
+<pre><code class="language-bash">$ objdump -D hello
+……
+0000000000400526 &lt;main&gt;:  # main标签的PC地址
+# PC地址：    指令编码                 指令的汇编格式
+  400526:    55                      push   %rbp
+  400527:    48 89 e5                mov    %rsp,%rbp
+  40052a:    bf c4 05 40 00          mov    $0x4005c4,%edi
+  40052f:    e8 cc fe ff ff          callq  400400 &lt;puts@plt&gt;
+  400534:    b8 00 00 00 00          mov    $0x0,%eax
+  400539:    5d                      pop    %rbp
+  40053a:    c3                      retq
+  40053b:    0f 1f 44 00 00          nopl   0x0(%rax,%rax,1)
+……
+</code></pre>
+<p>使用objdump -S将其反汇编并且将其C语言源代码混合显示出来：</p>
+<pre><code class="language-bash">$ gcc -o hello -g hello.c # 要加上-g选项
+$ objdump -S hello
+……
+0000000000400526 &lt;main&gt;:
+#include &lt;stdio.h&gt;
+
+int
+main(void)
+{
+  400526:    55                      push   %rbp
+  400527:    48 89 e5                mov    %rsp,%rbp
+  printf(&quot;Hello World!&quot; &quot;\n&quot;);
+  40052a:    bf c4 05 40 00          mov    $0x4005c4,%edi
+  40052f:    e8 cc fe ff ff          callq  400400 &lt;puts@plt&gt;
+  return 0;
+  400534:    b8 00 00 00 00          mov    $0x0,%eax
+}
+  400539:    5d                      pop    %rbp
+  40053a:    c3                      retq
+  40053b:    0f 1f 44 00 00          nopl   0x0(%rax,%rax,1)
+……
+</code></pre>
+<h2 id="嵌入式系统编译的特殊性"><a class="header" href="#嵌入式系统编译的特殊性">嵌入式系统编译的特殊性</a></h2>
+<p>为了易于读者理解，本文以一个Hello World程序为例讲解了在Linux环境中的编译过程以帮助初学者入门，但是了解这些基础背景知识对于嵌入式开发还远远不够。
+对于嵌入式开发，嵌入式系统的编译过程和开发有其特殊性，譬如：</p>
+<ul>
+<li>嵌入式系统需要使用交叉编译与远程调试的方法进行开发。</li>
+<li>需要自己定义引导程序。</li>
+<li>需要注意减少代码尺寸。</li>
+<li>需要移植printf从而使得嵌入式系统也能够打印输入。</li>
+<li>使用Newlib作为C运行库。</li>
+<li>每个特定的嵌入式系统都需要配套的板级支持包。</li>
+</ul>
+<h3 id="交叉编译和远程调试"><a class="header" href="#交叉编译和远程调试">交叉编译和远程调试</a></h3>
+<p>嵌入式平台上往往资源有限，嵌入式系统（譬如常见ARM   MCU或8051单片机）的存储器容量通常只在几KB到几MB之间，且只有闪存而没有硬盘这种大容量存储设备，在这种资源有限的环境中，不可能将编译器等开发工具安装在嵌入式设备中，所以无法直接在嵌入式设备中进行软件开发。因此，嵌入式平台的软件一般在主机PC上进行开发和编译，然后将编译好的二进制代码下载至目标嵌入式系统平台上运行，这种编译方式属于交叉编译。</p>
+<p>交叉编译可以简单理解为，在当前编译平台下，编译出来的程序能运行在体系结构不同的另一种目标平台上，但是编译平台本身却不能运行该程序，譬如，在x86平台的PC电脑上编写程序并编译成能运行在ARM平台的程序，编译得到的程序在x86平台上不能运行，必须放到ARM平台上才能运行。</p>
+<p>与交叉编译同理，在嵌入式平台上往往也无法运行完整的调试器，因此当运行于嵌入式平台上的程序出现问题时，需要借助主机PC平台上的调试器来对嵌入式平台进行调试。这种调试方式属于远程调试。</p>
+<p>常见的交叉编译和远程调试工具是GCC和GDB。GCC不仅能作为本地编译器，还能作为交叉编译器；同理GDB不仅可以作为本地调试器，还可以作为远程调试器。</p>
+<p>当作为交叉编译器之时，GCC通常有不同的命名，譬如：</p>
+<ul>
+<li>arm-none-eabi-gcc和arm-none-eabi-gdb是面向裸机（Bare-Metal）ARM平台的交叉编译器和远程调试器。
+<ul>
+<li>所谓裸机（Bare-Metal）是嵌入式领域的一个常见形态，表示不运行操作系统的系统</li>
+</ul>
+</li>
+<li>而riscv-none-embed-gcc和riscv-none-embed-gdb是面向裸机RISC-V平台的交叉编译器和远程调试器。</li>
+</ul>
+<h3 id="移植newlib或newlib-nano作为c运行库"><a class="header" href="#移植newlib或newlib-nano作为c运行库">移植newlib或newlib-nano作为C运行库</a></h3>
+<p>newlib是一个面向嵌入式系统的C运行库。相对于glibc，newlib实现了大部分的功能函数，但体积却小很多。newlib独特的体系结构将功能实现与具体的操作系统分层，使之能够很好地进行配置以满足嵌入式系统的要求。由于专为嵌入式系统设计，newlib具有可移植性强、轻量级、速度快、功能完备等特点，已广泛应用于各种嵌入式系统中。</p>
+<p>由于嵌入式操作系统和底层硬件的多样性，为了能够将C/C++语言所需要的库函数实现与具体的操作系统和底层硬件进行分层，newlib的所有库函数都建立在20个桩函数的基础上，这20个桩函数完成具体操作系统和底层硬件相关的功能：</p>
+<ul>
+<li>I/O和文件系统访问（open、close、read、write、lseek、stat、fstat、fcntl、link、unlink、rename）；</li>
+<li>扩大内存堆的需求（sbrk）；</li>
+<li>获得当前系统的日期和时间（gettimeofday、times）；</li>
+<li>各种类型的任务管理函数（execve、fork、getpid、kill、wait、_exit）；</li>
+</ul>
+<p>这20个桩函数在语义、语法上与POSIX（Portable Operating System Interface of UNIX）标准下对应的20个同名系统调用完全兼容。</p>
+<p>所以，如果需要移植newlib至某个目标嵌入式平台，成功移植的关键是在目标平台下找到能够与newlib桩函数衔接的功能函数或者实现这些桩函数。</p>
+<p>注意：newlib的一个特殊版本newlib-nano版本进一步为嵌入式平台减少了代码体积（Code Size），因为newlib-nano提供了更加精简版本的malloc和printf函数的实现，并且对库函数使用GCC的-Os（侧重代码体积的优化）选项进行编译优化。</p>
+<h3 id="嵌入式引导程序和中断异常处理"><a class="header" href="#嵌入式引导程序和中断异常处理">嵌入式引导程序和中断异常处理</a></h3>
+<p>前文介绍了如何在Linux系统的PC电脑上开发一个Hello  World程序，对其进行编译，然后运行在此电脑上。在这种方式下，程序员仅仅只需要关注Hello  World程序本身，程序的主体由main函数组织而成，程序员可以无需关注Linux操作系统在运行该程序的main函数之前和之后需要做什么。事实上，在Linux操作系统中运行应用程序（譬如简单的Hello   World）时，操作系统需要动态地创建一个进程、为其分配内存空间、创建并运行该进程的引导程序，然后才会开始执行该程序的main函数，待其运行结束之后，操作系统还要清除并释放其内存空间、注销该进程等。</p>
+<p>从上述过程中可以看出，程序的引导和清除这些“脏活累活”都是由Linux这样的操作系统来负责进行。但是在嵌入式系统中，程序员除了开发以main函数为主体的功能程序之外，还需要关注如下两个方面：</p>
+<ul>
+<li>引导程序：
+<ul>
+<li>嵌入式系统上电后需要对系统硬件和软件运行环境进行初始化，这些工作往往由用汇编语言编写的引导程序完成。</li>
+<li>引导程序是嵌入式系统上电后运行的第一段软件代码。引导程序对于嵌入式系统非常关键，引导程序所执行的操作依赖于所开发的嵌入式系统的软硬件特性，一般流程包括：初始化硬件、设置异常和中断向量表、把程序拷贝到片上SRAM中、完成代码的重映射等，最后跳转到main函数入口。</li>
+</ul>
+</li>
+<li>中断异常处理
+<ul>
+<li>中断和异常是嵌入式系统非常重要的一个环节，因此，嵌入式系统软件还必须正确地配置中断和异常处理函数。</li>
+</ul>
+</li>
+</ul>
+<h3 id="嵌入式系统链接脚本"><a class="header" href="#嵌入式系统链接脚本">嵌入式系统链接脚本</a></h3>
+<p>上文中介绍了如何在Linux系统的PC电脑上开发一个Hello World程序，对其进行编译，然后运行在此电脑上。在这种方式下，程序员也无需关心编译过程中的“链接”这一步骤所使用的链接脚本，无需为程序分配具体的内存空间。</p>
+<p>但是在嵌入式系统中，程序员除了开发以main函数为主体的功能程序之外，还需要关注“链接脚本”为程序分配合适的存储器空间，譬如程序段放在什么区间、数据段放在什么区间等等。</p>
+<h3 id="减小代码体积"><a class="header" href="#减小代码体积">减小代码体积</a></h3>
+<p>嵌入式平台上往往存储器资源有限，嵌入式系统（譬如常见的ARM   MCU或8051单片机）的存储器容量通常只在几KB到几MB之间，且只有闪存而没有硬盘这种大容量存储设备，在这种资源有限的环境中，程序的代码体积（Code  Size）显得尤其重要，因此，有效地降低降低代码体积（Code Size）是嵌入式软件开发必须要考虑的问题，常见的方法如：</p>
+<ul>
+<li>使用newlib-nano作为C运行库以取得较小代码体积（Code Size）的C库函数。</li>
+<li>尽量少使用C语言的大型库函数，譬如在正式发行版本的程序中避免使用printf和scanf等函数。</li>
+<li>如果在开发的过程中一定需要使用printf函数，可以使用某些自己实现的阉割版printf函数（而不是C运行库中提供的printf函数）以生成较小的代码体积。</li>
+<li>除此之外，在C/C++语言的语法和程序开发方面也有众多技巧以取得更小的代码体积（Code Size）。</li>
+</ul>
+<h3 id="支持printf函数"><a class="header" href="#支持printf函数">支持printf函数</a></h3>
+<p>上文中介绍了如何在Linux系统的PC电脑上开发一个Hello World程序，程序中使用C语言的标准库函数printf打印了一个“Hello  World”字符串。该程序在Linux系统里面运行的时候字符串被成功的输出到了Linux的终端界面上。在这个过程中，程序员无需关心Linux系统到底是如何将printf函数的字符串输出到Linux终端上的。事实上，在Linux本地编译的程序会链接使用Linux系统的C运行库glibc，而glibc充当了应用程序和Linux操作系统之间的接口，glibc提供的  printf 函数就会调用如sys_write等操作系统的底层系统调用函数，从而能够将“字符串”输出到Linux终端上。</p>
+<p>从上述过程中可以看出，由于有glibc的支持，所以printf函数能够在Linux系统中正确的进行输出。但是在嵌入式系统中，printf的输出却不那么容易了，基于如下几个原因：</p>
+<ul>
+<li>嵌入式系统使用newlib作为C运行库，而newlib的C运行库所提供的printf函数最终依赖于如本文中所介绍的newlib桩函数write，因此必须实现此write函数才能够正确的执行printf函数。</li>
+<li>嵌入式系统往往没有“显示终端”存在，譬如常见的单片机其作为一个黑盒子一般的芯片，根本没有显示终端。因此，为了能够支持显示输出，通常需要借助单片机芯片的UART接口将printf函数的输出重新定向到主机PC的COM口上，然后借助主机PC的串口调试助手显示出输出信息。同理，对于scanf输入函数，也需要通过主机PC的串口调试助手获取输入然后通过主机PC的COM口发送给单片机芯片的UART接口。</li>
+<li>从以上两点可以看出，嵌入式平台的UART接口非常重要，往往扮演了输出管道的角色，为了能够将printf函数的输出定向到UART接口，需要实现newlib的桩函数write，使其通过编程UART的相关寄存器将字符通过UART接口输出。</li>
+</ul>
+<h3 id="提供板级支持包"><a class="header" href="#提供板级支持包">提供板级支持包</a></h3>
+<p>对于特定的嵌入式硬件平台，为了方便用户在硬件平台上开发嵌入式程序，硬件平台一般会提供板级支持包（Board Support Package，BSP）。板级支持包所包含的内容没有绝对的标准，通常说来，其必须包含如下内容：</p>
+<ul>
+<li>底层硬件设备的地址分配信息</li>
+<li>底层硬件设备的驱动函数</li>
+<li>系统的引导程序</li>
+<li>中断和异常处理服务程序</li>
+<li>系统的链接脚本</li>
+<li>如果使用newlib作为C运行库，一般还提供newlib桩函数的实现。</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="openwrt-基础"><a class="header" href="#openwrt-基础">OpenWRT 基础</a></h1>
 <h2 id="flash-分区"><a class="header" href="#flash-分区">Flash 分区</a></h2>
 <p>Linux系统对闪存类存储器是采用MTD设备驱动实现的。</p>
@@ -1921,6 +2368,69 @@ $$</p>
 <ul>
 <li><a href="https://www.usb.org">USB 协会官网</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="yosys-基础"><a class="header" href="#yosys-基础">Yosys 基础</a></h1>
+<blockquote>
+<p>建议使用 pip 安装 WebAssembly 打包后的 Yosys 开源工具链： <a href="https://yowasp.org/">https://yowasp.org/</a></p>
+</blockquote>
+<h2 id="测试用例代码"><a class="header" href="#测试用例代码">测试用例代码</a></h2>
+<pre><code class="language-verilog">module alu(a, b, cin, sel, y);
+  input [7:0] a, b;
+  input cin;
+  input [3:0] sel;
+  output [7:0] y;
+
+  reg [7:0] y;
+  reg [7:0] arithval;
+  reg [7:0] logicval;
+
+  // 算术执行单元
+  always @(a or b or cin or sel) begin
+    case (sel[2:0])
+      3'b000  : arithval = a;
+      3'b001  : arithval = a + 1;
+      3'b010  : arithval = a - 1;
+      3'b011  : arithval = b;
+      3'b100  : arithval = b + 1;
+      3'b101  : arithval = b - 1;
+      3'b110  : arithval = a + b;
+      default : arithval = a + b + cin;
+    endcase
+  end
+
+  // 逻辑处理单元
+  always @(a or b or sel) begin
+    case (sel[2:0])
+      3'b000  : logicval =  ~a;
+      3'b001  : logicval =  ~b;
+      3'b010  : logicval = a &amp; b;
+      3'b011  : logicval = a | b;
+      3'b100  : logicval =  ~((a &amp; b));
+      3'b101  : logicval =  ~((a | b));
+      3'b110  : logicval = a ^ b;
+      default : logicval =  ~(a ^ b);
+    endcase
+  end
+
+  // 输出选择单元
+  always @(arithval or logicval or sel) begin
+    case (sel[3])
+      1'b0    : y = arithval;
+      default : y = logicval;
+    endcase
+  end
+
+endmodule
+</code></pre>
+<h2 id="使用-yosys-进行综合"><a class="header" href="#使用-yosys-进行综合">使用 Yosys 进行综合</a></h2>
+<ol>
+<li>启动 Yosys：<code>yosys</code></li>
+<li>读取 Verilog 文件： <code>read_verilog alu.v</code></li>
+<li>检查模块例化结构： <code>hierarchy -check</code></li>
+<li>逻辑综合于优化：<code>proc; opt; opt; fsm; memory; opt</code></li>
+<li>生成网表文件：<code>write_verilog alu_synth.v</code></li>
+<li>输出综合后的逻辑图：<code>show -format dot -prefix ./alu</code></li>
+</ol>
+<p><img src="ee/../images/yosys/alu.svg" alt="alu" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="git-基础"><a class="header" href="#git-基础">Git 基础</a></h1>
 <h2 id="演示文稿"><a class="header" href="#演示文稿">演示文稿</a></h2>
 <p><a href="https://suda-morris.github.io/git_workflow_lecture/">Git 工作流介绍</a></p>

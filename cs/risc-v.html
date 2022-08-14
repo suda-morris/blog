@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/risc-v.html" class="active"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">2.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">3.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">4.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">5.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">6.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">7.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/risc-v.html" class="active"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">3.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">4.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">5.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">6.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">7.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">8.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">9.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -149,24 +149,57 @@
 <p><strong>控制器</strong>是对数据通路要做什么操作进行行为调度的硬件结构，就像是处理器的大脑。</p>
 <p><img src="../images/risc-v/riscv_data_path.png" alt="ALU" /></p>
 <h2 id="指令集划分"><a class="header" href="#指令集划分">指令集划分</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>基本指令集</th><th>指令数</th><th>描述</th></tr></thead><tbody>
-<tr><td>RV32I</td><td>47</td><td>32位地址空间与整数指令,支持32个通用整数寄存器</td></tr>
-<tr><td>RV32E</td><td>47</td><td>仅支持16个通用整数寄存器</td></tr>
-<tr><td>RV64I</td><td>59</td><td>64位地址空间与整数指令,以及一部分64位和32位的指令</td></tr>
-<tr><td>RV128I</td><td>71</td><td>128位地址空间与整数指令,以及一部分64位和32位的指令</td></tr>
-</tbody></table>
-</div><div class="table-wrapper"><table><thead><tr><th>扩展指令集</th><th>指令数</th><th>描述</th></tr></thead><tbody>
-<tr><td>M</td><td>8</td><td>整数乘法与除法指令</td></tr>
-<tr><td>A</td><td>11</td><td>存储器原子操作和Load-Reserved/Store-Conditional指令</td></tr>
-<tr><td>F</td><td>26</td><td>单精度(32bit)浮点指令</td></tr>
-<tr><td>D</td><td>26</td><td>双精度(32bit)浮点指令,必须支持F扩展指令</td></tr>
-<tr><td>C</td><td>46</td><td>压缩指令,指令长度为16位</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>名称</th><th>类别</th><th>说明</th></tr></thead><tbody>
+<tr><td>RV32I</td><td>基础指令</td><td>整数指令，包含算术、分支、逻辑、访存指令，有32个32位寄存器，能寻址32位地址空间</td></tr>
+<tr><td>RV32E</td><td>基础指令</td><td>与RV32I一样，只不过只能使用前16个32位寄存器</td></tr>
+<tr><td>RV64I</td><td>基础指令</td><td>整数指令，包含算术、分支、逻辑、访存指令，有32个64位寄存器，能寻址64位地址空间</td></tr>
+<tr><td>RV128I</td><td>基础指令</td><td>整数指令，包含算术、分支、逻辑、访存指令，有32个128位寄存器，能寻址128位地址空间</td></tr>
+<tr><td>M</td><td>扩展指令</td><td>包含乘法、除法、求模取余指令</td></tr>
+<tr><td>F</td><td>扩展指令</td><td>单精度(32bit)浮点指令</td></tr>
+<tr><td>D</td><td>扩展指令</td><td>双精度(32bit)浮点指令,必须要同时支持F扩展指令</td></tr>
+<tr><td>Q</td><td>扩展指令</td><td>四倍精度浮点指令</td></tr>
+<tr><td>A</td><td>扩展指令</td><td>存储器原子操作指令，比如比较并交换，读-改-写等指令</td></tr>
+<tr><td>C</td><td>扩展指令</td><td>压缩指令,指令长度为16位，主要用于改善程序大小</td></tr>
+<tr><td>P</td><td>扩展指令</td><td>单指令多数据（Packed-SIMD)指令</td></tr>
+<tr><td>B</td><td>扩展指令</td><td>位操作指令</td></tr>
+<tr><td>H</td><td>扩展指令</td><td>支持 Hypervisor 管理指令</td></tr>
+<tr><td>J</td><td>扩展指令</td><td>动态翻译语言的指令</td></tr>
+<tr><td>L</td><td>扩展指令</td><td>十进制浮点指令</td></tr>
+<tr><td>N</td><td>扩展指令</td><td>用户中断指令</td></tr>
+<tr><td>G</td><td>通用指令</td><td>包含 I、M、A、F、D指令</td></tr>
 </tbody></table>
 </div>
-<h2 id="基本指令集类型"><a class="header" href="#基本指令集类型">基本指令集类型</a></h2>
-<p><img src="../images/risc-v/riscv_instruction_type.png" alt="指令编码格式" /></p>
-<h3 id="rregister型指令"><a class="header" href="#rregister型指令">R(Register)型指令</a></h3>
-<p><img src="../images/risc-v/riscv_R_instruction.png" alt="R型指令" /></p>
+<h3 id="rv32i-基础指令集"><a class="header" href="#rv32i-基础指令集">RV32I 基础指令集</a></h3>
+<p><img src="../images/risc-v/rv32i.png" alt="RV32I" /></p>
+<h3 id="rv32i-通用寄存器"><a class="header" href="#rv32i-通用寄存器">RV32I 通用寄存器</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>寄存器</th><th>ABI 名字</th><th>描述</th><th>Saver</th></tr></thead><tbody>
+<tr><td>x0</td><td>zero</td><td>0值寄存器，硬编码为0,写入数据忽略，读取永远为0</td><td>-</td></tr>
+<tr><td>x1</td><td>ra</td><td>返回地址</td><td>Caller</td></tr>
+<tr><td>x2</td><td>sp</td><td>栈指针</td><td>Callee</td></tr>
+<tr><td>x3</td><td>gp</td><td>全局指针</td><td>-</td></tr>
+<tr><td>x4</td><td>tp</td><td>线程指针</td><td>-</td></tr>
+<tr><td>x5</td><td>t0</td><td>临时寄存器或者备用的链接寄存器</td><td>Caller</td></tr>
+<tr><td>x6-x7</td><td>t1-t2</td><td>临时寄存器</td><td>Caller</td></tr>
+<tr><td>x8</td><td>s0/fp</td><td>需要保存的寄存器或者帧指针寄存器</td><td>Callee</td></tr>
+<tr><td>x9</td><td>s1</td><td>需要保存的寄存器，保存原进程中的关键数据，避免在函数调用过程中被破坏</td><td>Callee</td></tr>
+<tr><td>x10-x11</td><td>a0-a1</td><td>函数参数/返回值</td><td>Caller</td></tr>
+<tr><td>x12-x17</td><td>a2-a7</td><td>函数参数</td><td>Caller</td></tr>
+<tr><td>x18-x27</td><td>s2-s11</td><td>需要保存的寄存器</td><td>Callee</td></tr>
+<tr><td>x28-x31</td><td>t3-t6</td><td>临时寄存器</td><td>Caller</td></tr>
+</tbody></table>
+</div>
+<h4 id="函数调用时保留的寄存器"><a class="header" href="#函数调用时保留的寄存器">函数调用时保留的寄存器</a></h4>
+<p>被调用函数一般不会使用这些寄存器，即便使用也会提前保存好原值，可以信任。这些寄存器有：sp, gp, tp 和 s0-s11 寄存器。</p>
+<h4 id="函数调用时不保存的寄存器"><a class="header" href="#函数调用时不保存的寄存器">函数调用时不保存的寄存器</a></h4>
+<p>有可能被调用函数使用更改，需要caller在调用前对自己用到的寄存器进行保存。这些寄存器有：参数与返回地址寄存器 a0-a7，返回地址寄存器 ra，临时寄存器 t0-t6</p>
+<h2 id="rv32i-基础指令格式"><a class="header" href="#rv32i-基础指令格式">RV32I 基础指令格式</a></h2>
+<p><img src="../images/risc-v/rv32i_instruction_format.webp" alt="RV32I 指令编码格式" /></p>
+<ul>
+<li>源寄存器和目标寄存器都设计固定在所有 RISC-V 指令同样的位置上，指令译码相对简单，所以指令在 CPU 流水线中执行时，可以先开始访问寄存器，然后再完成指令解码。</li>
+<li>所有立即数的<strong>符号位</strong>总是在指令的<strong>最高位</strong>。这么做的好处是，有可能成为关键路径的<strong>立即数符号扩展</strong>可以在指令解码前进行，有利于 CPU 流水线的时序优化。</li>
+</ul>
+<h3 id="寄存器-寄存器的算术指令"><a class="header" href="#寄存器-寄存器的算术指令">寄存器-寄存器的算术指令</a></h3>
+<p><img src="../images/risc-v/rv32i_instruction_arithmetic_reg2reg.webp" alt="RV32I 寄存器-寄存器的算术指令" /></p>
 <h4 id="指令汇编格式"><a class="header" href="#指令汇编格式">指令汇编格式</a></h4>
 <h5 id="加法"><a class="header" href="#加法">加法</a></h5>
 <pre><code class="language-assembly">add rd, rs1, rs2
@@ -198,8 +231,11 @@
 <h5 id="算数右移"><a class="header" href="#算数右移">算数右移</a></h5>
 <pre><code class="language-assembly">sra rd, rs1, rs2
 </code></pre>
-<h3 id="iimmediate型指令"><a class="header" href="#iimmediate型指令">I(Immediate)型指令</a></h3>
-<p><img src="../images/risc-v/riscv_I_instruction.png" alt="I型指令" /></p>
+<h3 id="立即数的算术指令"><a class="header" href="#立即数的算术指令">立即数的算术指令</a></h3>
+<p><img src="../images/risc-v/rv32i_instruction_arithmetic_immediate.webp" alt="RV32I 立即数的算术指令" /></p>
+<blockquote>
+<p>注意，在立即数算术指令中，没有减法运算。</p>
+</blockquote>
 <h4 id="指令汇编格式-1"><a class="header" href="#指令汇编格式-1">指令汇编格式</a></h4>
 <h5 id="立即数加法"><a class="header" href="#立即数加法">立即数加法</a></h5>
 <pre><code class="language-assembly">addi rd, rs1, imm[11:0]
@@ -217,7 +253,7 @@
 <pre><code class="language-assembly">slti rd, rs1, imm[11:0]
 </code></pre>
 <h5 id="立即数无符号小于比较"><a class="header" href="#立即数无符号小于比较">立即数无符号小于比较</a></h5>
-<pre><code class="language-assembly">sltui rd, rs1, imm[11:0]
+<pre><code class="language-assembly">sltiu rd, rs1, imm[11:0]
 </code></pre>
 <h5 id="立即数逻辑左移"><a class="header" href="#立即数逻辑左移">立即数逻辑左移</a></h5>
 <pre><code class="language-assembly">slli rd, rs1, shamt[4:0]
@@ -229,7 +265,11 @@
 <pre><code class="language-assembly">srai rd, rs1, shamt[4:0]
 </code></pre>
 <h3 id="loadstore-指令"><a class="header" href="#loadstore-指令">Load/Store 指令</a></h3>
-<p><img src="../images/risc-v/riscv_load_store_instruction.png" alt="Load/Store 指令" /></p>
+<p><img src="../images/risc-v/rv32i_instruction_load_store.webp" alt="RV32I Load/Store 指令" /></p>
+<p>Load 和 Store 的寻址模式只能是符号扩展 12 位的立即数，加上基地址寄存器得到访问的存储器地址。因为没有了复杂的内存寻址方式，这让 CPU 流水线可以对数据冲突提前做出判断，并通过流水线各级之间的转送加以处理，而不需要插入空操作（NOP），极大提高了代码的执行效率。</p>
+<blockquote>
+<p>注意，Load指令属于 <strong>I</strong> 型指令，而 Store 指令属于 <strong>S</strong> 型指令。</p>
+</blockquote>
 <h4 id="指令汇编格式-2"><a class="header" href="#指令汇编格式-2">指令汇编格式</a></h4>
 <h5 id="字加载"><a class="header" href="#字加载">字加载</a></h5>
 <pre><code class="language-assembly">lw rd, offset[11:0](rs1)
@@ -255,8 +295,8 @@
 <h5 id="字节存储"><a class="header" href="#字节存储">字节存储</a></h5>
 <pre><code class="language-assembly">sb rs2, offset[11:0](rs1)
 </code></pre>
-<h3 id="bbranch型指令"><a class="header" href="#bbranch型指令">B(Branch)型指令</a></h3>
-<p><img src="../images/risc-v/riscv_B_instruction.png" alt="B型指令" /></p>
+<h3 id="有条件分支跳转指令"><a class="header" href="#有条件分支跳转指令">有条件分支跳转指令</a></h3>
+<p><img src="../images/risc-v/rv32i_instruction_branch_condition.webp" alt="有条件分支跳转指令" /></p>
 <h4 id="指令汇编格式-3"><a class="header" href="#指令汇编格式-3">指令汇编格式</a></h4>
 <h5 id="相等跳转"><a class="header" href="#相等跳转">相等跳转</a></h5>
 <pre><code class="language-assembly">beq rs1, rs2, label
@@ -276,14 +316,27 @@
 <h5 id="无符号大于等于跳转"><a class="header" href="#无符号大于等于跳转">无符号大于等于跳转</a></h5>
 <pre><code class="language-assembly">bgeu rs1, rs2, label
 </code></pre>
-<h3 id="jjump型指令"><a class="header" href="#jjump型指令">J(Jump)型指令</a></h3>
-<p><img src="../images/risc-v/riscv_jump_instruction.png" alt="J型指令" /></p>
+<h3 id="无条件跳转指令"><a class="header" href="#无条件跳转指令">无条件跳转指令</a></h3>
+<blockquote>
+<p>注意，直接跳转是 <strong>J</strong> 型指令，而相对跳转是 <strong>I</strong> 型指令。</p>
+</blockquote>
+<h4 id="直接跳转指令"><a class="header" href="#直接跳转指令">直接跳转指令</a></h4>
+<p><img src="../images/risc-v/rv32i_instruction_branch_direct.webp" alt="无条件直接跳转" /></p>
+<p>JAL 指令的执行过程：</p>
+<ol>
+<li>首先，把 20 位的立即数做符号扩展，并左移一位，产生一个 32 位的符号数</li>
+<li>然后，将该 32 位符号数和 PC 相加来产生目标地址（这样 JAL 可以作为短跳转指令，跳转至 PC±1MB 的地址范围内）</li>
+<li>同时，JAL 会把紧随其后的那条指令的地址，存入目标寄存器中。这样，如果目标寄存器是0,则 JAL 就等同于 goto 指令；如果目标寄存器不为零，JAL 可以实现函数调用的功能</li>
+</ol>
+<h4 id="相对跳转指令"><a class="header" href="#相对跳转指令">相对跳转指令</a></h4>
+<p><img src="../images/risc-v/rv32i_instruction_branch_relative.webp" alt="无条件相对跳转" /></p>
+<p>JALR 指令会把 12 位立即数和源寄存器相加，并把相加的结果末位清零，作为新的跳转地址。和 JAL 指令一样，JALR 也会把紧随其后的那条指令的地址，存入目标寄存器中。</p>
 <h4 id="指令汇编格式-4"><a class="header" href="#指令汇编格式-4">指令汇编格式</a></h4>
-<h5 id="无条件跳转"><a class="header" href="#无条件跳转">无条件跳转</a></h5>
+<h5 id="无条件直接跳转"><a class="header" href="#无条件直接跳转">无条件直接跳转</a></h5>
 <pre><code class="language-assembly">jal rd, label # 将 PC+4 的值保存到 rd 寄存器中，然后设置 PC = PC + offset
 </code></pre>
 <p>伪指令 <code>j</code> 实际上就是jal指令的变体，此时 rd 会被设置为 x0,表示丢弃返回地址</p>
-<h5 id="无条件相对跳转-i-类型指令"><a class="header" href="#无条件相对跳转-i-类型指令">无条件相对跳转 (I 类型指令)</a></h5>
+<h5 id="无条件相对跳转"><a class="header" href="#无条件相对跳转">无条件相对跳转</a></h5>
 <pre><code class="language-assembly">jalr rd, rs1, imm # 将 PC+4 保存到 rd 寄存器中，然后设置 PC = rs1  + imm
 </code></pre>
 <p>跳转到任意 32 位绝对地址处</p>
@@ -298,7 +351,7 @@ jalr x0, x1, &lt;lo12bits&gt;
 <p><img src="../images/risc-v/riscv_U_instruction.png" alt="U型指令" /></p>
 <h4 id="指令汇编格式-5"><a class="header" href="#指令汇编格式-5">指令汇编格式</a></h4>
 <h5 id="lui-指令-load-upper-immediate"><a class="header" href="#lui-指令-load-upper-immediate">lui 指令 (Load Upper Immediate)</a></h5>
-<pre><code class="language-assembly">lui rs, imm # 将 20 位的立即数左移12位，低 12 位补零，并写回寄存器 rd 中
+<pre><code class="language-assembly">lui rd, imm # 将 20 位的立即数左移12位，低 12 位补零，并写回寄存器 rd 中
 </code></pre>
 <p>配合 addi 指令（设置低 12 比特）可实现讲寄存器设置为任意 32 比特的立即数，例如：</p>
 <pre><code class="language-assembly">lui x10, 0x87654     # x10 = 0x87654000
@@ -308,13 +361,24 @@ addi x10, x10, 0x321 # x10 = 0x87654321
 <pre><code class="language-assembly">lui x10, 0xDEADB     # x10 = 0xDEADB000
 addi x10, x10, 0xEEF # x10 = 0xDEADBEEF
 </code></pre>
-<p>解决这个问题的一种方法是，如果低 12 位的立即数的符号位是 1 ,那就预先给高 20 位的数加 1。<code>li</code> 伪指令可以替我们处理好这中特殊情况。</p>
+<p>解决这个问题的一种方法是，如果低 12 位的立即数的符号位是 1 ,那就预先给高 20 位的数加 1。<code>li</code> 伪指令可以替我们处理好这种特殊情况。</p>
 <h5 id="auipc-指令-add-upper-immediate-to-pc"><a class="header" href="#auipc-指令-add-upper-immediate-to-pc">auipc 指令 (Add Upper Immediate to PC)</a></h5>
 <pre><code class="language-assembly">auipc rd, imm # 将 20 位的立即数左移12位，低 12 位补零，将得到的 32 位数与 pc 的值相加，最后写回寄存器 rd 中
 </code></pre>
 <p>具体应用有：</p>
 <pre><code class="language-assembly">Label: auipc x10, 0 # 将 Label 的地址保存在 x10 寄存器中
 </code></pre>
+<h2 id="csr-寄存器指令"><a class="header" href="#csr-寄存器指令">CSR 寄存器指令</a></h2>
+<p>除了内存地址空间和通用寄存器地址空间外，RISC-V 中还定义了一个独立的控制与状态寄存器（CSR）地址空间。</p>
+<h3 id="独立的-12-位地址编码空间"><a class="header" href="#独立的-12-位地址编码空间">独立的 12 位地址编码空间</a></h3>
+<p><img src="../images/risc-v/csr_register_encoding.png" alt="CSR寄存器访问指令的编码" /></p>
+<h3 id="专用的-csr-指令"><a class="header" href="#专用的-csr-指令">专用的 CSR 指令</a></h3>
+<p><img src="../images/risc-v/rv32i_csr_instruction.webp" alt="CSR 指令" /></p>
+<h2 id="其他指令"><a class="header" href="#其他指令">其他指令</a></h2>
+<ul>
+<li>系统调用 <code>ecall</code> 指令</li>
+<li>调试时用于将控制转移到调试环境的 <code>ebreak</code> 指令</li>
+</ul>
 <h2 id="alu-的设计"><a class="header" href="#alu-的设计">ALU 的设计</a></h2>
 <p><img src="../images/risc-v/riscv_alu_design.png" alt="ALU设计框图" /></p>
 <h3 id="加法运算的实现"><a class="header" href="#加法运算的实现">加法运算的实现</a></h3>
@@ -529,31 +593,15 @@ $$</p>
 <p><img src="../images/risc-v/riscv_tlb_location.png" alt="TLB的位置" /></p>
 <p><img src="../images/risc-v/riscv_tlb_translation.png" alt="TLB实现地址转换的原理" /></p>
 <p><img src="../images/risc-v/riscv_vma_pma_translation.png" alt="TLB虚实地址转换" /></p>
-<h2 id="通用寄存器组"><a class="header" href="#通用寄存器组">通用寄存器组</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>寄存器</th><th>ABI 名字</th><th>描述</th><th>Saver</th></tr></thead><tbody>
-<tr><td>x0</td><td>zero</td><td>硬件连线0</td><td>-</td></tr>
-<tr><td>x1</td><td>ra</td><td>返回地址</td><td>Caller</td></tr>
-<tr><td>x2</td><td>sp</td><td>栈指针</td><td>Callee</td></tr>
-<tr><td>x3</td><td>gp</td><td>全局指针</td><td>-</td></tr>
-<tr><td>x4</td><td>tp</td><td>线程指针</td><td>-</td></tr>
-<tr><td>x5-x7</td><td>t0-t2</td><td>临时寄存器</td><td>Caller</td></tr>
-<tr><td>x8</td><td>s0/fp</td><td>保存的寄存器/帧指针</td><td>Callee</td></tr>
-<tr><td>x9</td><td>s1</td><td>保存寄存器<br />保存原进程中的关键数据，<br />避免在函数调用过程中被破坏</td><td>Callee</td></tr>
-<tr><td>x10-x11</td><td>a0-a1</td><td>函数参数/返回值</td><td>Caller</td></tr>
-<tr><td>x12-x17</td><td>a2-a7</td><td>函数参数</td><td>Caller</td></tr>
-<tr><td>x18-x27</td><td>s2-s11</td><td>保存寄存器</td><td>Callee</td></tr>
-<tr><td>x28-x31</td><td>t3-t6</td><td>临时寄存器</td><td>Caller</td></tr>
+<h2 id="特权级别"><a class="header" href="#特权级别">特权级别</a></h2>
+<p>一个 RISC-V 的硬件线程在任一时刻只能运行在某一个特权级上，这个特权级由 CSR 指定和配置。</p>
+<div class="table-wrapper"><table><thead><tr><th>名称</th><th>级别</th><th>缩写</th><th>编码</th><th>说明</th></tr></thead><tbody>
+<tr><td>用户应用程序特权级</td><td>0</td><td>U</td><td>00</td><td>运行应用程序，同样也适用于嵌入式系统</td></tr>
+<tr><td>管理员特权级</td><td>1</td><td>S</td><td>01</td><td>主要用于支持现代操作系统，如Linux</td></tr>
+<tr><td>虚拟机监视特权级</td><td>2</td><td>H</td><td>10</td><td>支持虚拟机监视器</td></tr>
+<tr><td>机器特权级</td><td>3</td><td>M</td><td>11</td><td>对内存、I/O和一些必要的底层功能（启动和系统配置）有着完全的控制权</td></tr>
 </tbody></table>
 </div>
-<h3 id="函数调用时保留的寄存器"><a class="header" href="#函数调用时保留的寄存器">函数调用时保留的寄存器</a></h3>
-<p>被调用函数一般不会使用这些寄存器，即便使用也会提前保存好原值，可以信任。这些寄存器有：sp, gp, tp 和 s0-s11 寄存器。</p>
-<h3 id="函数调用时不保存的寄存器"><a class="header" href="#函数调用时不保存的寄存器">函数调用时不保存的寄存器</a></h3>
-<p>有可能被调用函数使用更改，需要caller在调用前对自己用到的寄存器进行保存。这些寄存器有：参数与返回地址寄存器 a0-a7，返回地址寄存器 ra，临时寄存器 t0-t6</p>
-<h2 id="csr-寄存器组"><a class="header" href="#csr-寄存器组">CSR 寄存器组</a></h2>
-<h3 id="独立的12位地址编码空间"><a class="header" href="#独立的12位地址编码空间">独立的12位地址编码空间</a></h3>
-<p><img src="../images/risc-v/csr_register_encoding.png" alt="CSR寄存器访问指令的编码" /></p>
-<h3 id="专用的-csr-指令读写-csr-寄存器"><a class="header" href="#专用的-csr-指令读写-csr-寄存器">专用的 CSR 指令读写 CSR 寄存器</a></h3>
-<p><img src="../images/risc-v/riscv_csr_register_access_instruction.png" alt="CSR寄存器访问指令" /></p>
 <h3 id="标准寄存器列表"><a class="header" href="#标准寄存器列表">标准寄存器列表</a></h3>
 <h4 id="machine-mode"><a class="header" href="#machine-mode">Machine Mode</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>名称</th><th>地址</th><th>属性</th><th>备注</th></tr></thead><tbody>
@@ -644,7 +692,7 @@ ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
                             <a rel="prev" href="../resume.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../cs/openwrt.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../cs/gcc-toolchains.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -656,7 +704,7 @@ ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
                     <a rel="prev" href="../resume.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../cs/openwrt.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../cs/gcc-toolchains.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
