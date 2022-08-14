@@ -10,6 +10,12 @@
 
 ---
 
+# 编译系统
+
+- [GCC](cs/gcc-toolchains.md)
+
+---
+
 # 操作系统
 
 - [OpenWRT](cs/openwrt.md)
@@ -31,6 +37,12 @@
 # 通信协议
 
 - [USB 协议基础](ee/usb.md)
+
+---
+
+# 电路设计
+
+- [Yosys](ee/yosys.md)
 
 ---
 
