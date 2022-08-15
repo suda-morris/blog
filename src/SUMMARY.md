@@ -1,12 +1,12 @@
 # Summary
 
-[关于我](resume.md)
+[关于我](about-me.md)
 
 ---
 
 # 体系结构
 
-- [RISC-V](cs/risc-v.md)
+- [RISC-V](cs/riscv.md)
 
 ---
 
