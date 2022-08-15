@@ -1,15 +1,5 @@
 # RISC-V 基础
 
-## 单核 CPU 组成结构
-
-![ALU](../images/risc-v/riscv_alu.png)
-
-**数据通路**是处理器中执行处理器所需操作的硬件部分，就像是处理器的四肢。
-
-**控制器**是对数据通路要做什么操作进行行为调度的硬件结构，就像是处理器的大脑。
-
-![ALU](../images/risc-v/riscv_data_path.png)
-
 ## 指令集划分
 
 | 名称 | 类别 | 说明 |
@@ -387,6 +377,13 @@ auipc rd, imm # 将 20 位的立即数左移12位，低 12 位补零，将得到
 Label: auipc x10, 0 # 将 Label 的地址保存在 x10 寄存器中
 ```
 
+### 指令编码空间的可扩展性
+
+![指令编码空间的扩展](../images/risc-v/riscv_isa_custom_instruction.png)
+
+- custom-0、custom-1 用于 RV32 的自定义指令集扩展
+- custom-2、custom-3 预留给 RV128，也可以用于 RV32、RV64 的用户自定义指令集扩展
+
 ## CSR 寄存器指令
 
 除了内存地址空间和通用寄存器地址空间外，RISC-V 中还定义了一个独立的控制与状态寄存器（CSR）地址空间。
@@ -401,120 +398,131 @@ Label: auipc x10, 0 # 将 Label 的地址保存在 x10 寄存器中
 
 ## 其他指令
 
-* 系统调用 `ecall` 指令
-* 调试时用于将控制转移到调试环境的 `ebreak` 指令
+- 系统调用 `ecall` 指令
+- 调试时用于将控制转移到调试环境的 `ebreak` 指令
 
-## ALU 的设计
+### 常用汇编伪指令
 
-![ALU设计框图](../images/risc-v/riscv_alu_design.png)
+##### 赋值指令
 
-### 加法运算的实现
-
-```verilog
-module adder #(
-parameter N = 8
-) (
-	input [N - 1 : 0] a,
-	input [N - 1 : 0] b,
-	input			  cin,
-
-	output [N - 1 : 0] sum,
-	output 			   cout
-);
-	assign {cout, sum} = a + b + cin;
-endmodule
+```assembly
+mv rd, rs # 等效于 addi rd, rs, x0
 ```
 
-### 减法运算的实现
+##### 加载立即数
 
-```verilog
-module subtractor #(
-parameter N = 8
-) (
-    input [N - 1 : 0] a,
-    input [N - 1 : 0] b,
-
-    output [N - 1 : 0] y
-);
-    assign y = a - b;
-endmodule
+```assembly
+li rd, 13 # 等效于 addi rd, x0, 13
 ```
 
-### 比较运算的实现
+##### 函数调用和返回
 
-#### 相等比较
-
-用异或门检查 A 和 B 中对应的位是否相等
-
-#### 量值比较（减法）
-
-首先计算A-B的值，然后检查结果的符号位
-
-```verilog
-module comparator #(
-parameter N = 8
-) (
-    input [N - 1 : 0] a,
-    input [N - 1 : 0] b
-
-    output eq,
-    output neq,
-    output lt,
-    output lte,
-    output gt,
-    output gte
-);
-    assign eq = (a == b);
-    assign neq = (a != b);
-    assign lt = (a < b);
-    assign lte = (a <= b);
-    assign gt = (a > b);
-    assign gte = (a >= b);
-endmodule
+```assembly
+jal my_foo # 函数调用
+ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
 ```
 
-## 单指令周期 CPU
+## 单核 CPU 组成结构
 
-* 指令周期：CPU 取出并执行一条指令所需的全部时间
-* 指令执行的的五个步骤
-  1. 取指（Instruction Fetch）
-  2. 译码（Instruction Decode）
-  3. 执行（Execute）
-  4. 访存（Memory Access）
-  5. 写回（Write Back)
-* CPU周期：也称为机器周期，一个机器周期由若干个时钟周期组成
-* CPI (Clock Cycle Per Instruction)：执行每条指令所需的时钟周期数的平均值
-* 单指令周期CPU：全部指令选用一个 CPU 周期完成的系统
+![ALU](../images/risc-v/riscv_alu.png)
 
-![单指令周期 CPU](../images/risc-v/single_instruction_CPU.png)
+**数据通路**是处理器中执行处理器所需操作的硬件部分，就像是处理器的四肢。
 
-### 寄存器堆的实现
+**控制器**是对数据通路要做什么操作进行行为调度的硬件结构，就像是处理器的大脑。
 
-![寄存器堆](../images/risc-v/register_file.png)
+### 流水线技术
+
+#### 五级流水线
+
+![五级流水线](../images/risc-v/rv32i_5stage_pipelines.jpeg)
+
+#### 流水线在不同阶段使用的资源
+
+![流水线资源使用](../images/risc-v/riscv_pipeline_resource_usage.png)
+
+> 为了确保硬件共享的时候，前一阶段的数据不被丢失，需要在流水线之间插入“阶段寄存器”来保存中间值和控制信号。
+
+### 数据通路
+
+![数据通路](../images/risc-v/riscv_data_path.png)
+
+1. 取指阶段（Instruction Fetch）：将指令从存储器中读取出来，PC 寄存器告诉当前指令在存储器中的位置。读取一条指令后，PC 寄存器会根据指令的长度自动递增，或者改写成指定的地址。
+2. 译码阶段（Instruction Decode）：将存储器中取出的指令进行翻译，识别出指令的类别以及所需的各种操作数。
+3. 执行阶段（Instruction Execute）：对指令进行真正的运算，期间最关键的模块是算术逻辑单元（ALU）。
+4. 访存阶段（Memory Access）：存储器访问指令将数据从存储器中读出，或写入存储器。
+5. 写回阶段（Write Back）：将指令执行的结果写回通用寄存器。
+
+### 简易 CPU 内部组件框图
+
+![RV32I CPU 5级流水线设计框图](../images/risc-v/rv32i_cpu_design.jpeg)
+
+### pre_if 模块设计
+
+根据当前的指令和 PC 寄存器，预测下一条指令的地址。为了实现程序分支跳转的功能，就需要设计一个**预读取**模块，不管指令是否跳转（这个结果会在指令执行阶段结束才能知道），都提前把跳转之后的下一条指令从存储器中读取出来，以备流水线的下一个阶段使用，这能提到 CPU 的执行效率。
 
 ```verilog
-module regfile(rna, rnb, d, wn, we, clk, clrn, qa, qb);
-    input [4:0] rna, rnb, wn; // 读地址，写地址
-    input [31:0] d; // 写数据
-    input we, clk, clrn; // 写使能，时钟，清除信号
-    output [31:0] qa, qb; // 读数据
-
-    reg [31:0] register [1:31]; // 31x32-bit regs
-
-    // 2 read ports
-    assign qa = (rna == 0) ? 0 : register[rna];
-    assign qb = (rnb == 0) ? 0 : register[rnb];
-
-    // 1 write port
-    always @(posedge clk or negedge clrn)
-        if(clrn == 0) begin
-            integer i;
-            for(i=1;i<32;i=i+1)
-                register[i] <= 0;
-        end else if ((wn != 0) && we)
-            register[wn] <= d;
-endmodule
+{{#include ../snippets/riscv/pre_if.v}}
 ```
+
+### if_id 模块设计
+
+预读取模块读出的指令并不是全部都能发送给后续的模块执行的，比如条件分支指令在执行后发现跳转条件不成立，这时预读取的指令就是无效的，需要对流水线进行冲刷（flush），把无效的指令都清除掉。
+
+```verilog
+{{#include ../snippets/riscv/if_id.v}}
+```
+
+### decode 模块设计
+
+尽管指令格式不同，但是指令译码模块翻译指令的工作机制是**统一**的。首先会翻译出指令中携带的寄存器索引、立即数等信息，接着处理可能存在的数据冒险，再由译码数据通路负责把译码后的指令信息，发送给对应的执行单元去执行。
+
+译码的过程：先识别指令的操作码（永远是低7位），根据操作码对应的代码标识，产生分支信号 branch、跳转信号 jump、读存储器信号 mem_read ......
+
+```verilog
+{{#include ../snippets/riscv/decode.v}}
+```
+
+前面译码模块得到的指令信号可以分为两大类，一类是指令的操作码经过译码后产生的**指令控制信号**，另一类是从指令源码中提取出来的**数据信息**，如立即数、寄存器索引、功能码等。为了能对流水线更好地实施控制，我们把译码后的数据和控制信号分开处理。
+
+### 译码控制模块
+
+当指令发生冲突时，需要对流水线进行冲刷，译码阶段的指令信息也需要清除。
+
+```Verilog
+{{#include ../snippets/riscv/id_ex_ctrl.v}}
+```
+
+### 译码数据通路模块
+
+译码数据通路会根据 CPU 相关控制模块产生的流水线冲刷控制信号，决定要不要把这些数据发送给后续模块。
+
+```Verilog
+{{#include ../snippets/riscv/id_ex.v}}
+```
+
+### 执行控制模块
+
+在指令执行阶段，存储访问指令用 ALU 进行地址计算，条件分支跳转指令用 ALU 进行条件比较，算术逻辑指令用 ALU 进行逻辑运算。
+
+```Verilog
+{{#include ../snippets/riscv/alu_ctrl.v}}
+```
+
+### 通用寄存器模块
+
+```Verilog
+{{#include ../snippets/riscv/gen_regs.v}}
+```
+
+写寄存器是边沿触发的，在一个时钟周期内写入的存储器数据，需要在写一个时钟周期才能把写入的数据读取出来。为了提高读写效率，在对同一个寄存器进行读写时，如果写使能 wen 有效，就直接把写入寄存器的数据送给读数据接口。
+
+### ALU 模块
+
+```Verilog
+{{#include ../snippets/riscv/alu.v}}
+```
+
+- 左移运算复用了右移运算的电路，方便实现
 
 ### 完整的数据通路
 
@@ -564,22 +572,6 @@ endmodule
 ### jal 指令数据通路
 
 ![jal指令数据通路](../images/risc-v/riscv_jal_instruction_data_path.png)
-
-## 流水线技术
-
-![流水线技术](../images/risc-v/riscv_pipeline.png)
-
-### 处理器性能公式
-
-$$
-ProgramTime = \frac{Instructions}{Program} * \frac{Cycle s}{Instruction} * \frac{Time}{Cycle}
-$$
-
-### 流水线阶段寄存器
-
-为了确保硬件共享的时候，前一阶段的数据不被丢失，需要在流水线之间插入“阶段寄存器”来保存中间值和控制信号。
-
-![流水线寄存器](../images/risc-v/riscv_pipeline_registers.png)
 
 ## Cache
 
@@ -776,37 +768,3 @@ $$
 ![中断响应](../images/risc-v/riscv_one_cycle_intruction_interrupt_enter.png)
 
 ![中断退出](../images/risc-v/riscv_one_cycle_intruction_interrupt_exit.png)
-
-## RISC-V 架构的可扩展性
-
-### 指令集的扩展
-
-![指令集扩展](../images/risc-v/riscv_isa_extension.png)
-
-### 指令编码空间的扩展
-
-![指令编码空间的扩展](../images/risc-v/riscv_isa_custom_instruction.png)
-
-* custom-0、custom-1用于 RV32 的自定义指令集扩展
-* custom-2、custom-3预留给 RV128，也可以用于 RV32、RV64的用户自定义指令集扩展
-
-## 常用伪指令
-
-##### 赋值指令
-
-```assembly
-mv rd, rs # 等效于 addi rd, rs, x0
-```
-
-##### 加载立即数
-
-```assembly
-li rd, 13 # 等效于 addi rd, x0, 13
-```
-
-##### 函数调用和返回
-
-```assembly
-jal my_foo # 函数调用
-ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
-```
