@@ -77,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../resume.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/risc-v.html" class="active"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">3.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">4.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">5.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">6.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">7.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">8.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">9.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/riscv.html" class="active"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">3.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">4.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">5.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">6.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">7.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">8.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">9.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -115,7 +115,7 @@
                         <a href="https://github.com/suda-morris/blog" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/suda-morris/blog/edit/master/src/cs/risc-v.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/suda-morris/blog/edit/master/src/cs/riscv.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
                     </div>
@@ -143,11 +143,6 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="risc-v-基础"><a class="header" href="#risc-v-基础">RISC-V 基础</a></h1>
-<h2 id="单核-cpu-组成结构"><a class="header" href="#单核-cpu-组成结构">单核 CPU 组成结构</a></h2>
-<p><img src="../images/risc-v/riscv_alu.png" alt="ALU" /></p>
-<p><strong>数据通路</strong>是处理器中执行处理器所需操作的硬件部分，就像是处理器的四肢。</p>
-<p><strong>控制器</strong>是对数据通路要做什么操作进行行为调度的硬件结构，就像是处理器的大脑。</p>
-<p><img src="../images/risc-v/riscv_data_path.png" alt="ALU" /></p>
 <h2 id="指令集划分"><a class="header" href="#指令集划分">指令集划分</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>名称</th><th>类别</th><th>说明</th></tr></thead><tbody>
 <tr><td>RV32I</td><td>基础指令</td><td>整数指令，包含算术、分支、逻辑、访存指令，有32个32位寄存器，能寻址32位地址空间</td></tr>
@@ -368,6 +363,12 @@ addi x10, x10, 0xEEF # x10 = 0xDEADBEEF
 <p>具体应用有：</p>
 <pre><code class="language-assembly">Label: auipc x10, 0 # 将 Label 的地址保存在 x10 寄存器中
 </code></pre>
+<h3 id="指令编码空间的可扩展性"><a class="header" href="#指令编码空间的可扩展性">指令编码空间的可扩展性</a></h3>
+<p><img src="../images/risc-v/riscv_isa_custom_instruction.png" alt="指令编码空间的扩展" /></p>
+<ul>
+<li>custom-0、custom-1 用于 RV32 的自定义指令集扩展</li>
+<li>custom-2、custom-3 预留给 RV128，也可以用于 RV32、RV64 的用户自定义指令集扩展</li>
+</ul>
 <h2 id="csr-寄存器指令"><a class="header" href="#csr-寄存器指令">CSR 寄存器指令</a></h2>
 <p>除了内存地址空间和通用寄存器地址空间外，RISC-V 中还定义了一个独立的控制与状态寄存器（CSR）地址空间。</p>
 <h3 id="独立的-12-位地址编码空间"><a class="header" href="#独立的-12-位地址编码空间">独立的 12 位地址编码空间</a></h3>
@@ -379,101 +380,701 @@ addi x10, x10, 0xEEF # x10 = 0xDEADBEEF
 <li>系统调用 <code>ecall</code> 指令</li>
 <li>调试时用于将控制转移到调试环境的 <code>ebreak</code> 指令</li>
 </ul>
-<h2 id="alu-的设计"><a class="header" href="#alu-的设计">ALU 的设计</a></h2>
-<p><img src="../images/risc-v/riscv_alu_design.png" alt="ALU设计框图" /></p>
-<h3 id="加法运算的实现"><a class="header" href="#加法运算的实现">加法运算的实现</a></h3>
-<pre><code class="language-verilog">module adder #(
-parameter N = 8
-) (
-	input [N - 1 : 0] a,
-	input [N - 1 : 0] b,
-	input			  cin,
-
-	output [N - 1 : 0] sum,
-	output 			   cout
-);
-	assign {cout, sum} = a + b + cin;
-endmodule
+<h3 id="常用汇编伪指令"><a class="header" href="#常用汇编伪指令">常用汇编伪指令</a></h3>
+<h5 id="赋值指令"><a class="header" href="#赋值指令">赋值指令</a></h5>
+<pre><code class="language-assembly">mv rd, rs # 等效于 addi rd, rs, x0
 </code></pre>
-<h3 id="减法运算的实现"><a class="header" href="#减法运算的实现">减法运算的实现</a></h3>
-<pre><code class="language-verilog">module subtractor #(
-parameter N = 8
-) (
-    input [N - 1 : 0] a,
-    input [N - 1 : 0] b,
-
-    output [N - 1 : 0] y
-);
-    assign y = a - b;
-endmodule
+<h5 id="加载立即数"><a class="header" href="#加载立即数">加载立即数</a></h5>
+<pre><code class="language-assembly">li rd, 13 # 等效于 addi rd, x0, 13
 </code></pre>
-<h3 id="比较运算的实现"><a class="header" href="#比较运算的实现">比较运算的实现</a></h3>
-<h4 id="相等比较"><a class="header" href="#相等比较">相等比较</a></h4>
-<p>用异或门检查 A 和 B 中对应的位是否相等</p>
-<h4 id="量值比较减法"><a class="header" href="#量值比较减法">量值比较（减法）</a></h4>
-<p>首先计算A-B的值，然后检查结果的符号位</p>
-<pre><code class="language-verilog">module comparator #(
-parameter N = 8
-) (
-    input [N - 1 : 0] a,
-    input [N - 1 : 0] b
-
-    output eq,
-    output neq,
-    output lt,
-    output lte,
-    output gt,
-    output gte
-);
-    assign eq = (a == b);
-    assign neq = (a != b);
-    assign lt = (a &lt; b);
-    assign lte = (a &lt;= b);
-    assign gt = (a &gt; b);
-    assign gte = (a &gt;= b);
-endmodule
+<h5 id="函数调用和返回"><a class="header" href="#函数调用和返回">函数调用和返回</a></h5>
+<pre><code class="language-assembly">jal my_foo # 函数调用
+ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
 </code></pre>
-<h2 id="单指令周期-cpu"><a class="header" href="#单指令周期-cpu">单指令周期 CPU</a></h2>
-<ul>
-<li>指令周期：CPU 取出并执行一条指令所需的全部时间</li>
-<li>指令执行的的五个步骤
+<h2 id="单核-cpu-组成结构"><a class="header" href="#单核-cpu-组成结构">单核 CPU 组成结构</a></h2>
+<p><img src="../images/risc-v/riscv_alu.png" alt="ALU" /></p>
+<p><strong>数据通路</strong>是处理器中执行处理器所需操作的硬件部分，就像是处理器的四肢。</p>
+<p><strong>控制器</strong>是对数据通路要做什么操作进行行为调度的硬件结构，就像是处理器的大脑。</p>
+<h3 id="流水线技术"><a class="header" href="#流水线技术">流水线技术</a></h3>
+<h4 id="五级流水线"><a class="header" href="#五级流水线">五级流水线</a></h4>
+<p><img src="../images/risc-v/rv32i_5stage_pipelines.jpeg" alt="五级流水线" /></p>
+<h4 id="流水线在不同阶段使用的资源"><a class="header" href="#流水线在不同阶段使用的资源">流水线在不同阶段使用的资源</a></h4>
+<p><img src="../images/risc-v/riscv_pipeline_resource_usage.png" alt="流水线资源使用" /></p>
+<blockquote>
+<p>为了确保硬件共享的时候，前一阶段的数据不被丢失，需要在流水线之间插入“阶段寄存器”来保存中间值和控制信号。</p>
+</blockquote>
+<h3 id="数据通路"><a class="header" href="#数据通路">数据通路</a></h3>
+<p><img src="../images/risc-v/riscv_data_path.png" alt="数据通路" /></p>
 <ol>
-<li>取指（Instruction Fetch）</li>
-<li>译码（Instruction Decode）</li>
-<li>执行（Execute）</li>
-<li>访存（Memory Access）</li>
-<li>写回（Write Back)</li>
+<li>取指阶段（Instruction Fetch）：将指令从存储器中读取出来，PC 寄存器告诉当前指令在存储器中的位置。读取一条指令后，PC 寄存器会根据指令的长度自动递增，或者改写成指定的地址。</li>
+<li>译码阶段（Instruction Decode）：将存储器中取出的指令进行翻译，识别出指令的类别以及所需的各种操作数。</li>
+<li>执行阶段（Instruction Execute）：对指令进行真正的运算，期间最关键的模块是算术逻辑单元（ALU）。</li>
+<li>访存阶段（Memory Access）：存储器访问指令将数据从存储器中读出，或写入存储器。</li>
+<li>写回阶段（Write Back）：将指令执行的结果写回通用寄存器。</li>
 </ol>
-</li>
-<li>CPU周期：也称为机器周期，一个机器周期由若干个时钟周期组成</li>
-<li>CPI (Clock Cycle Per Instruction)：执行每条指令所需的时钟周期数的平均值</li>
-<li>单指令周期CPU：全部指令选用一个 CPU 周期完成的系统</li>
-</ul>
-<p><img src="../images/risc-v/single_instruction_CPU.png" alt="单指令周期 CPU" /></p>
-<h3 id="寄存器堆的实现"><a class="header" href="#寄存器堆的实现">寄存器堆的实现</a></h3>
-<p><img src="../images/risc-v/register_file.png" alt="寄存器堆" /></p>
-<pre><code class="language-verilog">module regfile(rna, rnb, d, wn, we, clk, clrn, qa, qb);
-    input [4:0] rna, rnb, wn; // 读地址，写地址
-    input [31:0] d; // 写数据
-    input we, clk, clrn; // 写使能，时钟，清除信号
-    output [31:0] qa, qb; // 读数据
+<h3 id="简易-cpu-内部组件框图"><a class="header" href="#简易-cpu-内部组件框图">简易 CPU 内部组件框图</a></h3>
+<p><img src="../images/risc-v/rv32i_cpu_design.jpeg" alt="RV32I CPU 5级流水线设计框图" /></p>
+<h3 id="pre_if-模块设计"><a class="header" href="#pre_if-模块设计">pre_if 模块设计</a></h3>
+<p>根据当前的指令和 PC 寄存器，预测下一条指令的地址。为了实现程序分支跳转的功能，就需要设计一个<strong>预读取</strong>模块，不管指令是否跳转（这个结果会在指令执行阶段结束才能知道），都提前把跳转之后的下一条指令从存储器中读取出来，以备流水线的下一个阶段使用，这能提到 CPU 的执行效率。</p>
+<pre><code class="language-verilog">module pre_if (
+    input [31:0] instr,
+    input [31:0] pc,
 
-    reg [31:0] register [1:31]; // 31x32-bit regs
+    output [31:0] pre_pc
+);
 
-    // 2 read ports
-    assign qa = (rna == 0) ? 0 : register[rna];
-    assign qb = (rnb == 0) ? 0 : register[rnb];
+    wire is_bxx = (instr[6:0] == `OPCODE_BRANCH); // 条件跳转指令的操作码
+    wire is_jal = (instr[6:0] == `OPCODE_JAL) ;   // 无条件跳转指令的操作码
 
-    // 1 write port
-    always @(posedge clk or negedge clrn)
-        if(clrn == 0) begin
-            integer i;
-            for(i=1;i&lt;32;i=i+1)
-                register[i] &lt;= 0;
-        end else if ((wn != 0) &amp;&amp; we)
-            register[wn] &lt;= d;
+    // B型指令的立即数拼接
+    wire [31:0] bimm  = {{20{instr[31]}}, instr[7], instr[30:25], instr[11:8], 1'b0};
+    // J型指令的立即数拼接
+    wire [31:0] jimm  = {{12{instr[31]}}, instr[19:12], instr[20], instr[30:21], 1'b0};
+
+    // 指令地址的偏移量
+    // 这里实际上做了一个简单的分支预测
+    wire [31:0] adder = is_jal ? jimm : (is_bxx &amp; bimm[31]) ? bimm : 4;
+    // 根据当前 PC 和指令的偏移量相加，得到预测的 PC 值
+    assign pre_pc = pc + adder;
+
 endmodule
 </code></pre>
+<h3 id="if_id-模块设计"><a class="header" href="#if_id-模块设计">if_id 模块设计</a></h3>
+<p>预读取模块读出的指令并不是全部都能发送给后续的模块执行的，比如条件分支指令在执行后发现跳转条件不成立，这时预读取的指令就是无效的，需要对流水线进行冲刷（flush），把无效的指令都清除掉。</p>
+<pre><code class="language-verilog">module if_id (
+  input         clk,
+  input         reset,
+  input  [31:0] in_instr,
+  input  [31:0] in_pc,
+  input         flush,
+  input         valid,
+  output [31:0] out_instr,
+  output [31:0] out_pc,
+  output        out_noflush
+);
+
+  reg [31:0] reg_instr;
+  reg [31:0] reg_pc;
+  reg        reg_noflush;
+
+  assign out_instr = reg_instr;
+  assign out_pc = reg_pc;
+  assign out_noflush = reg_noflush;
+
+  //指令传递
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_instr &lt;= 32'h0;
+    end else if (flush) begin
+      reg_instr &lt;= 32'h0;
+    end else if (valid) begin
+      reg_instr &lt;= in_instr;
+    end
+  end
+
+  //PC值转递
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_pc &lt;= 32'h0;
+    end else if (flush) begin
+      reg_pc &lt;= 32'h0;
+    end else if (valid) begin
+      reg_pc &lt;= in_pc;
+    end
+  end
+
+  //流水线冲刷标志位
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_noflush &lt;= 1'h0;
+    end else if (flush) begin
+      reg_noflush &lt;= 1'h0;
+    end else if (valid) begin
+      reg_noflush &lt;= 1'h1;
+    end
+
+  end
+
+endmodule
+</code></pre>
+<h3 id="decode-模块设计"><a class="header" href="#decode-模块设计">decode 模块设计</a></h3>
+<p>尽管指令格式不同，但是指令译码模块翻译指令的工作机制是<strong>统一</strong>的。首先会翻译出指令中携带的寄存器索引、立即数等信息，接着处理可能存在的数据冒险，再由译码数据通路负责把译码后的指令信息，发送给对应的执行单元去执行。</p>
+<p>译码的过程：先识别指令的操作码（永远是低7位），根据操作码对应的代码标识，产生分支信号 branch、跳转信号 jump、读存储器信号 mem_read ......</p>
+<pre><code class="language-verilog">module decode (
+  input   [31:0] instr,
+
+  output  [4:0] rs1_addr,
+  output  [4:0] rs2_addr,
+  output  [4:0] rd_addr,
+  output  [2:0] funct3,
+  output  [6:0] funct7,
+  output        branch,
+  output [1:0]  jump,
+  output        mem_read,
+  output        mem_write,
+  output        reg_write,
+  output        to_reg,
+  output [1:0]  result_sel,
+  output        alu_src,
+  output        pc_add,
+  output [6:0]  types,
+  output [1:0]  alu_ctrlop,
+  output        valid_inst,
+  output [31:0] imm
+);
+
+localparam DEC_INVALID = 21'b0;
+
+reg [20:0] dec_array;
+
+//---------- decode rs1、rs2 -----------------
+assign rs1_addr = instr[19:15];
+assign rs2_addr = instr[24:20];
+
+//---------- decode rd -----------------------
+assign rd_addr = instr[11:7];
+
+//---------- decode funct3、funct7 -----------
+assign funct7 = instr[31:25];
+assign funct3 = instr[14:12];
+
+// ----------------------------- decode signals ---------------------------------
+
+//                        20     19-18  17       16        15        14     13-12      11      10     9--------3  2---1      0
+//                        branch jump   memRead  memWrite  regWrite  toReg  resultSel  aluSrc  pcAdd     RISBUJZ  aluctrlop  validInst
+localparam DEC_LUI     = {1'b0,  2'b00, 1'b0,    1'b0,     1'b1,     1'b0,  2'b01,     1'b0,   1'b0,  7'b0000100, 2'b00,     1'b1};
+localparam DEC_AUIPC   = {1'b0,  2'b00, 1'b0,    1'b0,     1'b1,     1'b0,  2'b00,     1'b1,   1'b1,  7'b0000100, 2'b00,     1'b1};
+localparam DEC_JAL     = {1'b0,  2'b00, 1'b0,    1'b0,     1'b1,     1'b0,  2'b10,     1'b0,   1'b0,  7'b0000010, 2'b00,     1'b1};
+localparam DEC_JALR    = {1'b0,  2'b11, 1'b0,    1'b0,     1'b1,     1'b0,  2'b10,     1'b1,   1'b0,  7'b0100000, 2'b00,     1'b1};
+localparam DEC_BRANCH  = {1'b1,  2'b00, 1'b0,    1'b0,     1'b0,     1'b0,  2'b00,     1'b0,   1'b0,  7'b0001000, 2'b10,     1'b1};
+localparam DEC_LOAD    = {1'b0,  2'b00, 1'b1,    1'b0,     1'b1,     1'b1,  2'b00,     1'b1,   1'b0,  7'b0100000, 2'b00,     1'b1};
+localparam DEC_STORE   = {1'b0,  2'b00, 1'b0,    1'b1,     1'b0,     1'b0,  2'b00,     1'b1,   1'b0,  7'b0010000, 2'b00,     1'b1};
+localparam DEC_ALUI    = {1'b0,  2'b00, 1'b0,    1'b0,     1'b1,     1'b0,  2'b00,     1'b1,   1'b0,  7'b0100000, 2'b01,     1'b1};
+localparam DEC_ALUR    = {1'b0,  2'b00, 1'b0,    1'b0,     1'b1,     1'b0,  2'b00,     1'b0,   1'b0,  7'b1000000, 2'b01,     1'b1};
+
+assign  {branch, jump, mem_read, mem_write, reg_write, to_reg, result_sel, alu_src, pc_add, types, alu_ctrlop, valid_inst} = dec_array;
+
+
+always @(*) begin
+  //$write(&quot;%x&quot;, instr);
+  case(instr[6:0])
+    `OPCODE_LUI    :   dec_array &lt;= DEC_LUI;
+    `OPCODE_AUIPC  :   dec_array &lt;= DEC_AUIPC;
+    `OPCODE_JAL    :   dec_array &lt;= DEC_JAL;
+    `OPCODE_JALR   :   dec_array &lt;= DEC_JALR;
+    `OPCODE_BRANCH :   dec_array &lt;= DEC_BRANCH;
+    `OPCODE_LOAD   :   dec_array &lt;= DEC_LOAD;
+    `OPCODE_STORE  :   dec_array &lt;= DEC_STORE;
+    `OPCODE_ALUI   :   dec_array &lt;= DEC_ALUI;
+    `OPCODE_ALUR   :   dec_array &lt;= DEC_ALUR;
+    default        :  begin
+                 dec_array &lt;= DEC_INVALID;
+               //  $display(&quot;~~~decode error~~~%x&quot;, instr);
+    end
+  endcase
+end
+
+// -------------------- IMM -------------------------
+
+wire [31:0] Iimm = {{21{instr[31]}}, instr[30:20]};
+wire [31:0] Simm = {{21{instr[31]}}, instr[30:25], instr[11:7]};
+wire [31:0] Bimm = {{20{instr[31]}}, instr[7], instr[30:25], instr[11:8], 1'b0};
+wire [31:0] Uimm = {instr[31:12], 12'b0};
+wire [31:0] Jimm = {{12{instr[31]}}, instr[19:12], instr[20], instr[30:21], 1'b0};
+
+assign imm = {32{types[5]}} &amp; Iimm
+           | {32{types[4]}} &amp; Simm
+           | {32{types[3]}} &amp; Bimm
+           | {32{types[2]}} &amp; Uimm
+           | {32{types[1]}} &amp; Jimm;
+
+endmodule
+</code></pre>
+<p>前面译码模块得到的指令信号可以分为两大类，一类是指令的操作码经过译码后产生的<strong>指令控制信号</strong>，另一类是从指令源码中提取出来的<strong>数据信息</strong>，如立即数、寄存器索引、功能码等。为了能对流水线更好地实施控制，我们把译码后的数据和控制信号分开处理。</p>
+<h3 id="译码控制模块"><a class="header" href="#译码控制模块">译码控制模块</a></h3>
+<p>当指令发生冲突时，需要对流水线进行冲刷，译码阶段的指令信息也需要清除。</p>
+<pre><code class="language-Verilog">module id_ex_ctrl (
+  input        clk,
+  input        reset,
+  input        in_ex_ctrl_itype,
+  input  [1:0] in_ex_ctrl_alu_ctrlop,
+  input  [1:0] in_ex_ctrl_result_sel,
+  input        in_ex_ctrl_alu_src,
+  input        in_ex_ctrl_pc_add,
+  input        in_ex_ctrl_branch,
+  input  [1:0] in_ex_ctrl_jump,
+  input        in_mem_ctrl_mem_read,
+  input        in_mem_ctrl_mem_write,
+  input  [1:0] in_mem_ctrl_mask_mode,
+  input        in_mem_ctrl_sext,
+  input        in_wb_ctrl_to_reg,
+  input        in_wb_ctrl_reg_write,
+  input        in_noflush,
+  input        flush,
+  input        valid,
+  output       out_ex_ctrl_itype,
+  output [1:0] out_ex_ctrl_alu_ctrlop,
+  output [1:0] out_ex_ctrl_result_sel,
+  output       out_ex_ctrl_alu_src,
+  output       out_ex_ctrl_pc_add,
+  output       out_ex_ctrl_branch,
+  output [1:0] out_ex_ctrl_jump,
+  output       out_mem_ctrl_mem_read,
+  output       out_mem_ctrl_mem_write,
+  output [1:0] out_mem_ctrl_mask_mode,
+  output       out_mem_ctrl_sext,
+  output       out_wb_ctrl_to_reg,
+  output       out_wb_ctrl_reg_write,
+  output       out_noflush
+);
+
+  reg  reg_ex_ctrl_itype;
+  reg [1:0] reg_ex_ctrl_alu_ctrlop;
+  reg [1:0] reg_ex_ctrl_result_sel;
+  reg  reg_ex_ctrl_alu_src;
+  reg  reg_ex_ctrl_pc_add;
+  reg  reg_ex_ctrl_branch;
+  reg [1:0] reg_ex_ctrl_jump;
+  reg  reg_mem_ctrl_mem_read;
+  reg  reg_mem_ctrl_mem_write;
+  reg [1:0] reg_mem_ctrl_mask_mode;
+  reg  reg_mem_ctrl_sext;
+  reg  reg_wb_ctrl_to_reg;
+  reg  reg_wb_ctrl_reg_write;
+  reg  reg_noflush;
+
+  assign out_ex_ctrl_itype = reg_ex_ctrl_itype;
+  assign out_ex_ctrl_alu_ctrlop = reg_ex_ctrl_alu_ctrlop;
+  assign out_ex_ctrl_result_sel = reg_ex_ctrl_result_sel;
+  assign out_ex_ctrl_alu_src = reg_ex_ctrl_alu_src;
+  assign out_ex_ctrl_pc_add = reg_ex_ctrl_pc_add;
+  assign out_ex_ctrl_branch = reg_ex_ctrl_branch;
+  assign out_ex_ctrl_jump = reg_ex_ctrl_jump;
+  assign out_mem_ctrl_mem_read = reg_mem_ctrl_mem_read;
+  assign out_mem_ctrl_mem_write = reg_mem_ctrl_mem_write;
+  assign out_mem_ctrl_mask_mode = reg_mem_ctrl_mask_mode;
+  assign out_mem_ctrl_sext = reg_mem_ctrl_sext;
+  assign out_wb_ctrl_to_reg = reg_wb_ctrl_to_reg;
+  assign out_wb_ctrl_reg_write = reg_wb_ctrl_reg_write;
+  assign out_noflush = reg_noflush;
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_ex_ctrl_itype &lt;= 1'h0;
+    end else if (flush) begin
+      reg_ex_ctrl_itype &lt;= 1'h0;
+    end else if (valid) begin
+      reg_ex_ctrl_itype &lt;= in_ex_ctrl_itype;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_ex_ctrl_alu_ctrlop &lt;= 2'h0;
+    end else if (flush) begin
+      reg_ex_ctrl_alu_ctrlop &lt;= 2'h0;
+    end else if (valid) begin
+      reg_ex_ctrl_alu_ctrlop &lt;= in_ex_ctrl_alu_ctrlop;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_ex_ctrl_result_sel &lt;= 2'h0;
+    end else if (flush) begin
+      reg_ex_ctrl_result_sel &lt;= 2'h0;
+    end else if (valid) begin
+      reg_ex_ctrl_result_sel &lt;= in_ex_ctrl_result_sel;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_ex_ctrl_alu_src &lt;= 1'h0;
+    end else if (flush) begin
+      reg_ex_ctrl_alu_src &lt;= 1'h0;
+    end else if (valid) begin
+      reg_ex_ctrl_alu_src &lt;= in_ex_ctrl_alu_src;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_ex_ctrl_pc_add &lt;= 1'h0;
+    end else if (flush) begin
+      reg_ex_ctrl_pc_add &lt;= 1'h0;
+    end else if (valid) begin
+      reg_ex_ctrl_pc_add &lt;= in_ex_ctrl_pc_add;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_ex_ctrl_branch &lt;= 1'h0;
+    end else if (flush) begin
+      reg_ex_ctrl_branch &lt;= 1'h0;
+    end else if (valid) begin
+      reg_ex_ctrl_branch &lt;= in_ex_ctrl_branch;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_ex_ctrl_jump &lt;= 2'h0;
+    end else if (flush) begin
+      reg_ex_ctrl_jump &lt;= 2'h0;
+    end else if (valid) begin
+      reg_ex_ctrl_jump &lt;= in_ex_ctrl_jump;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_mem_ctrl_mem_read &lt;= 1'h0;
+    end else if (flush) begin
+      reg_mem_ctrl_mem_read &lt;= 1'h0;
+    end else if (valid) begin
+      reg_mem_ctrl_mem_read &lt;= in_mem_ctrl_mem_read;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_mem_ctrl_mem_write &lt;= 1'h0;
+    end else if (flush) begin
+      reg_mem_ctrl_mem_write &lt;= 1'h0;
+    end else if (valid) begin
+      reg_mem_ctrl_mem_write &lt;= in_mem_ctrl_mem_write;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_mem_ctrl_mask_mode &lt;= 2'h0;
+    end else if (flush) begin
+      reg_mem_ctrl_mask_mode &lt;= 2'h0;
+    end else if (valid) begin
+      reg_mem_ctrl_mask_mode &lt;= in_mem_ctrl_mask_mode;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_mem_ctrl_sext &lt;= 1'h0;
+    end else if (flush) begin
+      reg_mem_ctrl_sext &lt;= 1'h0;
+    end else if (valid) begin
+      reg_mem_ctrl_sext &lt;= in_mem_ctrl_sext;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_wb_ctrl_to_reg &lt;= 1'h0;
+    end else if (flush) begin
+      reg_wb_ctrl_to_reg &lt;= 1'h0;
+    end else if (valid) begin
+      reg_wb_ctrl_to_reg &lt;= in_wb_ctrl_to_reg;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_wb_ctrl_reg_write &lt;= 1'h0;
+    end else if (flush) begin
+      reg_wb_ctrl_reg_write &lt;= 1'h0;
+    end else if (valid) begin
+      reg_wb_ctrl_reg_write &lt;= in_wb_ctrl_reg_write;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_noflush &lt;= 1'h0;
+    end else if (flush) begin
+      reg_noflush &lt;= 1'h0;
+    end else if (valid) begin
+      reg_noflush &lt;= in_noflush;
+    end
+  end
+
+
+endmodule
+</code></pre>
+<h3 id="译码数据通路模块"><a class="header" href="#译码数据通路模块">译码数据通路模块</a></h3>
+<p>译码数据通路会根据 CPU 相关控制模块产生的流水线冲刷控制信号，决定要不要把这些数据发送给后续模块。</p>
+<pre><code class="language-Verilog">module id_ex (
+  input         clk,
+  input         reset,
+  input  [4:0]  in_rd_addr,
+  input  [6:0]  in_funct7,
+  input  [2:0]  in_funct3,
+  input  [31:0] in_imm,
+  input  [31:0] in_rs2_data,
+  input  [31:0] in_rs1_data,
+  input  [31:0] in_pc,
+  input  [4:0]  in_rs1_addr,
+  input  [4:0]  in_rs2_addr,
+  input         flush,
+  input         valid,
+  output [4:0]  out_rd_addr,
+  output [6:0]  out_funct7,
+  output [2:0]  out_funct3,
+  output [31:0] out_imm,
+  output [31:0] out_rs2_data,
+  output [31:0] out_rs1_data,
+  output [31:0] out_pc,
+  output [4:0]  out_rs1_addr,
+  output [4:0]  out_rs2_addr
+);
+  reg [4:0] reg_rd_addr;
+  reg [6:0] reg_funct7;
+  reg [2:0] reg_funct3;
+  reg [31:0] reg_imm;
+  reg [31:0] reg_rs2_data;
+  reg [31:0] reg_rs1_data;
+  reg [31:0] reg_pc;
+  reg [4:0] reg_rs1_addr;
+  reg [4:0] reg_rs2_addr;
+
+  assign out_rd_addr = reg_rd_addr;
+  assign out_funct7 = reg_funct7;
+  assign out_funct3 = reg_funct3;
+  assign out_imm = reg_imm;
+  assign out_rs2_data = reg_rs2_data;
+  assign out_rs1_data = reg_rs1_data;
+  assign out_pc = reg_pc;
+  assign out_rs1_addr = reg_rs1_addr;
+  assign out_rs2_addr = reg_rs2_addr;
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_rd_addr &lt;= 5'h0;
+    end else if (flush) begin
+      reg_rd_addr &lt;= 5'h0;
+    end else if (valid) begin
+      reg_rd_addr &lt;= in_rd_addr;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_funct7 &lt;= 7'h0;
+    end else if (flush) begin
+      reg_funct7 &lt;= 7'h0;
+    end else if (valid) begin
+      reg_funct7 &lt;= in_funct7;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_funct3 &lt;= 3'h0;
+    end else if (flush) begin
+      reg_funct3 &lt;= 3'h0;
+    end else if (valid) begin
+      reg_funct3 &lt;= in_funct3;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_imm &lt;= 32'h0;
+    end else if (flush) begin
+      reg_imm &lt;= 32'h0;
+    end else if (valid) begin
+      reg_imm &lt;= in_imm;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_rs2_data &lt;= 32'h0;
+    end else if (flush) begin
+      reg_rs2_data &lt;= 32'h0;
+    end else if (valid) begin
+      reg_rs2_data &lt;= in_rs2_data;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_rs1_data &lt;= 32'h0;
+    end else if (flush) begin
+      reg_rs1_data &lt;= 32'h0;
+    end else if (valid) begin
+      reg_rs1_data &lt;= in_rs1_data;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_pc &lt;= 32'h0;
+    end else if (flush) begin
+      reg_pc &lt;= 32'h0;
+    end else if (valid) begin
+      reg_pc &lt;= in_pc;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_rs1_addr &lt;= 5'h0;
+    end else if (flush) begin
+      reg_rs1_addr &lt;= 5'h0;
+    end else if (valid) begin
+      reg_rs1_addr &lt;= in_rs1_addr;
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      reg_rs2_addr &lt;= 5'h0;
+    end else if (flush) begin
+      reg_rs2_addr &lt;= 5'h0;
+    end else if (valid) begin
+      reg_rs2_addr &lt;= in_rs2_addr;
+    end
+  end
+
+endmodule
+</code></pre>
+<h3 id="执行控制模块"><a class="header" href="#执行控制模块">执行控制模块</a></h3>
+<p>在指令执行阶段，存储访问指令用 ALU 进行地址计算，条件分支跳转指令用 ALU 进行条件比较，算术逻辑指令用 ALU 进行逻辑运算。</p>
+<pre><code class="language-Verilog">module alu_ctrl (
+    input [2:0]  funct3,
+    input [6:0]  funct7,
+    input [1:0]  aluCtrlOp,
+    input        itype,
+    output reg [3:0] aluOp
+);
+    always @(*) begin
+      case(aluCtrlOp)
+        2'b00:  aluOp &lt;= `ALU_OP_ADD;           // Load or Store
+        2'b01:  begin
+          if(itype &amp; funct3[1:0] != 2'b01)
+            aluOp &lt;= {1'b0, funct3};
+          else
+            aluOp &lt;= {funct7[5], funct3};   // normal ALUI/ALUR
+        end
+        2'b10:  begin
+         // $display(&quot;~~~aluCtrl bxx~~~%d&quot;, funct3);
+          case(funct3)                    // bxx
+            `BEQ_FUNCT3:  aluOp &lt;= `ALU_OP_EQ;
+            `BNE_FUNCT3:  aluOp &lt;= `ALU_OP_NEQ;
+            `BLT_FUNCT3:  aluOp &lt;= `ALU_OP_SLT;
+            `BGE_FUNCT3:  aluOp &lt;= `ALU_OP_GE;
+            `BLTU_FUNCT3: aluOp &lt;= `ALU_OP_SLTU;
+            `BGEU_FUNCT3: aluOp &lt;= `ALU_OP_GEU;
+            default:      aluOp &lt;= `ALU_OP_XXX;
+          endcase
+          end
+        default: aluOp &lt;= `ALU_OP_XXX;
+      endcase
+    end
+endmodule
+</code></pre>
+<h3 id="通用寄存器模块"><a class="header" href="#通用寄存器模块">通用寄存器模块</a></h3>
+<pre><code class="language-Verilog">module gen_regs (
+    input  clk,
+    input  reset,
+    input  wen,
+    input  [4:0] regRAddr1, regRAddr2, regWAddr,
+    input  [31:0] regWData,
+    output [31:0] regRData1,
+    output [31:0] regRData2
+);
+    integer ii;
+    reg [31:0] regs[31:0];
+
+    // write registers
+    always @(posedge clk or posedge reset) begin
+        if(reset) begin
+            for(ii=0; ii&lt;32; ii=ii+1)
+                regs[ii] &lt;= 32'b0;
+        end
+        else if(wen &amp; (|regWAddr))
+                regs[regWAddr] &lt;= regWData;
+    end
+
+    // read registers
+    assign regRData1 = wen &amp; (regWAddr == regRAddr1) ? regWData
+                    : ((regRAddr1 != 5'b0) ? regs[regRAddr1] : 32'b0);
+    assign regRData2 = wen &amp; (regWAddr == regRAddr2) ? regWData
+                    : ((regRAddr2 != 5'b0) ? regs[regRAddr2] : 32'b0);
+
+endmodule
+</code></pre>
+<p>写寄存器是边沿触发的，在一个时钟周期内写入的存储器数据，需要在写一个时钟周期才能把写入的数据读取出来。为了提高读写效率，在对同一个寄存器进行读写时，如果写使能 wen 有效，就直接把写入寄存器的数据送给读数据接口。</p>
+<h3 id="alu-模块"><a class="header" href="#alu-模块">ALU 模块</a></h3>
+<pre><code class="language-Verilog">module alu (
+  input  [31:0] alu_data1_i,
+  input  [31:0] alu_data2_i,
+  input  [ 3:0] alu_op_i,
+  output [31:0] alu_result_o
+);
+
+  reg  [31:0] result;
+
+  // alu_op_i 的第3位和第1位为1时，做减法运算，这是为减法指令或者比较大小而准备的
+  wire [31:0] sum    = alu_data1_i + ((alu_op_i[3] | alu_op_i[1]) ? -alu_data2_i : alu_data2_i);
+  // 根据前面两个操作数相减的结果判断两个操作数是否相等
+  wire        neq    = |sum;
+  // 比较两个操作数的大小：
+  // 如果操作数的符号位相同，则根据两个操作数相减的差值的符号位去判断
+  // 如果操作数的符号位不同，先根据alu_op_i 的最低位判断是否是无符号数比较运算
+  wire        cmp    = (alu_data1_i[31] == alu_data2_i[31]) ? sum[31]
+                     : alu_op_i[0] ? alu_data2_i[31] : alu_data1_i[31];
+  wire [ 4:0] shamt  = alu_data2_i[4:0];
+  // 判断是左移还是右移，如果是左移，就先对源操作数做镜像处理
+  wire [31:0] shin   = alu_op_i[2] ? alu_data1_i : reverse(alu_data1_i);
+  // 判断是算术右移还是逻辑右移，如果是算术右移，需要在最高位补一个符号位
+  wire [32:0] shift  = {alu_op_i[3] &amp; shin[31], shin};
+  // $signed() 函数会在右移操作前先把操作数的符号位扩位成跟结果相同的位宽
+  wire [32:0] shiftt = ($signed(shift) &gt;&gt;&gt; shamt);
+  wire [31:0] shiftr = shiftt[31:0];
+  // 左移的结果是右移后的结果再进行镜像处理
+  wire [31:0] shiftl = reverse(shiftr);
+
+  always @(*) begin
+    case(alu_op_i)
+      `ALU_OP_ADD:    result &lt;= sum;
+      `ALU_OP_SUB:    result &lt;= sum;
+      `ALU_OP_SLL:    result &lt;= shiftl;
+      `ALU_OP_SLT:    result &lt;= cmp;
+      `ALU_OP_SLTU:   result &lt;= cmp;
+      `ALU_OP_XOR:    result &lt;= (alu_data1_i ^ alu_data2_i);
+      `ALU_OP_SRL:    result &lt;= shiftr;
+      `ALU_OP_SRA:    result &lt;= shiftr;
+      `ALU_OP_OR:     result &lt;= (alu_data1_i | alu_data2_i);
+      `ALU_OP_AND:    result &lt;= (alu_data1_i &amp; alu_data2_i);
+
+      `ALU_OP_EQ:     result &lt;= {31'b0, ~neq};
+      `ALU_OP_NEQ:    result &lt;= {31'b0, neq};
+      `ALU_OP_GE:     result &lt;= {31'b0, ~cmp};
+      `ALU_OP_GEU:    result &lt;= {31'b0, ~cmp};
+      default:        begin
+                      result &lt;= 32'b0;
+                      //$display(&quot;*** alu error ! ***%x&quot;, alu_op_i);
+        end
+    endcase
+  end
+
+  function [31:0] reverse;
+    input [31:0] in;
+    integer i;
+    for(i=0; i&lt;32; i=i+1) begin
+      reverse[i] = in[31-i];
+    end
+  endfunction
+
+  assign alu_result_o = result;
+
+endmodule
+</code></pre>
+<ul>
+<li>左移运算复用了右移运算的电路，方便实现</li>
+</ul>
 <h3 id="完整的数据通路"><a class="header" href="#完整的数据通路">完整的数据通路</a></h3>
 <p><img src="../images/risc-v/riscv_full_data_path.png" alt="完整的数据通路" /></p>
 <ul>
@@ -510,15 +1111,6 @@ endmodule
 </ul>
 <h3 id="jal-指令数据通路"><a class="header" href="#jal-指令数据通路">jal 指令数据通路</a></h3>
 <p><img src="../images/risc-v/riscv_jal_instruction_data_path.png" alt="jal指令数据通路" /></p>
-<h2 id="流水线技术"><a class="header" href="#流水线技术">流水线技术</a></h2>
-<p><img src="../images/risc-v/riscv_pipeline.png" alt="流水线技术" /></p>
-<h3 id="处理器性能公式"><a class="header" href="#处理器性能公式">处理器性能公式</a></h3>
-<p>$$
-ProgramTime = \frac{Instructions}{Program} * \frac{Cycle s}{Instruction} * \frac{Time}{Cycle}
-$$</p>
-<h3 id="流水线阶段寄存器"><a class="header" href="#流水线阶段寄存器">流水线阶段寄存器</a></h3>
-<p>为了确保硬件共享的时候，前一阶段的数据不被丢失，需要在流水线之间插入“阶段寄存器”来保存中间值和控制信号。</p>
-<p><img src="../images/risc-v/riscv_pipeline_registers.png" alt="流水线寄存器" /></p>
 <h2 id="cache"><a class="header" href="#cache">Cache</a></h2>
 <p><img src="../images/risc-v/riscv_cache.png" alt="Cache" /></p>
 <h3 id="cache-的结构"><a class="header" href="#cache-的结构">Cache 的结构</a></h3>
@@ -664,32 +1256,12 @@ $$</p>
 <h3 id="单指令数据通路的中断响应与退出"><a class="header" href="#单指令数据通路的中断响应与退出">单指令数据通路的中断响应与退出</a></h3>
 <p><img src="../images/risc-v/riscv_one_cycle_intruction_interrupt_enter.png" alt="中断响应" /></p>
 <p><img src="../images/risc-v/riscv_one_cycle_intruction_interrupt_exit.png" alt="中断退出" /></p>
-<h2 id="risc-v-架构的可扩展性"><a class="header" href="#risc-v-架构的可扩展性">RISC-V 架构的可扩展性</a></h2>
-<h3 id="指令集的扩展"><a class="header" href="#指令集的扩展">指令集的扩展</a></h3>
-<p><img src="../images/risc-v/riscv_isa_extension.png" alt="指令集扩展" /></p>
-<h3 id="指令编码空间的扩展"><a class="header" href="#指令编码空间的扩展">指令编码空间的扩展</a></h3>
-<p><img src="../images/risc-v/riscv_isa_custom_instruction.png" alt="指令编码空间的扩展" /></p>
-<ul>
-<li>custom-0、custom-1用于 RV32 的自定义指令集扩展</li>
-<li>custom-2、custom-3预留给 RV128，也可以用于 RV32、RV64的用户自定义指令集扩展</li>
-</ul>
-<h2 id="常用伪指令"><a class="header" href="#常用伪指令">常用伪指令</a></h2>
-<h5 id="赋值指令"><a class="header" href="#赋值指令">赋值指令</a></h5>
-<pre><code class="language-assembly">mv rd, rs # 等效于 addi rd, rs, x0
-</code></pre>
-<h5 id="加载立即数"><a class="header" href="#加载立即数">加载立即数</a></h5>
-<pre><code class="language-assembly">li rd, 13 # 等效于 addi rd, x0, 13
-</code></pre>
-<h5 id="函数调用和返回"><a class="header" href="#函数调用和返回">函数调用和返回</a></h5>
-<pre><code class="language-assembly">jal my_foo # 函数调用
-ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
-</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../resume.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../about-me.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                             <a rel="next" href="../cs/gcc-toolchains.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
@@ -701,7 +1273,7 @@ ret # 函数返回，等效于 jr ra，等效于 jalr x0, ra, 0
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../resume.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../about-me.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                     <a rel="next" href="../cs/gcc-toolchains.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
