@@ -28,6 +28,12 @@
 
 ---
 
+# 测试框架
+
+- [pytest](cs/pytest.md)
+
+---
+
 # 多媒体
 
 - [视频处理](cs/video-process.md)
