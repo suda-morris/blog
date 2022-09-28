@@ -78,7 +78,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">3.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">4.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">5.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">6.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="ee/yosys.html"><strong aria-hidden="true">7.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">8.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">9.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">3.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">4.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="cs/pytest.html"><strong aria-hidden="true">5.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">6.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">7.</strong> USB 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="ee/yosys.html"><strong aria-hidden="true">8.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">9.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">10.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -2712,6 +2712,712 @@ $$
 </li>
 </ul>
 <p>无阻尼自然振荡频率\(\omega_n\)类似于一阶滞后系统中的时间常数T,决定了响应速度的快慢。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pytest-基础"><a class="header" href="#pytest-基础">pytest 基础</a></h1>
+<h2 id="常用命令行选项"><a class="header" href="#常用命令行选项">常用命令行选项</a></h2>
+<ul>
+<li>
+<p><code>--collect-only</code>：展示在给定的配置下哪些测试用例会被运行</p>
+</li>
+<li>
+<p><code>-k</code>：使用表达式指定要运行的测试用例，表达式可以匹配测试名，且表达式中可以包含 <code>and</code>,<code>or</code>,<code>not</code> 关键字</p>
+<pre><code class="language-text">➤ pytest -v --collect-only -k &quot;replace or asdict&quot;
+
+&lt;Package tests&gt;
+  &lt;Module test_named_tuple.py&gt;
+    &lt;Function test_asdict&gt;
+      _asdict() should return a dictionary.
+    &lt;Function test_replace&gt;
+      replace() should change passed in fields.
+</code></pre>
+</li>
+<li>
+<p><code>-m</code>：标记测试并分组，以便快速选中并运行，可以同时指定多个标记，标记之间可以使用 <code>and</code>,<code>or</code>,<code>not</code> 关键字</p>
+</li>
+<li>
+<p><code>-s</code>：允许终端在测试运行时输出某些结果，包括任何符合标准的输出流信息，等价于 <code>--capture=no</code></p>
+</li>
+<li>
+<p><code>--markers</code>：列出所有可用的 marker</p>
+</li>
+<li>
+<p><code>--fixtures</code>：列出所有可用的 fixture</p>
+</li>
+<li>
+<p><code>--setup-show</code>：显示测试用例的 setup 和 teardown 过程</p>
+</li>
+<li>
+<p><code>--durations=0</code>：将所有阶段的耗时从长到短排序</p>
+</li>
+<li>
+<p><code>-l</code>：显示失败的测试用例的局部变量</p>
+</li>
+<li>
+<p><code>-x</code>：遇到失败的测试用例时停止运行</p>
+</li>
+<li>
+<p><code>--lf, --last-failed</code>：只运行上次失败的测试用例，如果没有失败的测试用例，则运行所有测试用例</p>
+</li>
+<li>
+<p><code>--ff, --failed-first</code>：先运行上次失败的测试用例，然后再运行其他测试用例</p>
+</li>
+<li>
+<p><code>--cache-show</code>：显示缓存的内容（可用于多个测试会话之间共享）</p>
+</li>
+<li>
+<p><code>--cache-clear</code>：清除缓存</p>
+</li>
+<li>
+<p><code>--pdb</code>：遇到失败的测试用例时进入调试模式</p>
+</li>
+<li>
+<p><code>--tb=[auto/long/short/line/native/no]</code>：指定发生错误时堆栈回溯信息的粒度</p>
+</li>
+<li>
+<p><code>--junit-xml</code>：将测试结果输出为 junit 格式的 xml 文件</p>
+</li>
+</ul>
+<h2 id="测试搜索"><a class="header" href="#测试搜索">测试搜索</a></h2>
+<p>pytest 能自动搜索所有待执行的测试用例，你需要遵守以下几条命名规则：</p>
+<ul>
+<li>测试文件应该命名为 <code>test_*.py</code> 或者 <code>*_test.py</code></li>
+<li>测试函数、测试类方法应当命名为 <code>test_&lt;something&gt;</code></li>
+<li>测试类要命名为 <code>Test&lt;Something&gt;</code></li>
+<li>默认的测试搜索规则可以在 <code>pytest.ini</code> 中进行修改</li>
+</ul>
+<h2 id="编写测试函数"><a class="header" href="#编写测试函数">编写测试函数</a></h2>
+<ul>
+<li>
+<p>pytest 会截断对原生 <code>assert</code> 的调用，替换为 pytest 定义的 <code>assert</code></p>
+</li>
+<li>
+<p>使用 <code>with pytest.raises(Exception):</code> 来断言异常</p>
+<pre><code class="language-python">def test_start_tasks_db_raises():
+  &quot;&quot;&quot;Make sure unsupported db raises an exception.&quot;&quot;&quot;
+  with pytest.raises(ValueError) as exc_info:
+      tasks.start_tasks_db(&quot;some/great/path&quot;, &quot;mysql&quot;)
+  exception_msg = exc_info.value.args[0]
+  assert exc_info.type == ValueError
+  assert exception_msg == &quot;db_type must be a 'tiny' or 'mongo'&quot;
+</code></pre>
+</li>
+<li>
+<p>使用 <code>pytest.approx</code> 来断言浮点数</p>
+<pre><code class="language-python">def test_approx():
+  &quot;&quot;&quot;Using pytest.approx.&quot;&quot;&quot;
+  v1 = 0.1 + 0.2
+  v2 = 0.3
+  assert v1 != v2
+  assert v1 == pytest.approx(v2)
+</code></pre>
+</li>
+<li>
+<p>使用 <code>@pytest.mark.skip</code> 和 <code>@pytest.mark.skipif</code> 装时期来跳过不希望运行的测试</p>
+</li>
+<li>
+<p>使用 <code>@pytest.mark.xfail</code> 装饰器来标记预期失败的测试</p>
+<pre><code class="language-python">@pytest.mark.xfail(
+    sys.platform == &quot;win32&quot;,
+    reason=&quot;can't run on Windows&quot;
+)
+def test_unique_id_is_a_duck():
+    &quot;&quot;&quot;Demonstrate xfail&quot;&quot;&quot;
+    uid = tasks.unique_id()
+    assert uid == &quot;a duck&quot;
+</code></pre>
+</li>
+<li>
+<p>使用 <code>@pytest.mark.parametrize(argnames, argvalues)</code> 装饰器来运行相同测试用例的不同参数组合, <code>parametrize()</code> 的第一个参数是<strong>用逗号分隔的字符串列表</strong>，第二个参数是<strong>值列表</strong></p>
+<pre><code class="language-python">@pytest.mark.parametrize(
+    &quot;summary, owner, done&quot;,
+    [
+        (&quot;sleep&quot;, None, False),
+        (&quot;wake&quot;, &quot;brian&quot;, False),
+        (&quot;breath&quot;, &quot;iris&quot;, True),
+        (&quot;eat&quot;, &quot;bob&quot;, True),
+    ],
+)
+def test_add_variety(summary, owner, done):
+    &quot;&quot;&quot;Demonstrate parameterize with 3 parameters.&quot;&quot;&quot;
+    new_task = Task(summary, owner, done)
+    task_id = tasks.add(new_task)
+    task_from_db = tasks.get(task_id)
+    assert equivalent(new_task, task_from_db)
+</code></pre>
+</li>
+<li>
+<p><code>parametrize()</code> 还可以通过 <code>ids</code> 参数来指定每个参数组合的名字, <code>ids</code> 参数的值是一个字符串列表，长度必须和 <code>argvalues</code> 参数的长度一致</p>
+<pre><code class="language-python">tasks_to_try = (
+  Task(&quot;sleep&quot;, None, True),
+  Task(&quot;wake&quot;, &quot;brian&quot;, False),
+  Task(&quot;breathe&quot;, &quot;bob&quot;, True),
+  Task(&quot;exercise&quot;, &quot;iris&quot;, False),
+)
+task_ids = [f&quot;Task({t.summary},{t.owner},{t.done})&quot; for t in tasks_to_try]
+
+
+@pytest.mark.parametrize(&quot;task&quot;, tasks_to_try, ids=task_ids)
+def test_add_variety(task):
+    &quot;&quot;&quot;Demonstrate parameterize with 3 parameters.&quot;&quot;&quot;
+    task_id = tasks.add(task)
+    task_from_db = tasks.get(task_id)
+    assert equivalent(task, task_from_db)
+</code></pre>
+</li>
+<li>
+<p>当 <code>ids</code> 不能被参数化批量生成时，需要自定义的时候，可以给每个参数值定义一个 <code>id</code> 来做标识: <code>pytest.param(&lt;value&gt;, id=&quot;something&quot;)</code></p>
+<pre><code class="language-python">@pytest.mark.parametrize(
+    &quot;task&quot;,
+    [
+        pytest.param(Task(&quot;sleep&quot;)),
+        pytest.param(Task(&quot;wake&quot;, &quot;brian&quot;), id=&quot;summary/owner&quot;),
+        pytest.param(Task(&quot;breathe&quot;, &quot;BRIAN&quot;, True), id=&quot;summary/owner/done&quot;),
+    ],
+)
+def test_add_variety(task):
+    &quot;&quot;&quot;Demonstrate parameterize with 3 parameters.&quot;&quot;&quot;
+    task_id = tasks.add(task)
+    task_from_db = tasks.get(task_id)
+    assert equivalent(task, task_from_db)
+</code></pre>
+<p>运行结果:</p>
+<pre><code class="language-bash">test_add.py::test_add_variety[task0] PASSED # 因为没有添加id标识，所以可读性不好
+test_add.py::test_add_variety[summary/owner] PASSED
+test_add.py::test_add_variety[summary/owner/done] PASSED
+</code></pre>
+</li>
+</ul>
+<h2 id="fixture"><a class="header" href="#fixture">Fixture</a></h2>
+<ul>
+<li>
+<p>Fixture 是一种特殊的函数，在测试函数运行前后，由 pytest 执行的外壳函数，通常用来做一些准备工作，比如创建数据库连接，创建临时文件等。</p>
+<pre><code class="language-python">@pytest.fixture()
+def some_data():
+    return 42
+
+
+def test_some_data(some_data):
+    assert some_data == 42
+</code></pre>
+</li>
+<li>
+<p>多个 fixture 之间可以相互依赖，比如一个 fixture 依赖另一个 fixture，这时可以在 fixture 函数的参数列表中添加依赖的 fixture 函数</p>
+<pre><code class="language-python">@pytest.fixture()
+def db_with_3_tasks(tasks_db, tasks_just_a_few):
+    &quot;&quot;&quot;Connected db with 3 tasks, all unique&quot;&quot;&quot;
+    for t in tasks_just_a_few:
+        tasks.add(t)
+
+def test_add_increases_count(db_with_3_tasks):
+  tasks.add(Task(&quot;throw a party&quot;))
+  assert tasks.count() == 4
+</code></pre>
+</li>
+<li>
+<p>使用 <code>usefixtures</code> 为测试类指定 fixture，这种方法<strong>不能</strong>够使用 fixture 函数的返回值</p>
+<pre><code class="language-python">@pytest.mark.usefixtures(&quot;tasks_db&quot;)
+class TestAdd:
+    &quot;&quot;&quot;Using a fixture for setup and teardown.&quot;&quot;&quot;
+
+    def test_add_increases_count(self):
+        &quot;&quot;&quot;tasks.add() affect tasks.count().&quot;&quot;&quot;
+        tasks.add(Task(&quot;throw a party&quot;))
+        assert tasks.count() == 1
+</code></pre>
+</li>
+<li>
+<p>通过 <code>scope</code> 参数指定 fixture 的作用范围（也可以理解为控制 fixture 执行 setup 和 teardown 的频率），<code>scope</code> 参数的值可以是 <code>function</code>、<code>class</code>、<code>module</code>、<code>session</code>，默认值是 <code>function</code>。fixture 只能使用同级别的 fixture 或者比自己级别更高的 fixture。</p>
+<pre><code class="language-python">@pytest.fixture(scope=&quot;session&quot;)
+def tasks_db(tmpdir_factory):
+    &quot;&quot;&quot;Connect to db before testing, disconnect after.&quot;&quot;&quot;
+    tmp_dir = tmpdir_factory.mktemp(&quot;temp&quot;)
+    tasks.start_tasks_db(str(tmp_dir), &quot;tiny&quot;)
+    yield
+    tasks.stop_tasks_db()
+</code></pre>
+</li>
+<li>
+<p>可以为常用 fixture 添加 <code>autouse=True</code> 选项，使得作用域内的测试函数自动运行该 fixture</p>
+</li>
+<li>
+<p>可以设置 <code>name</code> 参数来重命名 fixture</p>
+</li>
+<li>
+<p>对测试函数进行参数化，可以多次运行的只是该测试函数。而使用<strong>参数化</strong> fixture,每个使用该 fixture 的测试函数都可以被运行多次</p>
+<pre><code class="language-python">tasks_to_try = [
+    pytest.param(Task(&quot;sleep&quot;)),
+    pytest.param(Task(&quot;wake&quot;, &quot;brian&quot;)),
+    pytest.param(Task(&quot;breathe&quot;, &quot;BRIAN&quot;, True)),
+]
+
+
+def id_func(task: Task):
+    &quot;&quot;&quot;Create a string representation for test report.&quot;&quot;&quot;
+    return f&quot;({task.summary},{task.owner},{task.done})&quot;
+
+
+@pytest.fixture(params=tasks_to_try, ids=id_func)
+def a_task(request):
+    &quot;&quot;&quot;Using a fixture to pass data to a test.&quot;&quot;&quot;
+    return request.param
+
+
+def test_add_variety(a_task):
+    &quot;&quot;&quot;Demonstrate parameterize with 3 parameters.&quot;&quot;&quot;
+    task_id = tasks.add(a_task)
+    task_from_db = tasks.get(task_id)
+    assert equivalent(a_task, task_from_db)
+</code></pre>
+<p><code>ids</code> 参数可以指定为一个函数，供 pytest 针对每个参数生成标识</p>
+</li>
+</ul>
+<h3 id="内置-fixture"><a class="header" href="#内置-fixture">内置 Fixture</a></h3>
+<h4 id="tmpdir-和-tmpdir_factory"><a class="header" href="#tmpdir-和-tmpdir_factory">tmpdir 和 tmpdir_factory</a></h4>
+<pre><code class="language-python">def test_tmpdir(tmpdir):
+    print(tmpdir.realpath)
+    # tmpdir already has a path name associated with it
+    # join() extends the path to include a filename
+    # the file is created when it's written to
+    # tmpdir is a py.path.local object
+    a_file = tmpdir.join(&quot;something.txt&quot;)
+
+    # you can create directories
+    a_sub_dir = tmpdir.mkdir(&quot;anything&quot;)
+
+    # you can create files in the directory (created when written)
+    another_file = a_sub_dir.join(&quot;something_else.txt&quot;)
+
+    # this write creates &quot;something.txt&quot;
+    a_file.write(&quot;contents may settle during shipping&quot;)
+
+    # this write creates &quot;anything/something_else.txt&quot;
+    another_file.write(&quot;something different&quot;)
+
+    assert a_file.read() == &quot;contents may settle during shipping&quot;
+    assert another_file.read() == &quot;something different&quot;
+</code></pre>
+<pre><code class="language-python">def test_tmpdir_factor(tmpdir_factory):
+    print(tmpdir_factory.getbasetemp())
+
+    # you should start with making a directory
+    # a_dir acts like the object returned from the tmpdir fixture
+    a_dir = tmpdir_factory.mktemp(&quot;mydir&quot;)
+    a_file = a_dir.join(&quot;something.txt&quot;)
+
+    # you can create directories
+    a_sub_dir = a_dir.mkdir(&quot;anything&quot;)
+
+    # you can create files in the directory (created when written)
+    another_file = a_sub_dir.join(&quot;something_else.txt&quot;)
+
+    # this write creates &quot;something.txt&quot;
+    a_file.write(&quot;contents may settle during shipping&quot;)
+
+    # this write creates &quot;anything/something_else.txt&quot;
+    another_file.write(&quot;something different&quot;)
+
+    assert a_file.read() == &quot;contents may settle during shipping&quot;
+    assert another_file.read() == &quot;something different&quot;
+</code></pre>
+<p><code>tmpdir_factory</code> 的作用范围是会话级别，<code>tmpdir</code> 的作用范围是函数级别。如果需要模块或者类级别作用范围的目录，可以利用 <code>tmpdir_factory</code> 再创建一个 fixture。</p>
+<pre><code class="language-python">@pytest.fixture(scope=&quot;module&quot;)
+def my_tmpdir(tmpdir_factory):
+    pass
+</code></pre>
+<h4 id="pytestconfig"><a class="header" href="#pytestconfig">pytestconfig</a></h4>
+<p><code>pytestconfig</code> 是 <code>request.config</code> 的快捷方式，可以通过 <code>pytestconfig.getoption()</code> 获取命令行选项。</p>
+<pre><code class="language-python">def test_option(pytestconfig):
+    print(f&quot;args: {pytestconfig.args}&quot;)
+    print(f&quot;invocation_dir: {pytestconfig.invocation_dir}&quot;)
+    print(f&quot;rootdir: {pytestconfig.rootdir}&quot;)
+    print(f&quot;inifile: {pytestconfig.inifile}&quot;)
+    print(f&quot;basetemp: {pytestconfig.getoption('basetemp')}&quot;)
+    print(f&quot;-k EXPRESSION: {pytestconfig.getoption('keyword')}&quot;)
+    print(f&quot;-v, --verbose: {pytestconfig.getoption('verbose')}&quot;)
+    print(f&quot;--tb style: {pytestconfig.getoption('tbstyle')}&quot;)
+</code></pre>
+<p>也可以基于 <code>pytestconfig</code> 创建新的 fixture</p>
+<pre><code class="language-python">@pytest.fixture()
+def foo(pytestconfig):
+    return pytestconfig.option.foo
+
+
+def test_option(foo):
+    print(&quot;foo: {}&quot;.format(foo))
+</code></pre>
+<h4 id="cache-1"><a class="header" href="#cache-1">cache</a></h4>
+<p>cache 的作用是存储一段测试会话的信息，在下一段测试会话中使用。<code>cache</code>的接口主要有两个：<code>cache.get(key, default)</code> 和 <code>cache.set(key, value)</code>。</p>
+<p>习惯上，键名以应用名字或插件名字开始，接着是<code>/</code>，然后是分隔开的键字符串。键值可以是任何可以转换成 JSON 的对象。</p>
+<pre><code class="language-python">Duration = namedtuple(&quot;Duration&quot;, [&quot;current&quot;, &quot;last&quot;])
+
+
+@pytest.fixture(scope=&quot;session&quot;)
+def duration_cache(request):
+    key = &quot;duration/test_durations&quot;
+    d = Duration({}, request.config.cache.get(key, {}))
+    yield d
+    request.config.cache.set(key, d.current)
+
+
+@pytest.fixture(autouse=True)
+def check_duration(request, duration_cache):
+    d = duration_cache
+    nodeid = request.node.nodeid  # nodeid is a unique identifier for the test
+    start_time = datetime.datetime.now()
+    yield
+    duration = (datetime.datetime.now() - start_time).total_seconds()
+    d.current[nodeid] = duration
+    if d.last.get(nodeid, None) is not None:
+        errorstring = &quot;test duration over 2x last duration&quot;
+        assert duration &lt;= (d.last[nodeid] * 2), errorstring
+
+
+@pytest.mark.parametrize(&quot;i&quot;, range(5))
+def test_slow_stuff(i):
+    time.sleep(random.random())
+</code></pre>
+<pre><code class="language-text">➤ pytest --cache-show
+================ test session starts ================
+platform linux -- Python 3.10.7, pytest-7.1.2, pluggy-1.0.0
+rootdir: /home/morris/tasks/tests
+cachedir: /home/morris/tasks/tests/.pytest_cache
+---------------- cache values for '*' ----------------
+duration/test_durations contains:
+  {'test_cache.py::test_slow_stuff[0]': 0.133439,
+   'test_cache.py::test_slow_stuff[1]': 0.569769,
+   'test_cache.py::test_slow_stuff[2]': 0.7625,
+   'test_cache.py::test_slow_stuff[3]': 0.930151,
+   'test_cache.py::test_slow_stuff[4]': 0.748842}
+</code></pre>
+<p>同时也能看到被 <code>cache</code> 的数据保存在 <code>.pytest_cache</code> 目录下。</p>
+<h4 id="capsys"><a class="header" href="#capsys">capsys</a></h4>
+<ul>
+<li>
+<p><code>capsys.readouterr()</code>：返回一个包含 <code>out</code> 和 <code>err</code> 的 <code>namedtuple</code>，分别是标准输出和标准错误的内容</p>
+<pre><code class="language-python">def test_capsys(capsys):
+    print(&quot;hello&quot;)
+    print(&quot;world&quot;, file=sys.stderr)
+    out, err = capsys.readouterr()
+    assert out == &quot;hello\n&quot;
+    assert err == &quot;world\n&quot;
+</code></pre>
+</li>
+<li>
+<p>临时让输出绕过默认的输出捕获机制，可以使用 <code>capsys.disabled()</code> 上下文管理器</p>
+<pre><code class="language-python">def test_capsys_disabled(capsys):
+    with capsys.disabled():
+        print(&quot;always print this&quot;)
+    print(&quot;normal print, usually captured&quot;)
+</code></pre>
+</li>
+</ul>
+<h4 id="monkeypatch"><a class="header" href="#monkeypatch">monkeypatch</a></h4>
+<p>monkeypatch 可以在运行期间对类或模块进行同态修改，比如修改环境变量、修改类属性、修改模块属性等。</p>
+<ul>
+<li>
+<p>setattr(target, name, value, raising=True)：修改对象的属性值</p>
+<pre><code class="language-python">def test_setattr(monkeypatch):
+    class A:
+        a = 1
+
+    monkeypatch.setattr(A, &quot;a&quot;, 2)
+    assert A.a == 2
+</code></pre>
+</li>
+<li>
+<p>delattr(target, name, raising=True)：删除对象的属性</p>
+<pre><code class="language-python">def test_delattr(monkeypatch):
+    class A:
+        a = 1
+
+    monkeypatch.delattr(A, &quot;a&quot;)
+    assert not hasattr(A, &quot;a&quot;)
+</code></pre>
+</li>
+<li>
+<p>setitem(mapping, name, value)：修改字典的值</p>
+<pre><code class="language-python">def test_setitem(monkeypatch):
+    d = {&quot;a&quot;: 1}
+    monkeypatch.setitem(d, &quot;a&quot;, 2)
+    assert d[&quot;a&quot;] == 2
+</code></pre>
+</li>
+<li>
+<p>delitem(obj, name, raising=True)：删除字典的值</p>
+<pre><code class="language-python">def test_delitem(monkeypatch):
+    d = {&quot;a&quot;: 1}
+    monkeypatch.delitem(d, &quot;a&quot;)
+    assert &quot;a&quot; not in d
+</code></pre>
+</li>
+<li>
+<p>setenv(name, value, prepend=False)：修改环境变量</p>
+<pre><code class="language-python">def test_setenv(monkeypatch):
+    monkeypatch.setenv(&quot;foo&quot;, &quot;bar&quot;)
+    assert os.environ[&quot;foo&quot;] == &quot;bar&quot;
+</code></pre>
+</li>
+<li>
+<p>delenv(name, raising=True)：删除环境变量</p>
+<pre><code class="language-python">def test_delenv(monkeypatch):
+    monkeypatch.setenv(&quot;foo&quot;, &quot;bar&quot;)
+    monkeypatch.delenv(&quot;foo&quot;)
+    assert &quot;foo&quot; not in os.environ
+</code></pre>
+</li>
+<li>
+<p>syspath_prepend(path)：在 <code>sys.path</code> 的开头添加路径，<code>sys.path</code> 是 Python 模块的搜索路径</p>
+<pre><code class="language-python">def test_syspath_prepend(monkeypatch):
+    monkeypatch.syspath_prepend(&quot;/foo&quot;)
+    assert sys.path[0] == &quot;/foo&quot;
+</code></pre>
+</li>
+<li>
+<p>chdir(path)：修改当前工作目录</p>
+<pre><code class="language-python">def test_chdir(monkeypatch):
+    monkeypatch.chdir(&quot;/tmp&quot;)
+    assert os.getcwd() == &quot;/tmp&quot;
+</code></pre>
+</li>
+</ul>
+<h4 id="recwarn"><a class="header" href="#recwarn">recwarn</a></h4>
+<p>recwarn 用来检查待测代码产生的警告信息。</p>
+<pre><code class="language-python">def test_recwarn(recwarn):
+    warnings.warn(&quot;Please stop using this function&quot;, DeprecationWarning)
+    assert len(recwarn) == 1
+    w = recwarn.pop()
+    assert w.category == DeprecationWarning
+    assert str(w.message) == &quot;Please stop using this function&quot;
+</code></pre>
+<p>pytest 还可以使用 <code>pytest.warns</code> 来检查警告信息。</p>
+<pre><code class="language-python">def lame_function():
+    warnings.warn(&quot;Please stop using this&quot;, DeprecationWarning)
+
+
+def test_lame_function():
+    with pytest.warns(DeprecationWarning) as warning_list:
+        lame_function()
+
+    assert len(warning_list) == 1
+    w = warning_list.pop()
+    assert w.category == DeprecationWarning
+    assert str(w.message) == &quot;Please stop using this&quot;
+</code></pre>
+<h2 id="插件"><a class="header" href="#插件">插件</a></h2>
+<h3 id="寻找插件"><a class="header" href="#寻找插件">寻找插件</a></h3>
+<ul>
+<li><a href="https://docs.pytest.org/en/latest/reference/plugin_list.html#plugin-list">https://docs.pytest.org/en/latest/reference/plugin_list.html#plugin-list</a></li>
+</ul>
+<h3 id="编写插件"><a class="header" href="#编写插件">编写插件</a></h3>
+<ul>
+<li>
+<p>使用 <code>pytest_addoption</code> 可以给 pytest 添加额外的命令行选项</p>
+<pre><code class="language-python">def pytest_addoption(parser):
+    parser.addoption(
+        &quot;--myopt&quot;,
+        action=&quot;store_true&quot;,
+        help=&quot;some boolean option&quot;,
+    )
+    parser.addoption(
+        &quot;--foo&quot;,
+        action=&quot;store&quot;,
+        default=&quot;bar&quot;,
+        help=&quot;foo: bar or baz&quot;,
+    )
+</code></pre>
+<p>或者不通过命令行参数，使用 <code>pytest.ini</code> 文件做自定义的配置</p>
+<pre><code class="language-python">def pytest_addoption(parser):
+    parser.addini(
+        &quot;myopt&quot;,
+        type=&quot;bool&quot;,
+        default=False,
+        help=&quot;some boolean option&quot;,
+    )
+    parser.addini(
+        &quot;foo&quot;,
+        type=&quot;string&quot;,
+        default=&quot;bar&quot;,
+        help=&quot;foo: bar or baz&quot;,
+</code></pre>
+</li>
+<li>
+<p>使用 <code>pytest_report_header</code> 可以在测试报告的 header 中添加额外的信息</p>
+<pre><code class="language-python">def pytest_report_header(config):
+    return &quot;🍎🍎🍎🍎🍎🍎🍎🍎🍎&quot;
+</code></pre>
+</li>
+<li>
+<p>使用 <code>pytest_report_teststatus</code> 可以修改测试报告中的测试状态</p>
+<pre><code class="language-python">def pytest_report_teststatus(report):
+    if report.when == &quot;call&quot; and report.failed:
+        return report.outcome, &quot;💥&quot;, &quot;💥&quot;
+</code></pre>
+</li>
+</ul>
+<h3 id="测试插件"><a class="header" href="#测试插件">测试插件</a></h3>
+<ul>
+<li>
+<p>开启 <code>pytester</code> 插件，在 conftest.py 中添加 <code>pytest_plugins = [&quot;pytester&quot;]</code></p>
+</li>
+<li>
+<p>使用 <code>pytester</code> 来测试插件</p>
+<pre><code class="language-python">@pytest.fixture()
+def sample_test(testdir):
+    testdir.makepyfile(
+        &quot;&quot;&quot;
+        def test_sample():
+            assert True
+        &quot;&quot;&quot;
+    )
+    return testdir
+
+
+def test_verbose(sample_test):
+    result = sample_test.runpytest(&quot;-v&quot;)
+    result.stdout.fnmatch_lines([&quot;*::test_sample PASSED*&quot;])
+    result.assert_outcomes(passed=1)
+</code></pre>
+<p><code>testdir</code> 自动创建了一个临时目录用来存放测试文件</p>
+</li>
+</ul>
+<h3 id="常用插件"><a class="header" href="#常用插件">常用插件</a></h3>
+<h4 id="pytest-cov"><a class="header" href="#pytest-cov">pytest-cov</a></h4>
+<p>报告测试覆盖率</p>
+<ul>
+<li>安装：<code>pip install pytest-cov</code></li>
+<li>使用：<code>pytest --cov=src --cov-report=html tests</code></li>
+</ul>
+<h4 id="pytest-mock"><a class="header" href="#pytest-mock">pytest-mock</a></h4>
+<p>替换系统的某个部分以隔离要测试的代码</p>
+<ul>
+<li>
+<p>安装：<code>pip install pytest-mock</code></p>
+</li>
+<li>
+<p>使用</p>
+<pre><code class="language-python">def test_mock(mocker):
+    mocker.patch(&quot;os.path.exists&quot;, return_value=True)
+    assert os.path.exists(&quot;/tmp&quot;)
+</code></pre>
+</li>
+</ul>
+<h4 id="pytest-xdist"><a class="header" href="#pytest-xdist">pytest-xdist</a></h4>
+<p>通常，测试都是依次执行的，因为有些资源一次只能被一个测试用例访问。如果你的测试不需要访问共享资源，可以通过并行运行来提速</p>
+<ul>
+<li>安装：<code>pip install pytest-xdist</code></li>
+<li>使用：<code>pytest -n auto</code></li>
+</ul>
+<h4 id="pytest-benchmark"><a class="header" href="#pytest-benchmark">pytest-benchmark</a></h4>
+<p>测试代码的性能</p>
+<ul>
+<li>
+<p>安装：<code>pip install pytest-benchmark</code></p>
+</li>
+<li>
+<p>使用</p>
+<pre><code class="language-python">def test_benchmark(benchmark):
+    benchmark.pedantic(lambda: 1 + 1, iterations=100, rounds=100)
+</code></pre>
+</li>
+</ul>
+<h4 id="pytest-repeat"><a class="header" href="#pytest-repeat">pytest-repeat</a></h4>
+<p>重复运行测试</p>
+<ul>
+<li>安装：<code>pip install pytest-repeat</code></li>
+<li>使用：<code>pytest --count=3</code></li>
+</ul>
+<h4 id="pytest-rerunfailures"><a class="header" href="#pytest-rerunfailures">pytest-rerunfailures</a></h4>
+<p>失败的测试重跑</p>
+<ul>
+<li>安装：<code>pip install pytest-rerunfailures</code></li>
+<li>使用：<code>pytest --reruns=3</code></li>
+</ul>
+<h4 id="pytest-timeout"><a class="header" href="#pytest-timeout">pytest-timeout</a></h4>
+<p>设置测试的超时时间（正常情况下，pytest 里的测试是没有时间限制的）</p>
+<ul>
+<li>安装：<code>pip install pytest-timeout</code></li>
+<li>使用：<code>pytest --timeout=10</code></li>
+<li>或者在代码中使用 <code>@pytest.mark.timeout(10)</code> 来设置单个测试的超时时间</li>
+</ul>
+<h4 id="pytest-instafail"><a class="header" href="#pytest-instafail">pytest-instafail</a></h4>
+<p>测试失败时立即输出堆栈回溯信息，而不是等到所有测试都执行完毕</p>
+<ul>
+<li>安装：<code>pip install pytest-instafail</code></li>
+<li>使用：<code>pytest --instafail</code></li>
+</ul>
+<h4 id="pytest-sugar"><a class="header" href="#pytest-sugar">pytest-sugar</a></h4>
+<p>显示彩色和进度条</p>
+<ul>
+<li>安装：<code>pip install pytest-sugar</code></li>
+<li>使用：<code>pytest --sugar</code></li>
+</ul>
+<h4 id="pytest-emoji"><a class="header" href="#pytest-emoji">pytest-emoji</a></h4>
+<p>显示 emoji</p>
+<ul>
+<li>安装：<code>pip install pytest-emoji</code></li>
+<li>使用：<code>pytest --emoji</code></li>
+</ul>
+<h4 id="pytest-html"><a class="header" href="#pytest-html">pytest-html</a></h4>
+<p>生成 html 报告</p>
+<ul>
+<li>安装：<code>pip install pytest-html</code></li>
+<li>使用：<code>pytest --html=report.html</code></li>
+</ul>
+<h4 id="pytest-flake8"><a class="header" href="#pytest-flake8">pytest-flake8</a></h4>
+<p>检查代码风格</p>
+<ul>
+<li>安装：<code>pip install pytest-flake8</code></li>
+<li>使用：<code>pytest --flake8</code></li>
+</ul>
+<h4 id="pytest-selenium"><a class="header" href="#pytest-selenium">pytest-selenium</a></h4>
+<p>借助浏览器完成自动化测试</p>
+<ul>
+<li>
+<p>安装：<code>pip install pytest-selenium</code></p>
+</li>
+<li>
+<p>使用</p>
+<pre><code class="language-python">def test_selenium(selenium):
+    selenium.get(&quot;https://www.baidu.com&quot;)
+    selenium.find_element_by_id(&quot;kw&quot;).send_keys(&quot;pytest&quot;)
+    selenium.find_element_by_id(&quot;su&quot;).click()
+    assert &quot;pytest&quot; in selenium.title
+</code></pre>
+</li>
+</ul>
+<h2 id="配置"><a class="header" href="#配置">配置</a></h2>
+<h3 id="pytestini"><a class="header" href="#pytestini">pytest.ini</a></h3>
+<p>它是 pytest 的主配置文件，可以在项目根目录下创建该文件，也可以在 <code>~/.config/pytest.ini</code> 中创建全局配置文件</p>
+<h4 id="修改默认命令行选项"><a class="header" href="#修改默认命令行选项">修改默认命令行选项</a></h4>
+<pre><code class="language-ini">[pytest]
+addopts = -s --tb=short --strict-markers
+</code></pre>
+<h4 id="注册标记"><a class="header" href="#注册标记">注册标记</a></h4>
+<pre><code class="language-ini">[pytest]
+markers =
+    smoke: smoke test
+    regression: regression test
+</code></pre>
+<h4 id="忽略那些不需要递归搜索的目录"><a class="header" href="#忽略那些不需要递归搜索的目录">忽略那些不需要递归搜索的目录</a></h4>
+<pre><code class="language-ini">[pytest]
+norecursedirs = .* venv *.egg dist build
+</code></pre>
+<h4 id="指定测试目录"><a class="header" href="#指定测试目录">指定测试目录</a></h4>
+<pre><code class="language-ini">[pytest]
+testpaths = tests
+</code></pre>
+<h4 id="更改测试搜索的规则"><a class="header" href="#更改测试搜索的规则">更改测试搜索的规则</a></h4>
+<pre><code class="language-ini">[pytest]
+python_files = test_*.py *_test.py pytest_*.py check_*.py
+python_classes = Tests* *Test *Suite
+python_functions = test_* check_*
+</code></pre>
+<h4 id="禁用-xpass"><a class="header" href="#禁用-xpass">禁用 xpass</a></h4>
+<p>那些被标记为 <code>@pytest.mark.xfail</code> 但实际通过的测试用例也被报告为失败</p>
+<pre><code class="language-ini">[pytest]
+xfail_strict = true
+</code></pre>
+<h3 id="conftestpy"><a class="header" href="#conftestpy">conftest.py</a></h3>
+<p>它是本地插件库，其中的 hook 函数和 fixture 将作用于该文件所在的目录以及所有子目录</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="视频处理"><a class="header" href="#视频处理">视频处理</a></h1>
 <p><img src="cs/../images/video-process/video-process-flow.jpg" alt="视频处理工作流程" /></p>
 <h2 id="图像的基本概念"><a class="header" href="#图像的基本概念">图像的基本概念</a></h2>
