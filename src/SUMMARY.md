@@ -43,6 +43,7 @@
 # 通信协议
 
 - [USB 协议基础](ee/usb.md)
+- [CAN 协议基础](ee/can.md)
 
 ---
 
