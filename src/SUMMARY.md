@@ -44,6 +44,7 @@
 
 - [USB 协议基础](ee/usb.md)
 - [CAN 协议基础](ee/can.md)
+- [MIPI 协议基础](ee/mipi.md)
 
 ---
 
