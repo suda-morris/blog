@@ -1,0 +1,392 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIPI 协议基础 - 🐏 suda-morris 个人博客 🐇</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="Personal Blog">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">3.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">4.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="../cs/pytest.html"><strong aria-hidden="true">5.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">6.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">7.</strong> USB 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/can.html"><strong aria-hidden="true">8.</strong> CAN 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/mipi.html" class="active"><strong aria-hidden="true">9.</strong> MIPI 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">10.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">前端</li><li class="chapter-item expanded "><a href="../cs/tauri.html"><strong aria-hidden="true">11.</strong> Tauri</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">12.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">13.</strong> slides 工具</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">🐏 suda-morris 个人博客 🐇</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/suda-morris/blog" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/suda-morris/blog/edit/master/src/ee/mipi.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mipi-基础"><a class="header" href="#mipi-基础">MIPI 基础</a></h1>
+<h2 id="mipi-层次结构"><a class="header" href="#mipi-层次结构">MIPI 层次结构</a></h2>
+<p><img src="../images/mipi/mipi-hiearachy.jpeg" alt="MIPI 应用的层级结构" /></p>
+<h3 id="dsi"><a class="header" href="#dsi">DSI</a></h3>
+<p>MIPI DSI 是基于字节的协议，应用层完成各种操作下相关命令的选择、各像素点图像数据的字节映射处理。MIPI 定义了<strong>命令模式</strong>和<strong>视频模式</strong>两种传输模式。视频模式以实时像素数据流的方式从处理器向外设传输数据，而命令模式可以做到按需传输，只需要在图像内容发生变化时再进行新图像数据的传输。命令模式需要显示模组中的帧缓存存储器的支持。<em>这两种传输模式的支持，由模组硬件结构决定</em>。</p>
+<p><img src="../images/mipi/mipi-dsi-flow.jpg" alt="DSI 数据通路" /></p>
+<p>MIPI DSI 的高速数据传输采用差分信号来传输，在时钟通道和各个数据通道上都会有高速数据传输。</p>
+<p>MIPI DSI 的低功耗数据传输并不需要时钟传输，这时 D-PHY 采用<strong>归零码</strong>的方式来表示逻辑数据“0” “1”，并且低功耗数据只会在数据通道<strong>0</strong>上进行传输，对通道<strong>0</strong>的P端和N端进行<strong>异或</strong>操作就可以恢复出数据比特流的“同步时钟”。</p>
+<h4 id="视频模式"><a class="header" href="#视频模式">视频模式</a></h4>
+<p>视频模式下，图像数据的传输是用<strong>低阶协议层</strong>包结构中的数据类型标识符（DT,Data Type）字段区分，用不同的 DT 来构造视频模式传输所需要的各种数据包。视频模式下，应用层只提供图像数据的净荷，利用低阶协议层进行组包处理。在 MIPI DSI 中，同步信号分为以下几个命令：</p>
+<div class="table-wrapper"><table><thead><tr><th>同步信号命令</th><th>功能</th></tr></thead><tbody>
+<tr><td>HSS</td><td>HSA开始命令</td></tr>
+<tr><td>HSE</td><td>HSA结束命令</td></tr>
+<tr><td>VSS</td><td>VSA开始命令</td></tr>
+<tr><td>VSE</td><td>VSA结束命令</td></tr>
+</tbody></table>
+</div>
+<h5 id="非突发同步脉冲模式"><a class="header" href="#非突发同步脉冲模式">非突发同步脉冲模式</a></h5>
+<p><img src="../images/mipi/mipi-dsi-video-nonburst-sync-pulse.jpg" alt="非突发同步脉冲模式" /></p>
+<h5 id="非突发同步事件模式"><a class="header" href="#非突发同步事件模式">非突发同步事件模式</a></h5>
+<p><img src="../images/mipi/mipi-dsi-video-nonburst-sync-event.jpg" alt="非突发同步事件模式" /></p>
+<p>在这个模式下，不再向显示模组传输 HSE、VSE 命令，而仅仅传输 HSS、VSS 命令。</p>
+<h5 id="突发模式"><a class="header" href="#突发模式">突发模式</a></h5>
+<p><img src="../images/mipi/mipi-dsi-video-burst.jpg" alt="突发模式" /></p>
+<p>突发模式是指传输 RGB 图像数据时，充分利用 MIPI 提供的带宽，采用突发方式先把图像数据传输给显示模组进行缓存，然后切换到低功耗模式。<strong>这种模式需要显示模组有行缓存区或类似的存储区域</strong>。</p>
+<p>常用的数据命令传输方式：</p>
+<p><img src="../images/mipi/mipi-dsi-transfer-sequence.jpg" alt="传输方式" /></p>
+<p>在有效显示行、行同步信号和有效数据之间，需要使用消隐包（blanking packet) 来填充相应的时间，在消隐行期间，没有图像数据传输，也用消隐包来替代。采用这种结构，一帧中的每一行，处于发送的时间都是相同的。</p>
+<h5 id="图像数据包格式dt0x3e"><a class="header" href="#图像数据包格式dt0x3e">图像数据包格式(DT=0x3E)</a></h5>
+<p>视频模式下，在应用层，只提供实时图像数据流，LLP层提供一定开销，通过所组数据包中的DI字段，形成VSS、HSS等时序命令，向从设备传递时序信息。RGB图像数据也通过 DI 字段的不同命令来传输。</p>
+<p><img src="../images/mipi/mipi-dsi-video-color-packet.jpg" alt="图像数据包格式" /></p>
+<h4 id="低阶协议层-llp"><a class="header" href="#低阶协议层-llp">低阶协议层 （LLP）</a></h4>
+<p><img src="../images/mipi/mipi-dsi-llp-single-transmission.jpg" alt="单次传输" /></p>
+<p>基于 MIPI DSI 物理层 D-PHY 的特殊结构，每个包在开始传输前，一定处于一个被称为低功耗模式的状态（LPS）。开始数据传输时，最先传输的是一种特殊的包结构——包开始指示（SoT, Start of Transmission）。SOT之后才传输 MIPI DSI 数据包。为了增加接口处理带宽，MIPI DSI 允许一次数据传输支持多个数据包，且长包和短包可以<strong>任意顺序</strong>出现。在同一次传输中，这些数据包要么都用高速传输模式，要么都用低功耗传输模式。</p>
+<h4 id="dsi-包结构"><a class="header" href="#dsi-包结构">DSI 包结构</a></h4>
+<ul>
+<li>
+<p>长包结构(最大65535字节的payload)
+<img src="../images/mipi/mipi-dsi-long-packet-structure.jpg" alt="DSI 长包结构" /></p>
+</li>
+<li>
+<p>短包结构(固定传输两个字节)
+<img src="../images/mipi/mipi-dsi-short-packet-structure.jpg" alt="DSI 短包结构" /></p>
+</li>
+</ul>
+<h4 id="dsi-数据传输字节序"><a class="header" href="#dsi-数据传输字节序">DSI 数据传输字节序</a></h4>
+<p><img src="../images/mipi/mipi-dsi-bytes-order.jpg" alt="DSI 数据传输字节序" /></p>
+<p>一个数据包内的各个字节按照低字节，低比特位先传。</p>
+<h4 id="数据包类型标识符dt"><a class="header" href="#数据包类型标识符dt">数据包类型标识符（DT）</a></h4>
+<ul>
+<li>正向数据传输的 DT</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>DT 编码值</th><th>DT 含义</th><th>说明</th><th>长短包类型</th></tr></thead><tbody>
+<tr><td>01h</td><td>VSS ( V Sync Start )</td><td>帧同步开始数据包</td><td>短包</td></tr>
+<tr><td>11h</td><td>VSE ( V Sync End )</td><td>帧同步结束数据包</td><td>短包</td></tr>
+<tr><td>21h</td><td>HSS (H Sync Start )</td><td>行同步开始数据包</td><td>短包</td></tr>
+<tr><td>31h</td><td>HSE (H Sync End )</td><td>行同步结束数据包</td><td>短包</td></tr>
+<tr><td>08h</td><td>EoTp ( EoT Packet )</td><td>传输结束指示数据包</td><td>短包</td></tr>
+<tr><td>02h</td><td>Color Mode On Command</td><td>显示模组进入浅色显示模式</td><td>短包</td></tr>
+<tr><td>12h</td><td>Color Mode Off Command</td><td>显示模组恢复正常显示模式</td><td>短包</td></tr>
+<tr><td>22h</td><td>Shutdown Peripheral Command</td><td>关闭显示模组命令</td><td>短包</td></tr>
+<tr><td>32h</td><td>Turn On Peripheral Command</td><td>激活显示模组命令</td><td>短包</td></tr>
+<tr><td>03h</td><td>Generic Short Write</td><td>通用短包写命令，不带参数</td><td>短包</td></tr>
+<tr><td>13h</td><td>Generic Short Write</td><td>通用短包写命令，带1字节参数</td><td>短包</td></tr>
+<tr><td>23h</td><td>Generic Short Write</td><td>通用短包写命令，带2字节参数</td><td>短包</td></tr>
+<tr><td>04h</td><td>Generic Read</td><td>通用读命令，不带参数</td><td>短包</td></tr>
+<tr><td>14h</td><td>Generic Read</td><td>通用读命令，带1字节参数</td><td>短包</td></tr>
+<tr><td>24h</td><td>Generic Read</td><td>通用读命令，带2字节参数</td><td>短包</td></tr>
+<tr><td>05h</td><td>DCS Short Write</td><td>DCS短包写命令，不带参数</td><td>短包</td></tr>
+<tr><td>15h</td><td>DCS Short Write</td><td>DCS短包写命令，带1字节参数</td><td>短包</td></tr>
+<tr><td>06h</td><td>DCS Read</td><td>DCS读命令，不带参数</td><td>短包</td></tr>
+<tr><td>37h</td><td>Set Maximum Return Packet</td><td>设置最大返回包长度</td><td>短包</td></tr>
+<tr><td>09h</td><td>Null Packet</td><td>空包，不带数据</td><td>短包</td></tr>
+<tr><td>19h</td><td>Blanking Packet</td><td>消隐包，不带数据</td><td>长包</td></tr>
+<tr><td>29h</td><td>Generic Long Write</td><td>通用长包写命令</td><td>长包</td></tr>
+<tr><td>39h</td><td>DCS Long Write</td><td>DCS长包写命令</td><td>长包</td></tr>
+<tr><td>0Ch</td><td>Loosely Packet Pixel Stream</td><td>20比特4:2:2格式YUV像素流</td><td>长包</td></tr>
+<tr><td>1Ch</td><td>Packed Pixel Stream</td><td>24比特4:2:2格式YUV像素流</td><td>长包</td></tr>
+<tr><td>2Ch</td><td>Packed Pixel Stream</td><td>16比特4:2:2格式YUV像素流</td><td>长包</td></tr>
+<tr><td>0Dh</td><td>Packed Pixel Stream</td><td>30比特10:10:10格式RGB像素流</td><td>长包</td></tr>
+<tr><td>1Dh</td><td>Packed Pixel Stream</td><td>36比特12:12:12格式RGB像素流</td><td>长包</td></tr>
+<tr><td>3Dh</td><td>Packed Pixel Stream</td><td>12比特4:2:0格式YUV像素流</td><td>长包</td></tr>
+<tr><td>0Eh</td><td>Packed Pixel Stream</td><td>16比特5:6:7格式RGB像素流</td><td>长包</td></tr>
+<tr><td>1Eh</td><td>Packed Pixel Stream</td><td>18比特6:6:6格式RGB像素流</td><td>长包</td></tr>
+<tr><td>2Eh</td><td>Loosely Packet Pixel Stream</td><td>18比特6:6:6格式RGB像素流</td><td>长包</td></tr>
+<tr><td>3Eh</td><td>Packed Pixel Stream</td><td>24比特8:8:8格式RGB像素流</td><td>长包</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li>反向数据传输的 DT</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>DT 编码值</th><th>DT 含义</th><th>说明</th><th>长短包类型</th></tr></thead><tbody>
+<tr><td>02h</td><td>Acknowledge Error Report</td><td>错误应答报告</td><td>短包</td></tr>
+<tr><td>08h</td><td>EoTp ( EoT Packet )</td><td>传输结束指示数据包</td><td>短包</td></tr>
+<tr><td>11h</td><td>Generic Short Read Response</td><td>通用短包读响应，返回1字节数据</td><td>短包</td></tr>
+<tr><td>12h</td><td>Generic Short Read Response</td><td>通用短包读响应，返回2字节数据</td><td>短包</td></tr>
+<tr><td>21h</td><td>DCS Short Read Response</td><td>DCS短包读响应，返回1字节数据</td><td>短包</td></tr>
+<tr><td>22h</td><td>DCS Short Read Response</td><td>DCS短包读响应，返回2字节数据</td><td>短包</td></tr>
+<tr><td>1Ah</td><td>Generic Long Read Response</td><td>通用长包读响应</td><td>长包</td></tr>
+<tr><td>1Ch</td><td>DCS Long Read Response</td><td>DCS长包读响应</td><td>长包</td></tr>
+</tbody></table>
+</div>
+<p>其中的错误应答报告数据包的各个比特的含义如下：</p>
+<div class="table-wrapper"><table><thead><tr><th>比特位</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>传输开始错误</td></tr>
+<tr><td>1</td><td>传输开始同步错误</td></tr>
+<tr><td>2</td><td>传输结束同步错误</td></tr>
+<tr><td>3</td><td>逃逸模式进入命令错误</td></tr>
+<tr><td>4</td><td>低功耗传输同步错误</td></tr>
+<tr><td>5</td><td>外设超时错误</td></tr>
+<tr><td>6</td><td>错误控制错误</td></tr>
+<tr><td>7</td><td>冲突检测错误</td></tr>
+<tr><td>8</td><td>单比特ECC错误 （检测到，且已纠正）</td></tr>
+<tr><td>9</td><td>多比特ECC错误 （检测到，但未纠正）</td></tr>
+<tr><td>10</td><td>CRC错误</td></tr>
+<tr><td>11</td><td>无法识别的DSI数据类型</td></tr>
+<tr><td>12</td><td>无效的虚拟通道号</td></tr>
+<tr><td>13</td><td>无效的数据长度</td></tr>
+<tr><td>14</td><td>保留位</td></tr>
+<tr><td>15</td><td>DSI协议违例</td></tr>
+</tbody></table>
+</div>
+<p>不管是正向数据传输还是反向数据传输，都有 EoTp 的数据类型，DT 值为08h，虚拟通道号<strong>固定为0</strong>。</p>
+<p>当从设备同时有其他数据包需要传输回主处理器时，应答和错误报告数据包必须是<strong>最后一个</strong>传输的数据包。如果没有检测到任何错误，应该和错误数据包也可以不传输。</p>
+<h4 id="链路管理层"><a class="header" href="#链路管理层">链路管理层</a></h4>
+<p>MIPI DSI 是一个数据通道灵活可变的数据传输系统，对于一个指定的系统，一旦上电后，支持的通道数量也就固定下来了，不能在工作过程中进行修改。MIPI DSI 数据包传输使用多个数据通道时，每个通道发起各自的 SoT,所以每个通道的第一个字节发送时间是相同的，但是EoT却不尽然。接收端必须等全部通道的数据收集完毕后才能把数据送给低阶协议层。</p>
+<h4 id="mipi-d-phy"><a class="header" href="#mipi-d-phy">MIPI D-PHY</a></h4>
+<p><img src="../images/mipi/mipi-dphy-signal-level.jpg" alt="信号电平" /></p>
+<p>一个通道两根信号的电平值确定了 D-PHY 的工作状态。分别把两个信号线用 Dp、Dn来表示，MIPI 通道的电平状态有以下几种：</p>
+<ul>
+<li>HS-0: 高速模式下的逻辑0，Dp=差分低电平（100mV），Dn=差分高电平（300mV）</li>
+<li>HS-1: 高速模式下的逻辑1，Dp=差分高电平（300mV），Dn=差分低电平（100mV）</li>
+<li>LP-00: Dp 和 Dn 都是低功耗信令低电平</li>
+<li>LP-11: Dp 和 Dn 都是低功耗信令高电平。也称为停止状态，MIPI 主机和设备之间无法进行任何数据通信。</li>
+<li>LP-01: Dp 是低功耗信令低电平，Dn 是低功耗信令高电平</li>
+<li>LP-10: Dp 是低功耗信令高电平，Dn 是低功耗信令低电平</li>
+</ul>
+<p>处于停止状态时，需要Dp、Dn上的特定电平序列才能进入允许数据/命令传输的状态，这些特定的电平序列被称为<strong>传输请求</strong>。</p>
+<div class="table-wrapper"><table><thead><tr><th>Dp Dn 电平序列</th><th>传输请求类型</th></tr></thead><tbody>
+<tr><td>LP11 -&gt; LP01 -&gt; LP00</td><td>高速数据传输请求</td></tr>
+<tr><td>LP11 -&gt; LP10 -&gt; LP00 -&gt; LP01 -&gt; LP00</td><td>逃逸模式请求</td></tr>
+<tr><td>LP11 -&gt; LP10 -&gt; LP00 -&gt; LP10 -&gt; LP00</td><td>（总线方向）反转请求</td></tr>
+</tbody></table>
+</div>
+<h5 id="总线方向反转bus-turn-around"><a class="header" href="#总线方向反转bus-turn-around">总线方向反转（Bus Turn Around）</a></h5>
+<p><img src="../images/mipi/mipi-dphy-bus-turn-around.jpg" alt="总线反转步骤" /></p>
+<p>图中1号区域代表<strong>低功耗请求</strong>，3号区域代表<strong>反转请求</strong>，6号区域代表<strong>反转应答</strong></p>
+<h5 id="逃逸模式"><a class="header" href="#逃逸模式">逃逸模式</a></h5>
+<p>逃逸模式是低功耗模式下的一种特殊场景，用来实现一些特定功能。进入逃逸模式后传输的第一个字节被称为<strong>Entry Command</strong>或<strong>逃逸命令</strong>，它确定了进入逃逸模式后实现什么样的功能。</p>
+<div class="table-wrapper"><table><thead><tr><th>字节值</th><th>命令名称</th><th>含义</th></tr></thead><tbody>
+<tr><td>87h</td><td>低功耗数据传输命令</td><td>模式命令，表示后面需要进行低功耗数据传输</td></tr>
+<tr><td>78h</td><td>超低功耗状态命令</td><td>模式命令，表示后面需要进行超低功耗状态</td></tr>
+<tr><td>46h</td><td>复位触发（远端应用）命令</td><td>触发类型命令</td></tr>
+</tbody></table>
+</div>
+<p>低功耗数据传输示例：
+<img src="../images/mipi/mipi-dphy-lpdt.jpg" alt="低功耗数据传输" /></p>
+<p>低功耗模式下的传输速率上限是10Mbps,且只能在数据通道0上进行数据传输。</p>
+<h5 id="高速模式"><a class="header" href="#高速模式">高速模式</a></h5>
+<p>高速模式传输数据时，时钟通道必须要<strong>先</strong>进入高速模式，反之，退出高速模式时，时钟通道要在数据通道退出高速模式之后一定时间才能退出高速模式。</p>
+<ul>
+<li>
+<p>时钟通道进入高速模式：
+<img src="../images/mipi/mipi-dphy-hs-enter-clock.jpg" alt="时钟通道进入高速模式" /></p>
+<ul>
+<li>图中的1,2,3部分是高速模式请求序列</li>
+<li>第4段表示，时钟进入高速模式时，先驱动一定时间的信号<code>0</code></li>
+<li>第5段表示最后输出的高速差分时钟信号</li>
+</ul>
+</li>
+<li>
+<p>数据通道进入高速模式：
+<img src="../images/mipi/mipi-dphy-hs-enter-data.jpg" alt="数据通道进入高速模式" /></p>
+<ul>
+<li>与时钟通道进入高速模式不同，数据通道需要额外的<strong>高速同步序列</strong>，图中的第2段，该同步序列为一个字节：0xB8</li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ee/can.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../ee/yosys.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ee/can.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../ee/yosys.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
