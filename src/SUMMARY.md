@@ -22,6 +22,12 @@
 
 ---
 
+# 编程语言
+
+- [Rust](cs/rust.md)
+
+---
+
 # 控制系统
 
 - [控制系统基础](ee/control-system.md)

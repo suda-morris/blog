@@ -2,29 +2,6 @@
 
 ## 语言基础
 
-### 语言版本说明
-
-![Rust语言语义化版本与版次](../.vuepress/public/images/cs/rust/rust_version_edition.png)
-
-```toml
-[package]
-name = "learning-rust"
-version = "0.1.0"
-authors = ["morris"]
-edition = "2018"
-```
-
-### 编译过程
-
-![Rust 编译过程](../.vuepress/public/images/cs/rust/rust_compile_process.png)
-
-1. 分词：把词法结构处理成词条流
-2. 词条流经过语法解析形成抽象语法树
-3. 抽象语法树简化成高级中间语言 (HIR)，编译器对 HIR 进行类型检查、方法查找等工作
-4. HIR 进一步简化形成中级中间语言 (MIR)，编译器对 MIR 进行借用检查、优化等工作，在 MIR 中已经看不到 Rust 各版次的差异了
-5. 产生 LLVM 中间语言
-6. LLVM 后端会对 LLVM 中间语言进行优化，最终生成机器代码
-
 ### 词法结构
 
 #### 关键字
@@ -73,7 +50,7 @@ Rust 中的空白字符只用作分隔标记，没有语意
 
 块表达式只对其最后一行表达式进行求值
 
-### 编译期计算 
+### 编译期计算
 
 1. 过程宏 + Build 脚本 (build.rs)
 2. 类似于 Cpp 中 constexpr 的 CTFE 功能
@@ -133,8 +110,6 @@ Rust 编译器内置 MIR （中级中间语言）的解释器——Miri，它可
 
 ![Rust 表达式背后的内存管理](../.vuepress/public/images/cs/rust/rust_memory_management_behind_expression.png)
 
-
-
 ##### 位置表达式
 
 | 位置表达式     | 举例                        |
@@ -143,16 +118,3 @@ Rust 编译器内置 MIR （中级中间语言）的解释器——Miri，它可
 | 解引用表达式   | *expr                       |
 | 数组索引表达式 | expr[expr]                  |
 | 字段表达式     | expr.field                  |
-
-##### Rust 所有权语义在表达式上的体现
-
-```rust
-let stack_a = 42; // stack_a 是位置表达式，值42实现了 Copy,所以保存在栈内存
-let stack_b = stack_a; // stack_a 出现在了值上下文中，发生了 Copy
-stack_a; // 合法
-
-let heap_a = "hello".to_string(); // heap_a 是位置表达式，字符串未实现 Copy,所以保存在堆内存
-let heap_b = heap_a; // heap_a 出现在值上下文，发生了 Move
-heap_a; // 错误
-```
-
