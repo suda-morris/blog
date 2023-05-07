@@ -490,7 +490,33 @@ pub trait Default {
 
 凡是需要做资源回收的数据结构，且实现了 `Deref/DerefMut/Drop`，都是智能指针。
 
-## 替换默认的内存分配器
+### Box\<T\>
+
+#### `new` 方法
+
+```rust
+
+#[cfg(not(no_global_oom_handling))]
+#[inline(always)]
+pub fn new(x: T) -> Self {
+    // box 是 Rust 的内部关键字，在编译时，会使用内存分配器来分配内存
+    box x
+}
+```
+
+#### 实现 `Drop` trait
+
+```rust
+unsafe impl<#[may_dangle] T: ?Sized, A: Allocator> Drop for Box<T, A> {
+    fn drop(&mut self) {
+        // Do nothing, drop is currently performed by compiler.
+    }
+}
+```
+
+## 内存分配器
+
+### 替换默认的内存分配器
 
 堆上分配内存的 `Box<T>` 有一个缺省的泛型参数 `A`，需要满足 `Allocator`，并且默认是 `Global`，这个 `Global` 就是默认的内存分配器。
 
@@ -503,7 +529,325 @@ static GLOBAL: Jemalloc = Jemalloc;
 fn main() {}
 ```
 
+### 自定义内存分配器
+
 如果想要编写一个全局分配器，可以实现 `GlobalAlloc` trait，它和 `Allocator` trait 的主要区别在于是否允许分配长度为0的内存。
+
+```rust
+use std::alloc::{GlobalAlloc, Layout, System};
+
+struct MyAllocator;
+
+unsafe impl GlobalAlloc for MyAllocator {
+    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
+        let data = System.alloc(layout);
+        // 这里不能使用 println!()
+        // stdout 会打印到一个由 Mutex 互斥锁保护的共享全局 buffer 中，这个过程中会涉及内存的分配
+        // 分配的内存又会触发 println!()，最终造成程序崩溃
+        // eprintln! 直接打印到 stderr，不会 buffer
+        eprintln!("ALLOC: {:p}, size {}", data, layout.size());
+        data
+    }
+
+    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
+        System.dealloc(ptr, layout);
+        eprintln!("FREE: {:p}, size {}", ptr, layout.size());
+    }
+}
+
+#[global_allocator]
+static GLOBAL: MyAllocator = MyAllocator;
+
+#[allow(dead_code)]
+struct Matrix {
+    // 使用不规则的数字如 505 可以让 dbg! 的打印很容易分辨出来
+    data: [u8; 505],
+}
+
+impl Default for Matrix {
+    fn default() -> Self {
+        Self { data: [0; 505] }
+    }
+}
+
+fn main() {
+    // 在这句执行之前已经有好多内存分配
+    let data = Box::new(Matrix::default());
+
+    // 输出中有一个 1024 大小的内存分配，是 println! 导致的
+    println!(
+        "!!! allocated memory: {:p}, len: {}",
+        &*data,
+        std::mem::size_of::<Matrix>()
+    );
+
+    // data 在这里 drop，可以在打印中看到 FREE
+    // 之后还有很多其它内存被释放
+}
+```
+
+Standard Error 中输出的结果如下：
+
+```plain
+ALLOC: 0x55c63eb5b940, size 5
+ALLOC: 0x55c63eb5b960, size 48
+ALLOC: 0x55c63eb5b9d0, size 505
+ALLOC: 0x55c63eb5b500, size 1024
+FREE: 0x55c63eb5b9d0, size 505
+FREE: 0x55c63eb5b500, size 1024
+FREE: 0x55c63eb5b940, size 5
+FREE: 0x55c63eb5b960, size 48
+```
+
+## 错误处理
+
+### `?` 操作符
+
+? 操作符内部被展开成类似这样的代码：
+
+```rust
+match result {
+    Ok(v) => v,
+    Err(e) => return Err(e.into())
+}
+```
+
+### 函数式错误处理
+
+![函数式错误处理](../images/rust/functional-error-handling.webp)
+
+### cache_unwind
+
+Rust 标准库提供了`catch_unwind()`函数，能够像异常处理那样将调用栈回溯到 catch_unwind 这一刻，作用和其它语言的 try {…} catch {…} 一样。
+
+```rust
+use std::panic;
+
+fn main() {
+    let result = panic::catch_unwind(|| {
+        println!("hello!");
+    });
+    assert!(result.is_ok());
+    let result = panic::catch_unwind(|| {
+        panic!("oh no!");
+    });
+    assert!(result.is_err());
+    println!("panic captured: {:#?}", result);
+}
+```
+
+### `Error` trait
+
+为了规范代表错误的数据类型的行为，Rust 定义了 Error trait：
+
+```rust
+pub trait Error: Debug + Display {
+    fn source(&self) -> Option<&(dyn Error + 'static)> { ... }
+    fn backtrace(&self) -> Option<&Backtrace> { ... }
+    fn description(&self) -> &str { ... }
+    fn cause(&self) -> Option<&dyn Error> { ... }
+}
+```
+
+[thiserror](https://github.com/dtolnay/thiserror) 可以帮助简化错误类型的定义。
+
+```rust
+use thiserror::Error;
+#[derive(Error, Debug)]
+#[non_exhaustive]
+pub enum DataStoreError {
+    #[error("data store disconnected")]
+    Disconnect(#[from] io::Error),
+    #[error("the data for key `{0}` is not available")]
+    Redaction(String),
+    #[error("invalid header (expected {expected:?}, found {found:?})")]
+    InvalidHeader {
+        expected: String,
+        found: String,
+    },
+    #[error("unknown data store error")]
+    Unknown,
+}
+```
+
+[anyhow](https://github.com/dtolnay/anyhow) 实现了 `anyhow::Error` 和任意符合 Error trait 的错误类型之间的转换，让你可以使用 `?` 操作符，不必再手工转换错误类型。
+
+## 闭包
+
+闭包是一种匿名类型，一旦声明，就会产生一个新的类型，但这个类型无法被其它地方使用。这个类型就像一个结构体，会包含所有捕获的变量。闭包是存储在**栈**上，并且除了捕获的数据外，闭包本身不包含任何额外函数指针指向闭包的代码。
+
+```rust
+use std::{collections::HashMap, mem::size_of_val};
+
+// 长度为 0
+let c1 = || println!("hello world!");
+// 和参数无关，长度也为 0
+let c2 = |i: i32| println!("hello: {}", i);
+let name = String::from("tyr");
+let name1 = name.clone();
+let mut table = HashMap::new();
+table.insert("hello", "world");
+// 如果捕获一个引用，长度为 8
+let c3 = || println!("hello: {}", name);
+// 捕获移动的数据 name1(长度 24) + table(长度 48)，因此 closure 长度 72
+let c4 = move || println!("hello: {}, {:?}", name1, table);
+let name2 = name.clone();
+// 和局部变量无关，捕获了一个 String name2，因此 closure 长度 24
+let c5 = move || {
+    let x = 1;
+    let name3 = String::from("lindsey");
+    println!("hello: {}, {:?}, {:?}", x, name2, name3);
+};
+
+println!(
+    "c1: {}, c2: {}, c3: {}, c4: {}, c5: {}, main: {}",
+    size_of_val(&c1),
+    size_of_val(&c2),
+    size_of_val(&c3),
+    size_of_val(&c4),
+    size_of_val(&c5),
+    size_of_val(&main),
+);
+```
+
+**不带 move 时，闭包捕获的是对应自由变量的引用；带 move 时，对应自由变量的所有权会被移动到闭包结构中**。
+
+### 闭包的类型
+
+![闭包的类型](../images/rust/closure-trait.webp)
+
+```rust
+pub trait FnOnce<Args> {
+    type Output;
+    // 会转移 self 的所有权到 call_once 函数中
+    extern "rust-call" fn call_once(self, args: Args) -> Self::Output;
+}
+```
+
+```rust
+// 一个 FnMut 闭包，可以被传给一个需要 FnOnce 的上下文，此时调用闭包相当于调用了 call_once()
+pub trait FnMut<Args>: FnOnce<Args> {
+    extern "rust-call" fn call_mut(
+        &mut self,
+        args: Args
+    ) -> Self::Output;
+}
+```
+
+```rust
+// 任何需要 FnOnce 或者 FnMut 的场合，都可以传入满足 Fn 的闭包
+pub trait Fn<Args>: FnMut<Args> {
+    extern "rust-call" fn call(&self, args: Args) -> Self::Output;
+}
+```
+
+### 将闭包作为参数传递
+
+```rust
+fn main() {
+    let v = vec![0u8; 1024];
+    let v1 = vec![0u8; 1023];
+
+    // Fn，不移动所有权
+    let mut c = |x: u64| v.len() as u64 * x;
+    // Fn，移动所有权
+    let mut c1 = move |x: u64| v1.len() as u64 * x;
+
+    println!("direct call: {}", c(2));
+    println!("direct call: {}", c1(2));
+
+    println!("call: {}", call(3, &c));
+    println!("call: {}", call(3, &c1));
+
+    println!("call_mut: {}", call_mut(4, &mut c));
+    println!("call_mut: {}", call_mut(4, &mut c1));
+
+    println!("call_once: {}", call_once(5, c));
+    println!("call_once: {}", call_once(5, c1));
+}
+
+fn call(arg: u64, c: &impl Fn(u64) -> u64) -> u64 {
+    c(arg)
+}
+
+fn call_mut(arg: u64, c: &mut impl FnMut(u64) -> u64) -> u64 {
+    c(arg)
+}
+
+fn call_once(arg: u64, c: impl FnOnce(u64) -> u64) -> u64 {
+    c(arg)
+}
+```
+
+### 返回闭包
+
+```rust
+use std::ops::Mul;
+
+fn main() {
+    let c1 = curry(5);
+    println!("5 multiply 2 is: {}", c1(2));
+
+    let adder2 = curry(3.14);
+    println!("pi multiply 4^2 is: {}", adder2(4. * 4.));
+}
+
+fn curry<T>(x: T) -> impl Fn(T) -> T
+where
+    T: Mul<Output = T> + Copy,
+{
+    move |y| x * y
+}
+```
+
+### 给闭包实现其他 trait
+
+有些接口既可以传入一个结构体，又可以传入一个函数或者闭包。
+
+```rust
+pub trait Executor {
+    fn execute(&self, cmd: &str) -> Result<String, &'static str>;
+}
+
+struct BashExecutor {
+    env: String,
+}
+
+impl Executor for BashExecutor {
+    fn execute(&self, cmd: &str) -> Result<String, &'static str> {
+        Ok(format!(
+            "fake bash execute: env: {}, cmd: {}",
+            self.env, cmd
+        ))
+    }
+}
+
+impl<T> Executor for T
+where
+    T: Fn(&str) -> Result<String, &'static str>,
+{
+    fn execute(&self, cmd: &str) -> Result<String, &'static str> {
+        self(cmd)
+    }
+}
+
+fn main() {
+    let env = "PATH=/usr/bin".to_string();
+
+    let cmd = "cat /etc/passwd";
+    let r1 = execute(cmd, BashExecutor { env: env.clone() });
+    println!("{:?}", r1);
+
+    let r2 = execute(cmd, |cmd: &str| {
+        Ok(format!("fake fish execute: env: {}, cmd: {}", env, cmd))
+    });
+    println!("{:?}", r2);
+}
+
+fn execute(cmd: &str, exec: impl Executor) -> Result<String, &'static str> {
+    exec.execute(cmd)
+}
+```
 
 ## 参考资料
 
