@@ -1,18 +1,33 @@
-# MIPI 基础
+# MIPI DSI 基础
 
 ## MIPI 层次结构
 
 ![MIPI 应用的层级结构](../images/mipi/mipi-hiearachy.jpeg)
 
-### DSI
+## DSI
 
 MIPI DSI 是基于字节的协议，应用层完成各种操作下相关命令的选择、各像素点图像数据的字节映射处理。MIPI 定义了**命令模式**和**视频模式**两种传输模式。视频模式以实时像素数据流的方式从处理器向外设传输数据，而命令模式可以做到按需传输，只需要在图像内容发生变化时再进行新图像数据的传输。命令模式需要显示模组中的帧缓存存储器的支持。*这两种传输模式的支持，由模组硬件结构决定*。
-
-![DSI 数据通路](../images/mipi/mipi-dsi-flow.jpg)
 
 MIPI DSI 的高速数据传输采用差分信号来传输，在时钟通道和各个数据通道上都会有高速数据传输。
 
 MIPI DSI 的低功耗数据传输并不需要时钟传输，这时 D-PHY 采用**归零码**的方式来表示逻辑数据“0” “1”，并且低功耗数据只会在数据通道**0**上进行传输，对通道**0**的P端和N端进行**异或**操作就可以恢复出数据比特流的“同步时钟”。
+
+### DSI 系统架构
+
+![MIPI DSI 系统架构](../images/mipi/mipi-dsi-block-diagram.png)
+
+| 时钟 | 最小频率 | 最大频率 |
+|------|----------|----------|
+| rxclkesc | | 由 PHY 限制，通常不超过 20MHz |
+| txclkesc | | 由 PHY 限制，通常不超过 20MHz |
+| lanebyteclk | 3 \* rxclkesc | 1/8 of the DPHY maximum speed |
+| pclk | 2MHz | 220MHz |
+| dpiclk | | 250MHz |
+| dbiclk | | 41MHz |
+
+### DSI 层级结构
+
+![DSI 层级结构](../images/mipi/mipi-dsi-flow.jpg)
 
 #### 视频模式
 
@@ -84,8 +99,8 @@ MIPI DSI 的低功耗数据传输并不需要时钟传输，这时 D-PHY 采用*
 | 21h    | HSS (H Sync Start )         | 行同步开始数据包       | 短包    |
 | 31h    | HSE (H Sync End )           | 行同步结束数据包       | 短包    |
 | 08h    | EoTp ( EoT Packet )         | 传输结束指示数据包      | 短包    |
-| 02h    | Color Mode On Command       | 显示模组进入浅色显示模式   | 短包    |
-| 12h    | Color Mode Off Command      | 显示模组恢复正常显示模式   | 短包    |
+| 02h    | Color Mode Off Command      | 显示模组进入浅色显示模式   | 短包    |
+| 12h    | Color Mode On Command       | 显示模组恢复正常显示模式   | 短包    |
 | 22h    | Shutdown Peripheral Command | 关闭显示模组命令       | 短包    |
 | 32h    | Turn On Peripheral Command  | 激活显示模组命令       | 短包    |
 | 03h    | Generic Short Write         | 通用短包写命令，不带参数   | 短包    |
@@ -108,7 +123,7 @@ MIPI DSI 的低功耗数据传输并不需要时钟传输，这时 D-PHY 采用*
 | 0Dh    | Packed Pixel Stream         | 30比特10:10:10格式RGB像素流  | 长包    |
 | 1Dh    | Packed Pixel Stream         | 36比特12:12:12格式RGB像素流  | 长包    |
 | 3Dh    | Packed Pixel Stream         | 12比特4:2:0格式YUV像素流   | 长包    |
-| 0Eh    | Packed Pixel Stream         | 16比特5:6:7格式RGB像素流   | 长包    |
+| 0Eh    | Packed Pixel Stream         | 16比特5:6:5格式RGB像素流   | 长包    |
 | 1Eh    | Packed Pixel Stream         | 18比特6:6:6格式RGB像素流   | 长包    |
 | 2Eh    | Loosely Packet Pixel Stream | 18比特6:6:6格式RGB像素流   | 长包    |
 | 3Eh    | Packed Pixel Stream         | 24比特8:8:8格式RGB像素流   | 长包    |
