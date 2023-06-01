@@ -504,6 +504,8 @@ pub fn new(x: T) -> Self {
 }
 ```
 
+Box::new() 是一个函数，在 debug 模式下，传入它的数据会出现在栈上，再移动到堆上，有可能会引起栈溢出。在 release 模式下，该函数调用会被**inline**优化。
+
 #### 实现 `Drop` trait
 
 ```rust
@@ -511,6 +513,176 @@ unsafe impl<#[may_dangle] T: ?Sized, A: Allocator> Drop for Box<T, A> {
     fn drop(&mut self) {
         // Do nothing, drop is currently performed by compiler.
     }
+}
+```
+
+### Cow<'a, B>
+
+```rust
+pub enum Cow<'a, B> where B: 'a + ToOwned + ?Sized {
+  Borrowed(&'a B),
+  Owned(<B as ToOwned>::Owned),
+}
+```
+
+Cow 包裹了一个只读借用，但如果调用者需要所有权或者需要修改内容，那么它会 clone 借用的数据。这种数据结构可以减少不必要的堆内存分配，提升系统效率。
+
+```rust
+pub trait ToOwned {
+    type Owned: Borrow<Self>;
+    #[must_use = "cloning is often expensive and is not expected to have side effects"]
+    fn to_owned(&self) -> Self::Owned;
+
+    fn clone_into(&self, target: &mut Self::Owned) { ... }
+}
+
+// Borrow 是个泛型 trait，表明一个类型可以被借用成不同的引用
+// 比如 String 可以被借用为 &String 或者 &str
+pub trait Borrow<Borrowed> where Borrowed: ?Sized {
+    fn borrow(&self) -> &Borrowed;
+}
+```
+
+str 对 `ToOwned` trait 的实现：
+
+```rust
+impl ToOwned for str {
+    type Owned = String;
+    #[inline]
+    fn to_owned(&self) -> String {
+        unsafe { String::from_utf8_unchecked(self.as_bytes().to_owned()) }
+    }
+
+    fn clone_into(&self, target: &mut String) {
+        let mut b = mem::take(target).into_bytes();
+        self.as_bytes().clone_into(&mut b);
+        *target = unsafe { String::from_utf8_unchecked(b) }
+    }
+}
+```
+
+同时 String 必须要实现 `Borrow<str>` trait，这样能符合 ToOwned 的要求。
+
+```rust
+impl Borrow<str> for String {
+    #[inline]
+    fn borrow(&self) -> &str {
+        &self[..]
+    }
+}
+```
+
+给 Cow 实现 Deref
+
+```rust
+impl<B: ?Sized + ToOwned> Deref for Cow<'_, B> {
+    type Target = B;
+
+    fn deref(&self) -> &B {
+        // 我们分别取其内容，生成引用
+        match *self {
+            Borrowed(borrowed) => borrowed, // 对于 Borrowed，直接就是取出当中的引用
+            Owned(ref owned) => owned.borrow(), // 对于 Owned，调用其 borrow() 方法，获得引用
+        }
+    }
+}
+```
+
+#### 应用案例
+
+```rust
+use std::borrow::Cow;
+use url::Url;
+
+fn main() {
+    let url = Url::parse("https://tyr.com/rust?page=1024&sort=desc&extra=hello%20world").unwrap();
+    let mut pairs = url.query_pairs();
+
+    assert_eq!(pairs.count(), 3);
+
+    let (mut k, v) = pairs.next().unwrap();
+    // 因为 k, v 都是 Cow<str> 他们用起来感觉和 &str 或者 String 一样
+    // 此刻，他们都是 Borrowed
+    println!("key: {}, v: {}", k, v);
+    // 当修改发生时，k 变成 Owned
+    k.to_mut().push_str("_lala");
+
+    print_pairs((k, v));
+
+    print_pairs(pairs.next().unwrap());
+    // 在处理 extra=hello%20world 时，value 被处理成 "hello world"
+    // 所以这里 value 是 Owned
+    print_pairs(pairs.next().unwrap());
+}
+
+fn print_pairs(pair: (Cow<str>, Cow<str>)) {
+    println!("key: {}, value: {}", show_cow(pair.0), show_cow(pair.1));
+}
+
+fn show_cow(cow: Cow<str>) -> String {
+    match cow {
+        Cow::Borrowed(v) => format!("Borrowed {}", v),
+        Cow::Owned(v) => format!("Owned {}", v),
+    }
+}
+```
+
+```rust
+use serde::Deserialize;
+use std::borrow::Cow;
+
+#[derive(Debug, Deserialize)]
+struct User<'input> {
+    #[serde(borrow)]
+    name: Cow<'input, str>,
+    age: u8,
+}
+
+fn main() {
+    let input = r#"{ "name": "Tyr", "age": 18 }"#;
+    let user: User = serde_json::from_str(input).unwrap();
+
+    match user.name {
+        Cow::Borrowed(x) => println!("borrowed {}", x),
+        Cow::Owned(x) => println!("owned {}", x),
+    }
+}
+```
+
+### MutexGuard\<T\>
+
+MutexGuard 通过 Drop trait 来确保退出时释放互斥锁，这样用户在使用 Mutex 时，可以不必关心何时释放这个互斥锁。因为无论你在调用栈上怎样传递 MutexGuard ，哪怕在错误处理流程上提前退出，Rust 的所有权机制可以确保只要 MutexGuard 离开作用域，锁就会被释放。
+
+MutexGuard 不允许 Send，只允许 Sync，也就是说，你可以把 MutexGuard 的引用传给另一个线程使用，但你无法把 MutexGuard 整个移动到另一个线程。这样可以避免因加锁和解锁在不同的线程下带来的死锁风险。
+
+```rust
+use std::borrow::Cow;
+use std::collections::HashMap;
+use std::sync::{Arc, Mutex};
+use std::thread;
+use std::time::Duration;
+
+fn main() {
+    // 用 Arc 来提供并发环境下的共享所有权（使用引用计数）
+    let metrics: Arc<Mutex<HashMap<Cow<'static, str>, usize>>> =
+        Arc::new(Mutex::new(HashMap::new()));
+    for _ in 0..32 {
+        let m = metrics.clone();
+        thread::spawn(move || {
+            let mut g = m.lock().unwrap();
+            // 此时只有拿到 MutexGuard 的线程可以访问 HashMap
+            let data = &mut *g;
+            // Cow 实现了很多数据结构的 From trait，
+            // 所以我们可以用 "hello".into() 生成 Cow
+            let entry = data.entry("hello".into()).or_insert(0);
+            *entry += 1;
+            // MutexGuard 被 Drop，锁被释放
+        });
+    }
+
+    thread::sleep(Duration::from_millis(100));
+
+    println!("metrics: {:?}", metrics.lock().unwrap());
 }
 ```
 

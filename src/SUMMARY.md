@@ -13,6 +13,7 @@
 # 编译系统
 
 - [GCC](cs/gcc-toolchains.md)
+- [CMake](cs/cmake.md)
 
 ---
 

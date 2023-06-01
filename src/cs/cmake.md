@@ -1,15 +1,11 @@
-# 𝘾𝙈𝙖𝙠𝙚 基础
-
-:::tip
+# CMake 基础
 
 从广义上来讲，CMake 是一组工具,包括了 `CMake`，`CTest` 和 `CPack`。
-
-:::
 
 ## 最小 CMake 工程
 
 ```cmake
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.20)
 project(MyApp
         VERSION 1.0
         LANGUAGES C)
@@ -29,20 +25,17 @@ cmake_minimum_required(VERSION major.minor[.patch[.tweak]])
 
 * 该命令声明了 CMake 项目依赖的最小版本号，确保某些 CMake 功能在用户的 cmake 软件中是存在的
 * 设置默认的 CMake 策略，使其与指定的版本号匹配
-* 设置的版本号要尽可能高，新项目建议使用 `3.2` 及其以上版本
 
 ### project
 
 ```cmake
 project(projectName
-	[VERSION major[.minor[.patch[.tweak]]]]
-	[LANGUAGES languageName ...]
+ [VERSION major[.minor[.patch[.tweak]]]]
+ [LANGUAGES languageName ...]
 )
 ```
 
-
-
-## Out-of-source Build
+## Out-of-Source Build
 
 ```bash
 mkdir build
@@ -50,8 +43,6 @@ cd build
 cmake -G "Unix Makefiles" ../source
 cmake --build . --config Release --target MyApp
 ```
-
-:::tip
 
 CMake 支持多种项目文件格式：
 
@@ -98,8 +89,6 @@ CMake 支持多种项目文件格式：
   </tr>
 </table>
 
-:::
-
 ## 变量
 
 ```cmake
@@ -122,20 +111,20 @@ get_directory_property(resultVar username)
 message(${resultVar})
 
 set_property(
-	GLOBAL
-	PROPERTY FOO
-	1
-	2
-	3)
+ GLOBAL
+ PROPERTY FOO
+ 1
+ 2
+ 3)
 
 get_cmake_property(foo_value FOO)
 message(STATUS "value of FOO is ${foo_value}")
 
 set(my_list 1 2 3)
 set_property(
-	DIRECTORY
-	PROPERTY FOO
-	"${my_list}")
+ DIRECTORY
+ PROPERTY FOO
+ "${my_list}")
 
 get_property(foo_value DIRECTORY PROPERTY FOO)
 message(STATUS "value of FOO is ${foo_value}")
@@ -263,9 +252,9 @@ function(func arg)
 endfunction()
 
 function(do_cmake_good)
-	foreach(arg IN LISTS ARGN)
-		message(STATUS "Got argument: ${arg}")
-	endforeach()
+ foreach(arg IN LISTS ARGN)
+  message(STATUS "Got argument: ${arg}")
+ endforeach()
 endfunction()
 
 macro(macr arg)
@@ -318,8 +307,8 @@ message("result1=${res1}")
 message("result2=${res2}")
 
 function(sum out a b)
-	math(EXPR ret "${a} + ${b}")
-	set("${out}" "${ret}" PARENT_SCOPE)
+ math(EXPR ret "${a} + ${b}")
+ set("${out}" "${ret}" PARENT_SCOPE)
 endfunction()
 ```
 
@@ -371,8 +360,8 @@ cmake_print_variables(CMAKE_BUILD_TYPE)
   target_include_directories(mylib PRIVATE src)
 
   if(SOME_SETTING)
-  	target_compile_definitions(mylib
-  							   PUBLIC WITH_SOME_SETTING)
+   target_compile_definitions(mylib
+            PUBLIC WITH_SOME_SETTING)
   endif()
   ```
 
@@ -380,8 +369,8 @@ cmake_print_variables(CMAKE_BUILD_TYPE)
 
   ```cmake
   if(MSVC)
-  	add_compile_options(/W3 /WX)
+   add_compile_options(/W3 /WX)
   else()
-  	add_compile_options(-W -Wall -Werror)
+   add_compile_options(-W -Wall -Werror)
   endif()
   ```
