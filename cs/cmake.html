@@ -1,0 +1,560 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>CMake - 🐏🐒 suda-morris 个人博客 🐇</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="Personal Blog">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="chapter-item expanded "><a href="../cs/cmake.html" class="active"><strong aria-hidden="true">3.</strong> CMake</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">4.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编程语言</li><li class="chapter-item expanded "><a href="../cs/rust.html"><strong aria-hidden="true">5.</strong> Rust</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">6.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="../cs/pytest.html"><strong aria-hidden="true">7.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">8.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">9.</strong> USB 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/can.html"><strong aria-hidden="true">10.</strong> CAN 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/mipi.html"><strong aria-hidden="true">11.</strong> MIPI 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">12.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">前端</li><li class="chapter-item expanded "><a href="../cs/tauri.html"><strong aria-hidden="true">13.</strong> Tauri</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">14.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">15.</strong> slides 工具</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">🐏🐒 suda-morris 个人博客 🐇</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/suda-morris/blog" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/suda-morris/blog/edit/master/src/cs/cmake.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="cmake-基础"><a class="header" href="#cmake-基础">CMake 基础</a></h1>
+<p>从广义上来讲，CMake 是一组工具,包括了 <code>CMake</code>，<code>CTest</code> 和 <code>CPack</code>。</p>
+<h2 id="最小-cmake-工程"><a class="header" href="#最小-cmake-工程">最小 CMake 工程</a></h2>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.20)
+project(MyApp
+        VERSION 1.0
+        LANGUAGES C)
+set(SOURCES main.c)
+add_executable(MyExe ${SOURCES})
+</code></pre>
+<p><code>add_executable</code> 等“函数”在 CMake 中称为 <code>命令</code>，和函数不同，CMake 命令虽然可以传入参数，但是无法 return 结果给调用者（返回结果需要使用其它技巧）。CMake 命令对大小写不敏感，但是通常使用小写。</p>
+<h3 id="cmake_minimum_required"><a class="header" href="#cmake_minimum_required">cmake_minimum_required</a></h3>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION major.minor[.patch[.tweak]])
+</code></pre>
+<p>该命令需要放置在 CMakeLists.txt 文件的第一行。</p>
+<ul>
+<li>该命令声明了 CMake 项目依赖的最小版本号，确保某些 CMake 功能在用户的 cmake 软件中是存在的</li>
+<li>设置默认的 CMake 策略，使其与指定的版本号匹配</li>
+</ul>
+<h3 id="project"><a class="header" href="#project">project</a></h3>
+<pre><code class="language-cmake">project(projectName
+ [VERSION major[.minor[.patch[.tweak]]]]
+ [LANGUAGES languageName ...]
+)
+</code></pre>
+<h2 id="out-of-source-build"><a class="header" href="#out-of-source-build">Out-of-Source Build</a></h2>
+<pre><code class="language-bash">mkdir build
+cd build
+cmake -G &quot;Unix Makefiles&quot; ../source
+cmake --build . --config Release --target MyApp
+</code></pre>
+<p>CMake 支持多种项目文件格式：</p>
+<table>
+  <tr>
+    <th>Category<br></th>
+    <th>Generator Examples</th>
+    <th>Multi-config<br></th>
+  </tr>
+  <tr>
+    <td rowspan="3">Visual Studio</td>
+    <td>Visual Studio 15 2017</td>
+    <td rowspan="3">Yes</td>
+  </tr>
+  <tr>
+    <td>Visual Studio 14 2015</td>
+  </tr>
+  <tr>
+    <td>...</td>
+  </tr>
+  <tr>
+    <td>Xcode</td>
+    <td>Xcode</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>Ninja</td>
+    <td>Ninja</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td rowspan="4">Makefiles</td>
+    <td>Unix Makefiles</td>
+    <td rowspan="4">No</td>
+  </tr>
+  <tr>
+    <td>MSYS Makefiles</td>
+  </tr>
+  <tr>
+    <td>MinGW Makefiles</td>
+  </tr>
+  <tr>
+    <td>NMake Makefiles<br></td>
+  </tr>
+</table>
+<h2 id="变量"><a class="header" href="#变量">变量</a></h2>
+<pre><code class="language-cmake">set(color Green CACHE STRING &quot;Color of folower&quot; FORCE)
+set_property(CACHE color PROPERTY STRINGS Red Orange Green)
+variable_watch(color)
+message(STATUS &quot;Color = ${color}&quot;)
+message(STATUS &quot;IDF_PATH = $ENV{IDF_PATH}&quot;)
+message(STATUS &quot;Version = ${PROJECT_VERSION}&quot;)
+message(STATUS &quot;SrcPath = ${PROJECT_SOURCE_DIR}&quot;)
+message(STATUS)
+set(longStr &quot; ESP8266 ESP32 ESP8089 &quot;)
+set(shortStr &quot;ESP&quot;)
+
+get_cmake_property(resultVar MACROS)
+message(${resultVar})
+
+set_directory_properties(PROPERTIES username &quot;morris&quot;)
+get_directory_property(resultVar username)
+message(${resultVar})
+
+set_property(
+ GLOBAL
+ PROPERTY FOO
+ 1
+ 2
+ 3)
+
+get_cmake_property(foo_value FOO)
+message(STATUS &quot;value of FOO is ${foo_value}&quot;)
+
+set(my_list 1 2 3)
+set_property(
+ DIRECTORY
+ PROPERTY FOO
+ &quot;${my_list}&quot;)
+
+get_property(foo_value DIRECTORY PROPERTY FOO)
+message(STATUS &quot;value of FOO is ${foo_value}&quot;)
+</code></pre>
+<h2 id="string-命令"><a class="header" href="#string-命令">string 命令</a></h2>
+<pre><code class="language-cmake">string(STRIP ${longStr} longStr)
+message(${longStr})
+string(FIND ${longStr} ${shortStr} outVar)
+message(${outVar})
+string(FIND ${longStr} ${shortStr} outVar REVERSE)
+message(${outVar})
+string(REPLACE &quot;ESP&quot; &quot;Espressif&quot; outVar ${longStr})
+message(${outVar})
+string(REGEX MATCHALL &quot;[0-9]&quot; outVar ${longStr})
+message(${outVar})
+set(testStr abcdefabcd)
+string(REGEX REPLACE &quot;(de)&quot; &quot;X\\1Y&quot; outVar ${testStr})
+message(${outVar})
+</code></pre>
+<h3 id="list-命令"><a class="header" href="#list-命令">list 命令</a></h3>
+<pre><code class="language-cmake">set(myList a;b;c;def)
+message(${myList})
+list(LENGTH myList outVar)
+message(${outVar})
+list(GET myList 3 0 outVar)
+message(${outVar})
+set(myPaths &quot;/a/b/c&quot; &quot;/b/e&quot; &quot;/a/d&quot; &quot;/b/e&quot;)
+message(${myPaths})
+list(REMOVE_DUPLICATES myPaths)
+message(${myPaths})
+list(SORT myPaths)
+message(${myPaths})
+
+set(tlist &quot;/a;/b;/c&quot;)
+message(${tlist})
+set(tlist &quot;/d;/e&quot; ${tlist})
+message(${tlist})
+list(APPEND tlist &quot;/f&quot;)
+message(${tlist})
+</code></pre>
+<h2 id="条件判断"><a class="header" href="#条件判断">条件判断</a></h2>
+<pre><code class="language-cmake">if(&quot;/b/e&quot; IN_LIST myPaths)
+        message(STATUS &quot;/b/e is in the list&quot;)
+endif()
+
+set(x 3)
+set(y 7)
+math(EXPR z &quot;(${x}+${y})/2&quot;)
+message(${z})
+
+if(x AND (&quot;23&quot; EQUAL 23))
+        message(&quot;YES&quot;)
+else()
+        message(&quot;NO&quot;)
+endif()
+
+set(who &quot;Morris&quot;)
+if(&quot;Hi from ${who}&quot; MATCHES &quot;Hi from (Morris|Wendy).*&quot;)
+        message(&quot;${CMAKE_MATCH_1} says hello : ${CMAKE_MATCH_0}&quot;)
+else()
+        message(&quot;Nobody says hello&quot;)
+endif()
+
+if(IS_DIRECTORY &quot;/home&quot;)
+        message(&quot;Is Directory&quot;)
+endif()
+
+if(COMMAND string)
+        message(&quot;string command exist&quot;)
+endif()
+
+if(DEFINED ENV{IDF_PATH})
+        message(&quot;environment IDF_PATH has been defined&quot;)
+endif()
+</code></pre>
+<h2 id="循环语句"><a class="header" href="#循环语句">循环语句</a></h2>
+<pre><code class="language-cmake">set(list1 A B)
+set(list2)
+set(foo WillNotBeShown)
+foreach(loopVar IN LISTS list1 list2 ITEMS ${foo} bar)
+        message(&quot;Iteration for: ${loopVar}&quot;)
+endforeach()
+
+foreach(loopVar RANGE 0 5 1)
+        message(&quot;${loopVar}&quot;)
+endforeach()
+
+message(&quot;source_dir=${CMAKE_SOURCE_DIR}\r\nbin_dir=${CMAKE_BINARY_DIR}&quot;)
+message(&quot;current_source_dir=${CMAKE_CURRENT_SOURCE_DIR}\r\ncurrent_bin_dir=${CMAKE_CURRENT_BINARY_DIR}&quot;)
+
+set(my_value 1)
+while(my_value LESS 40)
+    message(STATUS &quot;value=${my_value}&quot;)
+    math(EXPR my_value &quot;${my_value}+1&quot;)
+endwhile()
+</code></pre>
+<h2 id="函数"><a class="header" href="#函数">函数</a></h2>
+<pre><code class="language-cmake"># ARGN 代表剩余的参数
+# ARGV 代表所有的参数
+function(func arg)
+        message(&quot;arg=${arg}&quot;)
+        message(&quot;ARGC=${ARGC}&quot;)
+        message(&quot;ARGV=${ARGV}&quot;)
+        message(&quot;ARGN=${ARGN}&quot;)
+        if(DEFINED arg)
+                message(&quot;Function arg is a defined variable&quot;)
+        else()
+                message(&quot;Function arg is NOT a defined variable&quot;)
+        endif()
+endfunction()
+
+function(do_cmake_good)
+ foreach(arg IN LISTS ARGN)
+  message(STATUS &quot;Got argument: ${arg}&quot;)
+ endforeach()
+endfunction()
+
+macro(macr arg)
+        message(&quot;arg=${arg}&quot;)
+        message(&quot;ARGC=${ARGC}&quot;)
+        if(DEFINED arg)
+                message(&quot;Macro arg is a defined variable&quot;)
+        else()
+                message(&quot;Macro arg is NOT a defined variable&quot;)
+        endif()
+endmacro()
+
+func(foobar test)
+macr(foobar)
+
+function(esp_func)
+        set(prefix IDF)
+        set(noValues ENABLE_WIFI CONSOLE)
+        set(singleValues TARGET)
+        set(multiValues SOURCES IMAGES)
+        cmake_parse_arguments(${prefix}
+                              &quot;${noValues}&quot;
+                              &quot;${singleValues}&quot;
+                              &quot;${multiValues}&quot;
+                              ${ARGN})
+        message(&quot;Option summary:&quot;)
+        foreach(arg IN LISTS noValues)
+                if(${${prefix}_${arg}})
+                        message(&quot;${arg} enabled&quot;)
+                else()
+                        message(&quot;${arg} disabled&quot;)
+                endif()
+        endforeach()
+
+        foreach(arg IN LISTS singleValues multiValues)
+                message(&quot;${arg}=${${prefix}_${arg}}&quot;)
+        endforeach()
+endfunction()
+
+esp_func(SOURCES foo.cpp startup.S TARGET esp32 ENABLE_WIFI)
+esp_func(CONSOLE TARGET esp8266 IMAGES here.png there.png)
+
+function(myfunc result1 result2)
+        set(${result1} &quot;First result&quot; PARENT_SCOPE)
+        set(${result2} &quot;Second result&quot; PARENT_SCOPE)
+endfunction()
+
+myfunc(res1 res2)
+message(&quot;result1=${res1}&quot;)
+message(&quot;result2=${res2}&quot;)
+
+function(sum out a b)
+ math(EXPR ret &quot;${a} + ${b}&quot;)
+ set(&quot;${out}&quot; &quot;${ret}&quot; PARENT_SCOPE)
+endfunction()
+</code></pre>
+<h2 id="include-命令"><a class="header" href="#include-命令">include 命令</a></h2>
+<pre><code class="language-cmake">include(CMakePrintHelpers)
+cmake_print_properties(TARGETS MyExe MyLib PROPERTIES TYPE)
+cmake_print_properties(DIRECTORIES &quot;.&quot; PROPERTIES username)
+cmake_print_variables(tlist CMAKE_VERSION)
+
+include(TestBigEndian)
+test_big_endian(isBigEndian)
+cmake_print_variables(isBigEndian)
+
+find_package(PythonInterp)
+find_package(PythonLibs)
+cmake_print_variables(PYTHON_EXECUTABLE)
+
+cmake_print_variables(CMAKE_BUILD_TYPE)
+</code></pre>
+<h2 id="最佳实战"><a class="header" href="#最佳实战">最佳实战</a></h2>
+<ul>
+<li>
+<p>使用 <code>target_xxx</code> 版本的 CMake 宏</p>
+</li>
+<li>
+<p>指定 <code>property</code> 的 <code>PUBLIC</code>，<code>PRIVATE</code> 或者 <code>INTERFACE</code> 属性</p>
+</li>
+<li>
+<p>获取 <code>target</code> 的编译 <code>flag</code> 之前要先将其链接进来</p>
+</li>
+<li>
+<p>谨慎使用会影响所有 <code>target</code> 的宏，比如：</p>
+<ul>
+<li><code>INCLUDE_DIRECTORIES()</code></li>
+<li><code>ADD_DEFINITIONS()</code></li>
+<li><code>LINK_LIBRARIES()</code></li>
+</ul>
+</li>
+<li>
+<p>不要在 <code>target_include_directories()</code> 引用模块之外的路径</p>
+</li>
+<li>
+<p>针对仅仅包含头文件的一些库，建议：</p>
+<ul>
+<li><code>add_library(mylib INTERFACE)</code></li>
+<li><code>target_include_directories(mylib INTERFACE include)</code></li>
+<li><code>target_link_libraries(mylib INTERFACE Boost::Boost)</code></li>
+</ul>
+</li>
+<li>
+<p>为模块添加新的编译选项</p>
+<pre><code class="language-cmake">target_include_directories(mylib PUBLIC include)
+target_include_directories(mylib PRIVATE src)
+
+if(SOME_SETTING)
+ target_compile_definitions(mylib
+          PUBLIC WITH_SOME_SETTING)
+endif()
+</code></pre>
+</li>
+<li>
+<p>设置全局编译选项</p>
+<pre><code class="language-cmake">if(MSVC)
+ add_compile_options(/W3 /WX)
+else()
+ add_compile_options(-W -Wall -Werror)
+endif()
+</code></pre>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../cs/gcc-toolchains.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../cs/openwrt.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../cs/gcc-toolchains.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../cs/openwrt.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
