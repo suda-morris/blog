@@ -11,6 +11,10 @@
 5. 产生 LLVM 中间语言
 6. LLVM 后端会对 LLVM 中间语言进行优化，最终生成机器代码
 
+## 常用数据结构
+
+![数据结构](../images/rust/data-structure.webp)
+
 ## 值放堆上还是栈上
 
 ```rust
@@ -771,6 +775,180 @@ FREE: 0x55c63eb5b940, size 5
 FREE: 0x55c63eb5b960, size 48
 ```
 
+## 切片
+
+> 当我们构建自己的数据结构时，如果它内部也有连续排列的等长的数据结构，可以考虑 AsRef 或者 Deref 到切片。
+
+切片是描述一组属于同一类型、长度不确定的、在内存中连续存放的数据结构，用 [T] 来表述。因为长度不确定，所以切片是个 DST（Dynamically Sized Type）。在使用中主要用以下形式：
+
+* &[T]：表示一个只读的切片引用
+* &mut [T]：表示一个可写的切片引用
+* Box<[T]>：一个在堆上分配的切片。
+
+```rust
+fn main() {
+    let arr = [1, 2, 3, 4, 5];
+    let vec = vec![1, 2, 3, 4, 5];
+    let s1 = &arr[..2];
+    let s2 = &vec[..2];
+    println!("s1: {:?}, s2: {:?}", s1, s2);
+
+    // &[T] 和 &[T] 是否相等取决于长度和内容是否相等
+    assert_eq!(s1, s2);
+    // &[T] 可以和 Vec<T>/[T;n] 比较，也会看长度和内容
+    // 这是因为它们之间实现了 PartialEq trait
+    assert_eq!(&arr[..], vec);
+    assert_eq!(&vec[..], arr);
+}
+```
+
+在使用的时候，支持切片的具体数据类型，可以根据需要，解引用转换成切片类型。比如 Vec 和 [T; n] 会转化成为 &[T]，这是因为 Vec 实现了 Deref trait，而 array 内建了到 &[T] 的解引用。这也就意味着，通过解引用，这几个和切片有关的数据结构都会获得切片的所有能力，包括：`binary_search`、`chunks`、`concat`、`contains`、`start_with`、`end_with`、`group_by`、`iter`、`join`、`sort`、`split`、`swap` 等一系列丰富的功能。
+
+```rust
+use std::fmt;
+fn main() {
+    let v = vec![1, 2, 3, 4];
+
+    // Vec 实现了 Deref，&Vec<T> 会被自动解引用为 &[T]，符合接口定义
+    print_slice(&v);
+    // 直接是 &[T]，符合接口定义
+    print_slice(&v[..]);
+
+    // &Vec<T> 支持 AsRef<[T]>
+    print_slice1(&v);
+    // &[T] 支持 AsRef<[T]>
+    print_slice1(&v[..]);
+    // Vec<T> 也支持 AsRef<[T]>
+    print_slice1(v);
+
+    let arr = [1, 2, 3, 4];
+    // 数组虽没有实现 Deref，但它的解引用就是 &[T]
+    print_slice(&arr);
+    print_slice(&arr[..]);
+    print_slice1(&arr);
+    print_slice1(&arr[..]);
+    print_slice1(arr);
+}
+
+fn print_slice<T: fmt::Debug>(s: &[T]) {
+    println!("{:?}", s);
+}
+
+fn print_slice1<T, U>(s: T)
+where
+    T: AsRef<[U]>,
+    U: fmt::Debug,
+{
+    println!("{:?}", s.as_ref());
+}
+```
+
+### 将 slice 转化成迭代器
+
+```rust
+fn main() {
+    // 这里 Vec 在调用 iter() 时被解引用成 &[T]，所以可以访问 iter()
+    let result: Vec<i32> = vec![1, 2, 3, 4]
+        .iter()
+        .map(|v| v * v)
+        .filter(|v| *v < 16)
+        .collect();
+
+    println!("{:?}", result);
+}
+```
+
+Rust 下的迭代器是个`懒接口（lazy interface）`，也就是说这段代码直到运行到 `collect` 时才真正开始执行，之前的部分不过是在不断地生成新的结构，来累积处理逻辑而已。Rust 大量使用了 inline 等优化技巧，使得迭代器的性能和 C 语言的 for 循环差别不大。
+
+此外，`itertools` crate 还提供了额外的，标准库中没有提供的迭代器。
+
+```rust
+use itertools::Itertools;
+
+fn main() {
+    let err_str = "bad happened";
+    let input = vec![Ok(21), Err(err_str), Ok(7)];
+    let it = input
+        .into_iter()
+        // 对成功的结果进一步做 filter/map 操作
+        .filter_map_ok(|i| if i > 10 { Some(i * 2) } else { None });
+    // 结果应该是：vec![Ok(42), Err(err_str)]
+    println!("{:?}", it.collect::<Vec<_>>());
+}
+```
+
+### 特殊的切片 &str
+
+![字符列表和字符串的区别](../images/rust/string-slice-vs-vector-slice.webp)
+
+```rust
+use std::iter::FromIterator;
+
+fn main() {
+    let arr = ['h', 'e', 'l', 'l', 'o'];
+    let vec = vec!['h', 'e', 'l', 'l', 'o'];
+    let s = String::from("hello");
+    let s1 = &arr[1..3];
+    let s2 = &vec[1..3];
+    // &str 本身就是一个特殊的 slice
+    let s3 = &s[1..3];
+    println!("s1: {:?}, s2: {:?}, s3: {:?}", s1, s2, s3);
+
+    // &[char] 和 &[char] 是否相等取决于长度和内容是否相等
+    assert_eq!(s1, s2);
+    // &[char] 和 &str 不能直接对比，我们把 s3 变成 Vec<char>
+    assert_eq!(s2, s3.chars().collect::<Vec<_>>());
+    // &[char] 可以通过迭代器转换成 String，String 和 &str 可以直接对比
+    assert_eq!(String::from_iter(s2), s3);
+}
+```
+
+字符列表可以通过迭代器转换成 String，String 也可以通过 chars() 函数转换成字符列表，如果不转换，二者不能比较。
+
+### Box<[T]> 堆上的切片
+
+`Box<[T]>` 和切片的引用 `&[T]` 很类似：它们都是在栈上有一个包含长度的胖指针，指向存储数据的内存位置。区别是：`Box<[T]>` 只会指向堆，`&[T]` 指向的位置可以是栈也可以是堆；此外，`Box<[T]>` 对数据具有所有权，而 `&[T]` 只是一个借用。
+
+`Box<[T]>` 和 `Vec<T>` 有一点点差别：`Vec<T>` 有额外的 capacity，可以增长；而 `Box<[T]>` 一旦生成就固定下来，没有 capacity，也无法增长。
+
+![堆上的切片](../images/rust/slice-on-heap.webp)
+
+```rust
+use std::ops::Deref;
+
+fn main() {
+    let mut v1 = vec![1, 2, 3, 4];
+    v1.push(5);
+    println!("cap should be 8: {}", v1.capacity());
+
+    // 从 Vec<T> 转换成 Box<[T]>，此时会丢弃多余的 capacity
+    let b1 = v1.into_boxed_slice();
+    let mut b2 = b1.clone();
+
+    let v2 = b1.into_vec();
+    println!("cap should be exactly 5: {}", v2.capacity());
+
+    assert!(b2.deref() == v2);
+
+    // Box<[T]> 可以更改其内部数据，但无法 push
+    b2[0] = 2;
+    // b2.push(6);
+    println!("b2: {:?}", b2);
+
+    // 注意 Box<[T]> 和 Box<[T; n]> 并不相同
+    let b3 = Box::new([2, 2, 3, 4, 5]);
+    println!("b3: {:?}", b3);
+
+    // b2 和 b3 相等，但 b3.deref() 和 v2 无法比较
+    assert!(b2 == b3);
+    // assert!(b3.deref() == v2);
+}
+```
+
+`Vec<T>` 可以通过 i`nto_boxed_slice()` 转换成 `Box<[T]>`，`Box<[T]>` 也可以通过 `into_vec()` 转换回 `Vec<T>`。
+
+`Box<[T]>` 有一个很好的特性是，不像 `Box<[T;n]>` 那样在编译时就要确定大小，它可以在运行期生成，以后大小不会再改变。
+
 ## 错误处理
 
 ### `?` 操作符
@@ -1023,4 +1201,4 @@ fn execute(cmd: &str, exec: impl Executor) -> Result<String, &'static str> {
 
 ## 参考资料
 
-- [cheats.rs](https://cheats.rs/)
+* [cheats.rs](https://cheats.rs/)
