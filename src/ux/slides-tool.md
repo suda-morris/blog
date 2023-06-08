@@ -263,3 +263,7 @@ upsilon = Ʊ, phi = ɸ
 
 `$ markdown sample.md | wkhtmltopdf - sample.pdf`
 ```
+
+## [slidev](https://sli.dev)
+
+* Demo: <https://suda-morris.github.io/rmt-driver-lecture>
