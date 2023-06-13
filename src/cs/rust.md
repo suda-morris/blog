@@ -949,6 +949,162 @@ fn main() {
 
 `Box<[T]>` 有一个很好的特性是，不像 `Box<[T;n]>` 那样在编译时就要确定大小，它可以在运行期生成，以后大小不会再改变。
 
+## HashMap
+
+Rust 哈希表不是用冲突链来解决哈希冲突，而是用开放寻址法的二次探查来解决的。
+
+如果只需要简单确认元素是否在集合中，可以用 HashSet，它就是简化的 HashMap，可以用来存放无序的集合。
+
+```rust
+use hashbrown::hash_map as base;
+
+// RandomState 使用 SipHash 作为缺省的哈希算法
+#[derive(Clone)]
+pub struct RandomState {
+    k0: u64,
+    k1: u64,
+}
+
+pub struct HashMap<K, V, S = RandomState> {
+    // 复用了 hashbrown 库的 HashMap
+    base: base::HashMap<K, V, S>,
+}
+
+// hashbrown 库的 HashMap
+pub struct HashMap<K, V, S = DefaultHashBuilder, A: Allocator + Clone = Global> {
+    pub(crate) hash_builder: S,
+    pub(crate) table: RawTable<(K, V), A>,
+}
+
+pub struct RawTable<T, A: Allocator + Clone = Global> {
+    table: RawTableInner<A>,
+
+    // Tell dropck that we own instances of T.
+    marker: PhantomData<T>,
+}
+
+struct RawTableInner<A> {
+    bucket_mask: usize,
+
+    // [Padding], T1, T2, ..., Tlast, C1, C2, ...
+    //                                ^ points here
+    // 指向哈希表堆内存末端的 ctrl 区
+    ctrl: NonNull<u8>,
+
+    // 哈希表在下次自动增长前还能存储多少数据
+    // 随着哈希表不断插入数据，它会以 2 的幂减一的方式增长
+    growth_left: usize,
+
+    // 哈希表现在有多少数据
+    items: usize,
+    alloc: A,
+}
+```
+
+### 自定义数据结构做 Hash key
+
+```rust
+use std::{
+    collections::{hash_map::DefaultHasher, HashMap},
+    hash::{Hash, Hasher},
+};
+
+// 如果要支持 Hash，可以用 #[derive(Hash)]，前提是每个字段都实现了 Hash
+// 如果要能作为 HashMap 的 key，还需要 PartialEq 和 Eq
+#[derive(Debug, Hash, PartialEq, Eq)]
+struct Student<'a> {
+    name: &'a str,
+    age: u8,
+}
+
+impl<'a> Student<'a> {
+    pub fn new(name: &'a str, age: u8) -> Self {
+        Self { name, age }
+    }
+}
+
+fn main() {
+    let mut hasher = DefaultHasher::new();
+    let student = Student::new("Tyr", 18);
+    // 实现了 Hash 的数据结构可以直接调用 hash 方法
+    student.hash(&mut hasher);
+    let mut map = HashMap::new();
+    // 实现了 Hash / PartialEq / Eq 的数据结构可以作为 HashMap 的 key
+    map.insert(student, vec!["Math", "Writing"]);
+    println!("hash: 0x{:x}, map: {:?}", hasher.finish(), map);
+}
+```
+
+## BTreeMap
+
+BTreeMap 是内部使用 B-tree 来组织哈希表的数据结构，和 HashMap 不同的是，BTreeMap 是有序的。
+
+```rust
+use std::collections::BTreeMap;
+
+fn main() {
+    let map = BTreeMap::new();
+    let mut map = explain("empty", map);
+
+    for i in 0..16usize {
+        map.insert(format!("Tyr {}", i), i);
+    }
+
+    let mut map = explain("added", map);
+
+    map.remove("Tyr 1");
+
+    let map = explain("remove 1", map);
+
+    for item in map.iter() {
+        println!("{:?}", item);
+    }
+}
+
+// BTreeMap 结构有 height，node 和 length
+// 我们 transmute 打印之后，再 transmute 回去
+fn explain<K, V>(name: &str, map: BTreeMap<K, V>) -> BTreeMap<K, V> {
+    let arr: [usize; 3] = unsafe { std::mem::transmute(map) };
+    println!(
+        "{}: height: {}, root node: 0x{:x}, len: 0x{:x}",
+        name, arr[0], arr[1], arr[2]
+    );
+    unsafe { std::mem::transmute(arr) }
+}
+```
+
+如果想自定义的数据结构可以作为 BTreeMap 的 key，那么需要实现 PartialOrd 和 Ord。
+
+```rust
+use std::collections::BTreeMap;
+
+#[derive(Debug, PartialOrd, Ord, PartialEq, Eq)]
+struct Name {
+    pub name: String,
+    pub flags: u32,
+}
+
+impl Name {
+    pub fn new(name: impl AsRef<str>, flags: u32) -> Self {
+        Self {
+            name: name.as_ref().to_string(),
+            flags,
+        }
+    }
+}
+
+fn main() {
+    let mut map = BTreeMap::new();
+    map.insert(Name::new("/etc/password", 0x1), 12);
+    map.insert(Name::new("/etc/hosts", 0x1), 4);
+    map.insert(Name::new("/home/tchen", 0x0), 28);
+
+    for item in map.iter() {
+        println!("{:?}", item);
+    }
+}
+```
+
 ## 错误处理
 
 ### `?` 操作符
@@ -1202,3 +1358,4 @@ fn execute(cmd: &str, exec: impl Executor) -> Result<String, &'static str> {
 ## 参考资料
 
 * [cheats.rs](https://cheats.rs/)
+* [GDB/LLDB 命令手册](https://lldb.llvm.org/use/map.html)
