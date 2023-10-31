@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>🐏🐒 suda-morris 个人博客 🐇</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="Personal Blog">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -34,7 +34,7 @@
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -64,29 +64,34 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="chapter-item expanded "><a href="cs/cmake.html"><strong aria-hidden="true">3.</strong> CMake</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">4.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编程语言</li><li class="chapter-item expanded "><a href="cs/rust.html"><strong aria-hidden="true">5.</strong> Rust</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">6.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="cs/pytest.html"><strong aria-hidden="true">7.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">8.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">9.</strong> USB 协议基础</a></li><li class="chapter-item expanded "><a href="ee/can.html"><strong aria-hidden="true">10.</strong> CAN 协议基础</a></li><li class="chapter-item expanded "><a href="ee/mipi.html"><strong aria-hidden="true">11.</strong> MIPI 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="ee/yosys.html"><strong aria-hidden="true">12.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">前端</li><li class="chapter-item expanded "><a href="cs/tauri.html"><strong aria-hidden="true">13.</strong> Tauri</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">14.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">15.</strong> slides 工具</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="chapter-item expanded "><a href="cs/cmake.html"><strong aria-hidden="true">3.</strong> CMake</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="cs/openwrt.html"><strong aria-hidden="true">4.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编程语言</li><li class="chapter-item expanded "><a href="cs/rust.html"><strong aria-hidden="true">5.</strong> Rust</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="ee/control-system.html"><strong aria-hidden="true">6.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="cs/pytest.html"><strong aria-hidden="true">7.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="cs/video-process.html"><strong aria-hidden="true">8.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="ee/usb.html"><strong aria-hidden="true">9.</strong> USB 协议基础</a></li><li class="chapter-item expanded "><a href="ee/can.html"><strong aria-hidden="true">10.</strong> CAN 协议基础</a></li><li class="chapter-item expanded "><a href="ee/mipi-dsi.html"><strong aria-hidden="true">11.</strong> MIPI DSI 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="ee/yosys.html"><strong aria-hidden="true">12.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">前端</li><li class="chapter-item expanded "><a href="cs/tauri.html"><strong aria-hidden="true">13.</strong> Tauri</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="cs/git.html"><strong aria-hidden="true">14.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="ux/slides-tool.html"><strong aria-hidden="true">15.</strong> slides 工具</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -119,9 +124,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -4974,10 +4979,13 @@ xfail_strict = true
 <p>它是本地插件库，其中的 hook 函数和 fixture 将作用于该文件所在的目录以及所有子目录</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="视频处理"><a class="header" href="#视频处理">视频处理</a></h1>
 <p><img src="cs/../images/video-process/video-process-flow.jpg" alt="视频处理工作流程" /></p>
-<h2 id="图像的基本概念"><a class="header" href="#图像的基本概念">图像的基本概念</a></h2>
+<h2 id="视频与图像的基本概念"><a class="header" href="#视频与图像的基本概念">视频与图像的基本概念</a></h2>
 <p><img src="cs/../images/video-process/image-basis.jpg" alt="视频图像基础" /></p>
 <ul>
-<li>存取一幅图像需要特别注意 Stride 这个参数，它跟分辨率中的 Width 是不一样的。为了快速存取，往往会选择以内存对齐的方式存储一行像素（比如 16 字节）。</li>
+<li>存取一幅图像需要特别注意 Stride 这个参数，它跟分辨率中的 Width 是不一样的。为了快速存取，往往会选择以内存对齐的方式存储一行像素（比如 16 字节）。有的时候即便图像的 Width 是一个规则的值，图像存储在内存中有可能 Stride 和 Width 也是不一样的，尤其是不同的视频解码器内部实现的不同，会导致输出的图像的 Stride 不一样。</li>
+<li>我们在电影院看的电影帧率一般是 24fps（帧每秒），监控行业常用 25fps。</li>
+<li>我们存储视频的时候需要对图像进行压缩之后再存储。码率是指视频在单位时间内的数据量的大小，单位一般是 Kb/s 或者 Mb/s。</li>
+<li>视频压缩之后的清晰度还跟压缩时选用的压缩算法，以及压缩时使用的压缩速度有关。压缩算法越先进，压缩率就会越高，码率自然就会越小。压缩速度越慢，压缩的时候压缩算法就会越精细，最后压缩率也会有提高，相同的清晰度码率也会更小。</li>
 </ul>
 <h3 id="color-range"><a class="header" href="#color-range">Color Range</a></h3>
 <p>对于一个 8bit 的 RGB 图像，<strong>Full Range</strong> 的 R、G、B 取值范围是 0~255， 而 <strong>Limited Range</strong> 的 R、G、B 取值范围是 16~235。</p>
@@ -5087,6 +5095,199 @@ $$</p>
 </code></pre>
 <p>转换得到的 yuv 图像可以使用 <a href="https://github.com/IENT/YUView">YUView</a> 软件打开（注意，需要自行设置图片的分辨率等参数，否则不能正确显示）。</p>
 <p>由于 yuv 图片除了原始的像素数据，没有保存额外的数据，因此转换得到的图像大小为：320*320*3/2 = 153600 字节。</p>
+<h2 id="图像的缩放"><a class="header" href="#图像的缩放">图像的缩放</a></h2>
+<p>图像的缩放就是将原图像的已有像素经过加权运算得到目标图像的目标像素。</p>
+<p>假设原图像的分辨率是 <code>w0 * h0</code>，我们需要缩放到 <code>w1 * h1</code>。那我们只需要将目标图像中的像素位置<code>（x，y）</code>映射到原图像的<code>（x * w0 / w1，y * h0 / h1）</code>，再插值得到这个像素值就可以了，这个插值得到的像素值就是目标图像像素点<code>（x，y）</code>的像素值。注意，<code>（x * w0 / w1，y * h0 / h1）</code>绝大多数时候是小数。</p>
+<h3 id="图像缩放的场景"><a class="header" href="#图像缩放的场景">图像缩放的场景</a></h3>
+<ol>
+<li>播放窗口与原始图像分辨率不匹配的时候需要缩放</li>
+<li>在线观看视频时会有多种分辨率可以选择，即需要在一个图像分辨率的基础上缩放出多种不同尺寸的图像出来做编码，并保存多个不同分辨率的视频文件</li>
+<li>RTC 场景，有的时候我们需要根据网络状况实时调节视频通话的分辨率</li>
+</ol>
+<h3 id="插值算法"><a class="header" href="#插值算法">插值算法</a></h3>
+<p>使用周围已有的像素值通过一定的加权运算得到“插值像素值”。插值算法主要包括：最近邻插值算法（Nearest）、双线性插值算法（Bilinear）、双三次插值算法（BiCubic）等。</p>
+<h4 id="最近邻插值算法"><a class="header" href="#最近邻插值算法">最近邻插值算法</a></h4>
+<blockquote>
+<p>选择待插值像素周围的 4 个像素，并取离待插值像素位置最近的像素点权重为 1，其余 3 个点权重为 0</p>
+</blockquote>
+<ol>
+<li>将目标图像中的目标像素位置，映射到原图像的映射位置</li>
+<li>找到原图像中映射位置周围的 4 个像素</li>
+<li>取离映射位置最近的像素点的像素值作为目标像素</li>
+</ol>
+<p><strong>缺点</strong>: 它直接使用离插值位置最近的整数位置的像素作为插值像素，导致相邻两个插值像素有很大的概率是相同的。这样得到的放大图像大概率会出现<strong>块状效应</strong>，而缩小图像容易出现锯齿。</p>
+<h4 id="双线性插值算法"><a class="header" href="#双线性插值算法">双线性插值算法</a></h4>
+<blockquote>
+<p>选择待插值像素周围的 4 个像素，并且每个像素以距离作为权重，距离越近权重越大，距离越远权重越小</p>
+</blockquote>
+<p>双线性插值其实就是三次线性插值的过程，我们先通过两次线性插值得到两个中间值，然后再通过对这两个中间值进行一次插值得到最终的结果。</p>
+<p><img src="cs/../images/video-process/bilinear-interpolation.webp" alt="双线性插值" /></p>
+<p>$$
+val(m) = \frac{x - x_1}{x_2 - x_1} * val(b) + \frac{x_2 - x}{x_2 - x_1} * val(a) \\
+val(n) = \frac{x - x_1}{x_2 - x_1} * val(d) + \frac{x_2 - x}{x_2 - x_1} * val(c) \\
+val(p) = \frac{y - y_1}{y_2 - y_1} * val(m) + \frac{y_2 - y}{y_2 - y_1} * val(n)
+$$</p>
+<p>其中的 <code>val()</code> 表示该像素的像素值。</p>
+<h4 id="双三次插值算法"><a class="header" href="#双三次插值算法">双三次插值算法</a></h4>
+<ol>
+<li>双三次插值选取的是周围的 16 个像素，比前两种插值算法多了 3 倍</li>
+<li>周围像素的权重计算是使用一个特殊的 <strong>BiCubic</strong> 基函数来计算的</li>
+</ol>
+<p>先通过这个 BiCubic 基函数计算得到待插值像素周围 16 个像素的权重，然后将 16 个像素加权平均就可以得到最终的待插值像素了。</p>
+<p>BiCubic 函数的计算公式如下：</p>
+<p>$$
+f(x) = \begin{cases}
+(a+2)|x|^3 - (a+3)|x|^2 + 1 &amp; 0 \le |x| &lt; 1 \\
+a|x|^3 - 5a|x|^2 + 8a|x| - 4a &amp; 1 \le |x| &lt; 2 \\
+0 &amp; 2 \le |x|
+\end{cases}
+$$</p>
+<p>其中 a 的取值范围是 [-1, 0]，一般取 -0.5。</p>
+<p>对于周围 16 个点中的每一个点，其坐标值为（x，y），而目标图像中的目标像素在原图像中的映射坐标为 p（u，v）。那么通过上面公式可以求得其水平权重 W（u - x），垂直权重 W（v - y）。将 W（u - x）乘以 W（v - y）得到最终权重值，然后再用最终权重值乘以该点的像素值，并对 16 个点分别做同样的操作并求和，就得到待插值的像素值了。</p>
+<h2 id="视频编码"><a class="header" href="#视频编码">视频编码</a></h2>
+<p>人眼对于亮度信息更加敏感，而对于色度信息稍弱，所以视频编码是将 Y 分量和 UV 分量分开来编码的。对于每一帧图像，又是划分成一个个块来进行编码的，这一个个块在 H264 中叫做宏块。宏块的大小一般是 16x16。</p>
+<h3 id="图像的数据冗余"><a class="header" href="#图像的数据冗余">图像的数据冗余</a></h3>
+<ul>
+<li><strong>空间冗余</strong>：一幅图像中相邻像素的亮度和色度信息是比较接近的，并且亮度和色度信息也是逐渐变化的，不太会出现突变。</li>
+<li><strong>时间冗余</strong>：相邻两帧图像的变化比较小，相似性很高</li>
+<li><strong>视觉冗余</strong>：人眼对于图像中高频信息的敏感度要小于低频信息的，去除图像中的一些高频信息对于人眼来说差别不大</li>
+<li><strong>信息熵冗余</strong>：图像中的一些像素值出现的概率比较大，而另一些像素值出现的概率比较小，因此可以通过合理的编码来压缩数据</li>
+</ul>
+<h3 id="编码原理"><a class="header" href="#编码原理">编码原理</a></h3>
+<p>在每一个宏块中，从左上角开始<strong>之</strong>字形扫描每一个像素值，可以得到一个“像素串”。为了能够在最后熵编码的时候压缩率更高，我们希望送到熵编码（以<strong>行程编码</strong>为例）的“像素串”，是一串含有很多 0，并且最好连续为 0 的“像素串”。</p>
+<h4 id="帧内预测减小图像块的空间冗余"><a class="header" href="#帧内预测减小图像块的空间冗余"><strong>帧内预测</strong>减小图像块的空间冗余</a></h4>
+<p>帧内预测就是在当前编码图像内部已经编码完成的块中找到与将要编码的块相邻的块。一般就是即将编码块的左边块、上边块、左上角块和右上角块，通过将这些块与编码块相邻的像素经过<strong>多种不同的算法</strong>得到多个不同的<strong>预测块</strong>。然后我们再用编码块减去每一个预测块得到一个个<strong>残差块</strong>。最后，我们取这些算法得到的残差块中像素的绝对值加起来最小的块为预测块。而得到这个预测块的算法为帧内预测模式。帧内预测是根据块的大小分为不同的预测模式的。在 H264 标准里面，块分为宏块和子块。宏块的大小是 16 x 16（YUV 4:2:0 图像亮度块为 16 x 16，色度块为 8 x 8）。在帧内预测中，亮度宏块可以继续划分成 16 个 4 x 4 的子块。因为图像中有的地方细节很多，我们需要划分成更小的块来做预测会更精细，所以会将宏块再划分成 4 x 4 的子块。帧内预测中亮度块和色度块是分开独立进行预测的，即亮度块参考已编码亮度块的像素，而色度块参考已编码色度块的像素。</p>
+<p><img src="cs/../images/video-process/intra-frame-predicdion.webp" alt="帧内预测" /></p>
+<h5 id="4-x-4-亮度块的帧内预测模式"><a class="header" href="#4-x-4-亮度块的帧内预测模式">4 x 4 亮度块的帧内预测模式</a></h5>
+<ol>
+<li>
+<p>Vertical 模式</p>
+<p><img src="cs/../images/video-process/intra-vertical-mode.webp" alt="Vertical模式" /></p>
+</li>
+<li>
+<p>Horizontal 模式</p>
+<p><img src="cs/../images/video-process/intra-horizontal-mode.webp" alt="Horizontal模式" /></p>
+</li>
+<li>
+<p>DC 模式</p>
+<p>DC 模式就是指，当前编码亮度块的每一个像素值，是上边已经编码块的最下面那一行和左边已编码块右边最后一列的所有像素值的平均值。注意，DC 模式预测得到的块中每一个像素值都是一样的。</p>
+<p><img src="cs/../images/video-process/intra-dc-mode.webp" alt="DC模式" /></p>
+</li>
+<li>
+<p>Diagonal Down-Left 模式</p>
+<p><img src="cs/../images/video-process/intra-diagonal-down-left-mode.webp" alt="Diagonal Down-Left模式" /></p>
+</li>
+<li>
+<p>Diagonal Down-Right 模式</p>
+<p><img src="cs/../images/video-process/intra-diagonal-down-right-mode.webp" alt="Diagonal Down-Right模式" /></p>
+</li>
+<li>
+<p>Vertical-Right 模式</p>
+<p><img src="cs/../images/video-process/intra-vertical-right-mode.webp" alt="Vertical-Right模式" /></p>
+</li>
+<li>
+<p>Horizontal-Down 模式</p>
+<p><img src="cs/../images/video-process/intra-horizontal-down-mode.webp" alt="Horizontal-Down模式" /></p>
+</li>
+<li>
+<p>Vertical-Left 模式</p>
+<p><img src="cs/../images/video-process/intra-vertical-left-mode.webp" alt="Vertical-Left模式" /></p>
+</li>
+<li>
+<p>Horizontal-Up 模式</p>
+<p><img src="cs/../images/video-process/intra-horizontal-up-mode.webp" alt="Horizontal-Up模式" /></p>
+</li>
+</ol>
+<p>对于每一个块或者子块，我们可以得到预测块，再用实际待编码的块减去预测块就可以得到残差块。主要有下面 3 种方案来得到最优预测模式：</p>
+<p>第一种方案，先对每一种预测模式的残差块的像素值求绝对值再求和，称之为 cost，然后取其中残差块绝对值之和也就是 cost 最小的预测模式为最优预测模式。</p>
+<p>第二种方案，对残差块先进行 Hadamard 变换（在 DCT 变换和量化那节课中会介绍），变换到频域之后再求绝对值求和，同样称为 cost，然后取 cost 最小的预测模式为最优预测模式。</p>
+<p>第三种方案，也可以对残差块直接进行 DCT 变换量化熵编码，计算得到失真大小和编码后的码流大小，然后通过<strong>率失真优化</strong>的方法来选择最优预测模式。</p>
+<p>通过上面讲的这些方法我们找到了每一个 4 x 4 块的最优模式之后，将这 16 个 4 x 4 块的 cost 加起来，与 16 x 16 块的最小 cost 对比，选择 cost 最小的块划分方式和预测模式作为帧内预测模式。</p>
+<p><strong>在 H264 标准里面，视频的第一帧的第一个块的左和上都是空，没法预测，所以设置成了一个约定值128，方便编码</strong>。</p>
+<h4 id="帧间预测减小图像块的时间冗余"><a class="header" href="#帧间预测减小图像块的时间冗余"><strong>帧间预测</strong>减小图像块的时间冗余</a></h4>
+<p>在前面已经编码完成的图像中，循环遍历每一个块，将它作为预测块，用当前的编码块与这个块做差值，得到残差块，取残差块中像素值的绝对值加起来最小的块为预测块，预测块所在的已经编码的图像称为参考帧。预测块在参考帧中的坐标值 (x0, y0) 与编码块在编码帧中的坐标值 (x1, y1) 的差值 (x0 - x1, y0 - y1) 称之为运动矢量。在参考帧中去寻找预测块的过程称之为运动搜索。帧间预测既可以参考前面的图像也可以参考后面的图像。只参考前面图像的帧我们称为前向参考帧，也叫 P 帧；参考后面的图像或者前面后面图像都参考的帧，我们称之为双向参考帧，也叫做 B 帧。B 帧相比 P 帧主要是需要先编码后面的帧，并且 B 帧一个编码块可以有两个预测块，这两个预测块分别由两个参考帧预测得到，最后加权平均得到最终的预测块。</p>
+<p>帧间预测的宏块大小 16 x 16，可以划分为 16 x 8，8 x 16， 8 x 8 三种，其中 8 x 8 可以继续划分成 8 x 4，4 x 8 和 4 x 4，这是亮度块的划分。在 YUV 4:2:0 中，色度块宽高大小都是亮度块的一半。</p>
+<p>在 H264 标准中，P 帧最多支持从 16 个参考帧中选出一个作为编码块的参考帧，但是同一个帧中的不同块可以选择不同的参考帧，这就是多参考。</p>
+<h5 id="运动搜索"><a class="header" href="#运动搜索">运动搜索</a></h5>
+<ul>
+<li>钻石搜索</li>
+</ul>
+<p><img src="cs/../images/video-process/motion-search-diamond.webp" alt="钻石搜索" /></p>
+<ul>
+<li>六边形搜索</li>
+</ul>
+<p><img src="cs/../images/video-process/motion-search-hexagon.webp" alt="六边形搜索" /></p>
+<h4 id="dct变换和量化减小图像块的视觉冗余"><a class="header" href="#dct变换和量化减小图像块的视觉冗余"><strong>DCT</strong>变换和量化减小图像块的视觉冗余</a></h4>
+<p>在H264中，如果一个块大小是16x16，一般会划分成16个4x4的块，然后对每个 4x4 的块做 DCT 变换得到相应的 4x4 的变换块。变换块的每一个“像素值”我们称为系数。变换块<strong>左上角</strong>的系数值就是图像的<strong>低频</strong>信息，其余的就是图像的高频信息，并且高频信息占大部分。低频信息表示的是一张图的总体样貌。一般低频系数的值也比较大。而高频信息主要表示的是图像中人物或物体的轮廓边缘等变化剧烈的地方。高频系数的数量多，但高频系数的值一般比较小。</p>
+<p>让变换块的系数都同时除以一个值，这个值我们称之为量化步长，也就是 QStep（QStep 是编码器内部的概念，用户一般使用量化参数 QP 这个值，QP 和 QStep 一一对应），得到的结果就是量化后的系数。QStep 越大，得到量化后的系数就会越小。同时，相同的 QStep 值，高频系数值相比低频系数值更小，量化后就更容易变成 0。这样一来，我们就可以将大部分高频系数变成 0。</p>
+<p>QP 值越大，损失就越大，从而画面的清晰度就会越低。同时，QP 值越大系数被量化成 0 的概率就越大，这样编码之后码流大小就会越小，压缩就会越高。</p>
+<p><img src="cs/../images/video-process/dct-quantize.webp" alt="余弦变换与量化" /></p>
+<h2 id="码流结构-h264"><a class="header" href="#码流结构-h264">码流结构 (H264)</a></h2>
+<h3 id="帧类型"><a class="header" href="#帧类型">帧类型</a></h3>
+<div class="table-wrapper"><table><thead><tr><th></th><th>帧类型</th><th>预测方式</th><th>参考帧</th><th>优缺点</th></tr></thead><tbody>
+<tr><td>I 帧</td><td>帧内编码帧</td><td>只进行帧内预测</td><td>无</td><td>自身能独立完成编码解码，压缩率小</td></tr>
+<tr><td>P 帧</td><td>前向编码帧</td><td>可以进行帧内预测和帧间预测</td><td>前面的 I 帧和 P 帧</td><td>压缩率比 I 帧高，必须要参考帧才能正确编解码</td></tr>
+<tr><td>B 帧</td><td>双向编码帧</td><td>可以进行帧内预测和帧间预测</td><td>前面或者后面的 I 帧和 P 帧</td><td>压缩率最高，需要缓存帧，延时高，RTC 场景不适合</td></tr>
+</tbody></table>
+</div>
+<p><img src="cs/../images/video-process/frames-in-order.webp" alt="三种帧的示例图" /></p>
+<p>为了防止某个参考帧出错而导致错误的不断传递，H264 规定了一个特殊的 I 帧叫 <strong>IDR</strong>帧，也叫立即刷新帧。<strong>IDR 帧之后的帧不能再参考 IDR 帧之前的帧</strong>。</p>
+<h3 id="视频图像的序列结构"><a class="header" href="#视频图像的序列结构">视频图像的序列结构</a></h3>
+<p>从一个 IDR 帧开始到下一个 IDR 帧的前一帧为止，这里面包含的 IDR 帧、普通 I 帧、P 帧和 B 帧，我们称为一个 GOP (Group of Pictures) 图像组。</p>
+<p><img src="cs/../images/video-process/group-of-pictures.webp" alt="GOP" /></p>
+<p>GOP 越大，编码的 I 帧就越少，相比而言，P帧和B帧的压缩率更高，因此整个视频的编码效率越高。但是 GOP 太大，会导致 IDR 帧距离太大，点播场景时进行视频的 seek 操作不方便。并且，在 RTC 和直播场景中，可能会因为网络原因导致丢包而引起接收端的丢帧，大的 GOP 最终可能导致参考帧丢失而出现解码错误，从而引起长时间花屏和卡顿。</p>
+<h3 id="图像内部的层次结构"><a class="header" href="#图像内部的层次结构">图像内部的层次结构</a></h3>
+<p><strong>Slice 其实是为了并行编码设计的</strong>。将一帧图像划分成几个 Slice，并且 Slice 之间相互独立、互不依赖、独立编码。并行对多个 Slice 进行编码可以提升速度，但是帧内预测不能跨 Slice 进行，因此编码性能会差一些。一个 Slice 会包含整数个宏块。在做帧内和帧间预测的时候，我们又可以将宏块继续划分成不同大小的子块，用来给复杂区域做精细化编码。</p>
+<p><img src="cs/../images/video-process/slice.webp" alt="Slice" /></p>
+<h3 id="码流格式"><a class="header" href="#码流格式">码流格式</a></h3>
+<p>H264 码流有两种格式：一种是 <strong>Annexb</strong> 格式；一种是 <strong>MP4</strong> 格式。</p>
+<p><img src="cs/../images/video-process/annexb.webp" alt="annexb" /></p>
+<p>Annexb 格式使用<strong>起始码</strong>来表示一个编码数据的开始。起始码本身不是图像编码的内容，只是用来分隔用的。</p>
+<p><img src="cs/../images/video-process/mp4.webp" alt="mp4" /></p>
+<p>MP4 格式在图像编码数据的开始使用了 4 个字节作为长度标识，用来表示编码数据的长度。</p>
+<h3 id="nalu-网络抽象层单元"><a class="header" href="#nalu-网络抽象层单元">NALU (网络抽象层单元)</a></h3>
+<p>编码数据中除了图像数据，还有一些编码参数数据，为了能够将一些通用的编码参数提取出来，不在图像编码数据中重复，H264 设计了<strong>两个重要的参数集：一个是 SPS（序列参数集）；一个是 PPS（图像参数集）</strong>。</p>
+<p>SPS 主要包含的是图像的宽、高、YUV 格式和位深等基本信息。</p>
+<p>PPS 主要包含熵编码类型、基础 QP 和最大参考帧数量等基本编码信息。</p>
+<p><strong>H264 的码流主要是由 SPS、PPS、I Slice、P Slice和B Slice 组成的</strong>。</p>
+<p><img src="cs/../images/video-process/nalu.webp" alt="H264码流组成" /></p>
+<p>SPS 是一个 NALU、PPS 是一个 NALU、每一个 Slice 也是一个 NALU。每一个 NALU 又都是由一个 1 字节的 NALU Header 和若干字节的 NALU Data 组成的。而对于每一个 Slice NALU，其 NALU Data 又是由 Slice Header 和 Slice Data 组成，并且 Slice Data 又是由一个个 MB Data 组成。</p>
+<h4 id="nalu-header"><a class="header" href="#nalu-header">NALU Header</a></h4>
+<p><img src="cs/../images/video-process/nalu-header.webp" alt="NALU Header" /></p>
+<ul>
+<li>F: 禁止位，H264 码流必须为 0</li>
+<li>NRI： nal_ref_idc，表示当前 NALU 的重要性。参考帧、SPS 和 PPS 对应的 NALU 必须要大于 0</li>
+<li>Type： nal_unit_type，表示 NALU 的类型</li>
+</ul>
+<p>NALU 类型表格：</p>
+<div class="table-wrapper"><table><thead><tr><th>NALU 类型</th><th>描述</th></tr></thead><tbody>
+<tr><td>0</td><td>未使用</td></tr>
+<tr><td>1</td><td>非 IDR 图像中的 Slice</td></tr>
+<tr><td>2</td><td>片分区 A</td></tr>
+<tr><td>3</td><td>片分区 B</td></tr>
+<tr><td>4</td><td>片分区 C</td></tr>
+<tr><td>5</td><td>IDR 图像中的 Slice</td></tr>
+<tr><td>6</td><td>补充增强信息单元 SEI</td></tr>
+<tr><td>7</td><td>序列参数集 SPS</td></tr>
+<tr><td>8</td><td>图像参数集 PPS</td></tr>
+<tr><td>9</td><td>分解符</td></tr>
+<tr><td>10</td><td>序列结束</td></tr>
+<tr><td>11</td><td>码流结束</td></tr>
+<tr><td>12</td><td>填充</td></tr>
+<tr><td>13...23</td><td>保留</td></tr>
+<tr><td>24...31</td><td>未使用</td></tr>
+</tbody></table>
+</div>
+<p>NALU 类型只区分了 IDR Slice 和非 IDR Slice，至于非 IDR Slice 是普通 I Slice、P Slice 还是 B Slice，则需要继续解析 Slice Header 中的 Slice Type 字段得到。</p>
+<h3 id="如何从码流中判断哪几个-slice-是同一帧的"><a class="header" href="#如何从码流中判断哪几个-slice-是同一帧的">如何从码流中判断哪几个 Slice 是同一帧的</a></h3>
+<p>H264 码流中没有字段表示一帧包含几个 Slice，但是 Slice Header 中有一个 <strong>first_mb_in_slice</strong> 的字段，表示当前 Slice 的第一个宏块在当前编码图像中的序号。如果 first_mb_in_slice 的值等于 0，就代表了当前 Slice 的第一个宏块是一帧的第一个宏块，也就是说当前 Slice 就是一帧的第一个 Slice。first_mb_in_slice 是以<strong>无符号指数哥伦布</strong>编码的，需要使用对应的解码方式才能解码出来。但是有一个小技巧，如果 <strong>slice_header[0] &amp; 0x80 == 1</strong>， 则first_mb_in_slice 等于 0。</p>
+<h3 id="如何从码流中获取-qp-值"><a class="header" href="#如何从码流中获取-qp-值">如何从码流中获取 QP 值</a></h3>
+<p>在 PPS 中有一个全局基础 QP，字段是 pic_init_qp_minus26。当前序列中所有依赖该 PPS 的 Slice 共用这个基础 QP，且每一个 Slice 在这个基础 QP 的基础上做调整。在 Slice Header 中有一个 slice_qp_delta 字段来描述这个调整偏移值。更进一步，H264 允许在宏块级别对 QP 做更进一步的精细化调节。这个字段在宏块数据里面，叫做 mb_qp_delta。</p>
+<h3 id="使用-ffmpeg-从视频文件中提取-h264-码流"><a class="header" href="#使用-ffmpeg-从视频文件中提取-h264-码流">使用 ffmpeg 从视频文件中提取 H264 码流</a></h3>
+<pre><code class="language-bash">ffmpeg -i input.mp4 -c:v copy -bsf:v h264_mp4toannexb -an output.h264
+</code></pre>
+<h2 id="不同的编码器标准比较"><a class="header" href="#不同的编码器标准比较">不同的编码器标准比较</a></h2>
+<p><img src="cs/../images/video-process/various-video-encoders.webp" alt="对比不同的编码器标准" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usb-基础"><a class="header" href="#usb-基础">USB 基础</a></h1>
 <h2 id="usb-基本概念"><a class="header" href="#usb-基本概念">USB 基本概念</a></h2>
 <h3 id="usb-协议标准"><a class="header" href="#usb-协议标准">USB 协议标准</a></h3>
@@ -5207,6 +5408,7 @@ $$</p>
 <ul>
 <li>ISO11898 定义了通信速率为 125 Kbps～1 Mbps 的高速 CAN 通信标准，属于闭环总线，总线长度 ≤ 40 米。</li>
 <li>ISO11519 定义了通信速率为 10～125 Kbps 的低速 CAN 通信标准，属于开环总线，总线长度可达 1000 米。</li>
+<li>ISO16845 定义了认证需要的测试用例</li>
 <li>在同一条总线上，所有节点的通信速度必须相同；如果两条不同通信速度的总线上的节点想要实现信息交互，必须通过网关或者中继器转发信息。</li>
 </ul>
 <h2 id="信号表示"><a class="header" href="#信号表示">信号表示</a></h2>
@@ -5377,14 +5579,26 @@ for msg in bus:
 # or use an asynchronous notifier
 notifier = can.Notifier(bus, [can.Logger(&quot;recorded.log&quot;), can.Printer()])
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="mipi-基础"><a class="header" href="#mipi-基础">MIPI 基础</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mipi-dsi-基础"><a class="header" href="#mipi-dsi-基础">MIPI DSI 基础</a></h1>
 <h2 id="mipi-层次结构"><a class="header" href="#mipi-层次结构">MIPI 层次结构</a></h2>
 <p><img src="ee/../images/mipi/mipi-hiearachy.jpeg" alt="MIPI 应用的层级结构" /></p>
-<h3 id="dsi"><a class="header" href="#dsi">DSI</a></h3>
+<h2 id="dsi"><a class="header" href="#dsi">DSI</a></h2>
 <p>MIPI DSI 是基于字节的协议，应用层完成各种操作下相关命令的选择、各像素点图像数据的字节映射处理。MIPI 定义了<strong>命令模式</strong>和<strong>视频模式</strong>两种传输模式。视频模式以实时像素数据流的方式从处理器向外设传输数据，而命令模式可以做到按需传输，只需要在图像内容发生变化时再进行新图像数据的传输。命令模式需要显示模组中的帧缓存存储器的支持。<em>这两种传输模式的支持，由模组硬件结构决定</em>。</p>
-<p><img src="ee/../images/mipi/mipi-dsi-flow.jpg" alt="DSI 数据通路" /></p>
 <p>MIPI DSI 的高速数据传输采用差分信号来传输，在时钟通道和各个数据通道上都会有高速数据传输。</p>
 <p>MIPI DSI 的低功耗数据传输并不需要时钟传输，这时 D-PHY 采用<strong>归零码</strong>的方式来表示逻辑数据“0” “1”，并且低功耗数据只会在数据通道<strong>0</strong>上进行传输，对通道<strong>0</strong>的P端和N端进行<strong>异或</strong>操作就可以恢复出数据比特流的“同步时钟”。</p>
+<h3 id="dsi-系统架构"><a class="header" href="#dsi-系统架构">DSI 系统架构</a></h3>
+<p><img src="ee/../images/mipi/mipi-dsi-block-diagram.png" alt="MIPI DSI 系统架构" /></p>
+<div class="table-wrapper"><table><thead><tr><th>时钟</th><th>最小频率</th><th>最大频率</th></tr></thead><tbody>
+<tr><td>rxclkesc</td><td></td><td>由 PHY 限制，通常不超过 20MHz</td></tr>
+<tr><td>txclkesc</td><td></td><td>由 PHY 限制，通常不超过 20MHz</td></tr>
+<tr><td>lanebyteclk</td><td>3 * rxclkesc</td><td>1/8 of the DPHY maximum speed</td></tr>
+<tr><td>pclk</td><td>2MHz</td><td>220MHz</td></tr>
+<tr><td>dpiclk</td><td></td><td>250MHz</td></tr>
+<tr><td>dbiclk</td><td></td><td>41MHz</td></tr>
+</tbody></table>
+</div>
+<h3 id="dsi-层级结构"><a class="header" href="#dsi-层级结构">DSI 层级结构</a></h3>
+<p><img src="ee/../images/mipi/mipi-dsi-flow.jpg" alt="DSI 层级结构" /></p>
 <h4 id="视频模式"><a class="header" href="#视频模式">视频模式</a></h4>
 <p>视频模式下，图像数据的传输是用<strong>低阶协议层</strong>包结构中的数据类型标识符（DT,Data Type）字段区分，用不同的 DT 来构造视频模式传输所需要的各种数据包。视频模式下，应用层只提供图像数据的净荷，利用低阶协议层进行组包处理。在 MIPI DSI 中，同步信号分为以下几个命令：</p>
 <div class="table-wrapper"><table><thead><tr><th>同步信号命令</th><th>功能</th></tr></thead><tbody>
@@ -5435,8 +5649,8 @@ notifier = can.Notifier(bus, [can.Logger(&quot;recorded.log&quot;), can.Printer(
 <tr><td>21h</td><td>HSS (H Sync Start )</td><td>行同步开始数据包</td><td>短包</td></tr>
 <tr><td>31h</td><td>HSE (H Sync End )</td><td>行同步结束数据包</td><td>短包</td></tr>
 <tr><td>08h</td><td>EoTp ( EoT Packet )</td><td>传输结束指示数据包</td><td>短包</td></tr>
-<tr><td>02h</td><td>Color Mode On Command</td><td>显示模组进入浅色显示模式</td><td>短包</td></tr>
-<tr><td>12h</td><td>Color Mode Off Command</td><td>显示模组恢复正常显示模式</td><td>短包</td></tr>
+<tr><td>02h</td><td>Color Mode Off Command</td><td>显示模组进入浅色显示模式</td><td>短包</td></tr>
+<tr><td>12h</td><td>Color Mode On Command</td><td>显示模组恢复正常显示模式</td><td>短包</td></tr>
 <tr><td>22h</td><td>Shutdown Peripheral Command</td><td>关闭显示模组命令</td><td>短包</td></tr>
 <tr><td>32h</td><td>Turn On Peripheral Command</td><td>激活显示模组命令</td><td>短包</td></tr>
 <tr><td>03h</td><td>Generic Short Write</td><td>通用短包写命令，不带参数</td><td>短包</td></tr>
@@ -5459,7 +5673,7 @@ notifier = can.Notifier(bus, [can.Logger(&quot;recorded.log&quot;), can.Printer(
 <tr><td>0Dh</td><td>Packed Pixel Stream</td><td>30比特10:10:10格式RGB像素流</td><td>长包</td></tr>
 <tr><td>1Dh</td><td>Packed Pixel Stream</td><td>36比特12:12:12格式RGB像素流</td><td>长包</td></tr>
 <tr><td>3Dh</td><td>Packed Pixel Stream</td><td>12比特4:2:0格式YUV像素流</td><td>长包</td></tr>
-<tr><td>0Eh</td><td>Packed Pixel Stream</td><td>16比特5:6:7格式RGB像素流</td><td>长包</td></tr>
+<tr><td>0Eh</td><td>Packed Pixel Stream</td><td>16比特5:6:5格式RGB像素流</td><td>长包</td></tr>
 <tr><td>1Eh</td><td>Packed Pixel Stream</td><td>18比特6:6:6格式RGB像素流</td><td>长包</td></tr>
 <tr><td>2Eh</td><td>Loosely Packet Pixel Stream</td><td>18比特6:6:6格式RGB像素流</td><td>长包</td></tr>
 <tr><td>3Eh</td><td>Packed Pixel Stream</td><td>24比特8:8:8格式RGB像素流</td><td>长包</td></tr>
