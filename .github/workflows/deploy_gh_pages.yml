@@ -17,7 +17,9 @@ jobs:
         with:
           mdbook-version: "latest"
       - name: Build 🔧
-        run: mdbook build
+        run: |
+          cargo install mdbook-admonish
+          mdbook build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:

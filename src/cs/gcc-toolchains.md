@@ -27,23 +27,23 @@ GCC 实质上不是一个单独的程序，而是多个程序的集合，因此�
 
 C语言标准主要由两部分组成：一部分描述 C 的语法，另一部分描述 C 标准库。C 标准库定义了一组标准头文件，每个头文件中包含一些相关的函数、变量、类型声明和宏定义，比如常见的 printf 函数便是一个 C 标准库函数，其原型定义在 stdio 头文件中。
 
-:::tip
+~~~admonish note title=""
 
 C 语言标准仅仅定义了 C 标准库函数原型，并没有提供实现。因此，C 编译器需要一个 C 运行时库(C Run Time  Libray,CRT)的支持。
 
-:::
+~~~
 
 glibc (GNU C Library) 是 Linux 下的 C 标准库的实现：
 
 * glibc 本身是 GNU 旗下的 C 标准库，后来逐渐成为了 Linux 的标准 C 库。glibc 的主体分布在 Linux 系统的 /lib 与 /usr/lib 目录中，包括 libc 标准 C 函数库、libm 数学函式库等，都以 `.so` 结尾。
 
-  :::warning
+  ~~~admonish warning title=""
 
   Linux 系统下的标准 C 库不只有 glibc，还存在 uclibc、klibc、musl 等等，但是 glibc 使用最为广泛。
 
   嵌入式系统中使用较多的 C 运行库是 `newlib`。
 
-  :::
+  ~~~
 
 * Linux 系统通常将 libc 库作为操作系统的一部分，它被视为操作系统与用户程序的接口。比如：glibc 不仅实现标准 C 语言中的函数，还封装了操作系统提供的系统调用。
 
@@ -77,7 +77,7 @@ int main(void)
 使用 gcc 进行预处理的命令如下：
 
 ```bash
-gcc -E hello.c -o hello.i 	# 将源文件 hello.c 文件预处理生成 hello.i
+gcc -E hello.c -o hello.i  # 将源文件 hello.c 文件预处理生成 hello.i
 ```
 
 hello.i 文件可以作为普通文本文件打开进行查看，其代码片段如下所示：
@@ -105,7 +105,7 @@ main(void)
 使用 gcc 进行编译的命令如下：
 
 ```bash
-gcc -S hello.i -o hello.s 	# 将预处理生成的 hello.i 文件编译生成汇编程序 hello.s
+gcc -S hello.i -o hello.s  # 将预处理生成的 hello.i 文件编译生成汇编程序 hello.s
 ```
 
 上述命令生成的汇编程序 hello.s 的代码片段如下所示，其全部为汇编代码。
@@ -137,9 +137,9 @@ main:
 使用 gcc 进行汇编的命令如下：
 
 ```bash
-gcc -c hello.s -o hello.o 	# 将编译生成的 hello.s 文件汇编生成目标文件 hello.o
+gcc -c hello.s -o hello.o  # 将编译生成的 hello.s 文件汇编生成目标文件 hello.o
 # 或者直接调用 as 进行汇编
-as -c hello.s -o hello.o 	# 使用 Binutils 中的 as 将 hello.s 文件汇编生成目标文件
+as -c hello.s -o hello.o  # 使用 Binutils 中的 as 将 hello.s 文件汇编生成目标文件
 ```
 
 :::warning
@@ -167,7 +167,7 @@ hello.c:(.text+0xa): undefined reference to `puts'
 之所以直接用 `ld` 进行链接会报错是因为仅仅依靠一个 `hello.o` 目标文件还无法链接成为一个完整的可执行文件，需要明确的指明其需要的各种依赖库和引导程序以及链接脚本，此过程在嵌入式软件开发时是必不可少的。而在 `Linux` 系统中，可以直接使用 `gcc` 命令执行编译直至链接的过程，gcc 会自动将所需的依赖库以及引导程序链接在一起成为 Linux 系统可以加载的 `ELF` 格式可执行文件。使用 gcc 进行编译直至链接的命令如下：
 
 ```bash
-gcc hello.c -o hello  	# 将 hello.c 文件编译汇编链接生成可执行文件 hello
+gcc hello.c -o hello   # 将 hello.c 文件编译汇编链接生成可执行文件 hello
 ./hello                 # 成功执行该文件，在终端上会打印 Hello World！字符串 Hello World!
 ```
 
@@ -189,10 +189,10 @@ gcc hello.c -o hello  	# 将 hello.c 文件编译汇编链接生成可执行文�
 
     ```bash
     $ gcc hello.c -o hello
-    $ size hello  	# 使用size查看大小
+    $ size hello   # 使用size查看大小
        text    data     bss     dec     hex     filename
        1183     552       8    1743     6cf     hello
-    $ ldd hello 	# 可以看出该可执行文件链接了很多其他动态库，主要是 Linux 的 glibc 动态库
+    $ ldd hello  # 可以看出该可执行文件链接了很多其他动态库，主要是 Linux 的 glibc 动态库
             linux-vdso.so.1 =>  (0x00007fffefd7c000)
             libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fadcdd82000)
             /lib64/ld-linux-x86-64.so.2 (0x00007fadce14c000)
@@ -202,11 +202,11 @@ gcc hello.c -o hello  	# 将 hello.c 文件编译汇编链接生成可执行文�
 
     ```bash
     $ gcc -static hello.c -o hello
-    $ size hello 	# 使用size查看大小
+    $ size hello  # 使用size查看大小
          text    data     bss     dec     hex   filename
-     823726    7284    6360  837370   cc6fa     hello 	# 可以看出 text 段的代码尺寸变大
+     823726    7284    6360  837370   cc6fa     hello  # 可以看出 text 段的代码尺寸变大
     $ ldd hello
-           not a dynamic executable 	# 说明没有链接动态库
+           not a dynamic executable  # 说明没有链接动态库
     ```
 
 链接器链接后生成的最终文件为 ELF 格式可执行文件，一个 ELF 可执行文件通常被链接为不同的段，常见的段有 `.text`、`.data`、`.rodata`、`.bss` 等。

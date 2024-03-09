@@ -11,6 +11,7 @@ mathjax-support = true
 site-url = "/blog/"
 git-repository-url = "https://github.com/suda-morris/blog"
 edit-url-template = "https://github.com/suda-morris/blog/edit/master/{path}"
+additional-css = ["./mdbook-admonish.css"]
 
 [output.html.playground]
 editable = true
@@ -27,3 +28,9 @@ heading-split-level = 2
 
 [rust]
 edition = "2021" # the default edition for code blocks
+
+[preprocessor]
+
+[preprocessor.admonish]
+command = "mdbook-admonish"
+assets_version = "3.0.2" # do not edit: managed by `mdbook-admonish install`
