@@ -92,7 +92,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html" class="active"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="chapter-item expanded "><a href="../cs/cmake.html"><strong aria-hidden="true">3.</strong> CMake</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">4.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编程语言</li><li class="chapter-item expanded "><a href="../cs/rust.html"><strong aria-hidden="true">5.</strong> Rust</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">6.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="../cs/pytest.html"><strong aria-hidden="true">7.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">8.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">9.</strong> USB 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/can.html"><strong aria-hidden="true">10.</strong> CAN 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/mipi-dsi.html"><strong aria-hidden="true">11.</strong> MIPI DSI 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">12.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">前端</li><li class="chapter-item expanded "><a href="../cs/tauri.html"><strong aria-hidden="true">13.</strong> Tauri</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">14.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">15.</strong> slides 工具</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -234,7 +236,7 @@
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 int main(void)
 {
-  printf(&quot;Hello World! \n&quot;);
+  printf("Hello World! \n");
   return 0;
 }
 </code></pre>
@@ -252,16 +254,16 @@ int main(void)
 </code></pre>
 <p>hello.i 文件可以作为普通文本文件打开进行查看，其代码片段如下所示：</p>
 <pre><code class="language-c">extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-# 942 &quot;/usr/include/stdio.h&quot; 3 4
+# 942 "/usr/include/stdio.h" 3 4
 
-# 2 &quot;hello.c&quot; 2
+# 2 "hello.c" 2
 
 
-# 3 &quot;hello.c&quot;
+# 3 "hello.c"
 int
 main(void)
 {
-  printf(&quot;Hello World!&quot; &quot;\n&quot;);
+  printf("Hello World!" "\n");
   return 0;
 }
 </code></pre>
@@ -477,7 +479,7 @@ main(void)
 {
   400526:    55                      push   %rbp
   400527:    48 89 e5                mov    %rsp,%rbp
-  printf(&quot;Hello World!&quot; &quot;\n&quot;);
+  printf("Hello World!" "\n");
   40052a:    bf c4 05 40 00          mov    $0x4005c4,%edi
   40052f:    e8 cc fe ff ff          callq  400400 &lt;puts@plt&gt;
   return 0;

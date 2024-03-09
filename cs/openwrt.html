@@ -92,7 +92,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="chapter-item expanded "><a href="../cs/cmake.html"><strong aria-hidden="true">3.</strong> CMake</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html" class="active"><strong aria-hidden="true">4.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编程语言</li><li class="chapter-item expanded "><a href="../cs/rust.html"><strong aria-hidden="true">5.</strong> Rust</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">6.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="../cs/pytest.html"><strong aria-hidden="true">7.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">8.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">9.</strong> USB 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/can.html"><strong aria-hidden="true">10.</strong> CAN 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/mipi-dsi.html"><strong aria-hidden="true">11.</strong> MIPI DSI 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">12.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">前端</li><li class="chapter-item expanded "><a href="../cs/tauri.html"><strong aria-hidden="true">13.</strong> Tauri</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">14.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">15.</strong> slides 工具</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -186,17 +188,17 @@
 [    0.300000] m25p80 spi32766.0: w25q256 (32768 Kbytes)
 [    0.300000] m25p80 spi32766.0: using chunked io
 [    0.310000] 4 ofpart partitions found on MTD device spi32766.0
-[    0.310000] Creating 4 MTD partitions on &quot;spi32766.0&quot;:
-[    0.320000] 0x000000000000-0x000000030000 : &quot;u-boot&quot;
-[    0.320000] 0x000000030000-0x000000040000 : &quot;u-boot-env&quot;
-[    0.330000] 0x000000040000-0x000000050000 : &quot;factory&quot;
-[    0.340000] 0x000000050000-0x000002000000 : &quot;firmware&quot;
+[    0.310000] Creating 4 MTD partitions on "spi32766.0":
+[    0.320000] 0x000000000000-0x000000030000 : "u-boot"
+[    0.320000] 0x000000030000-0x000000040000 : "u-boot-env"
+[    0.330000] 0x000000040000-0x000000050000 : "factory"
+[    0.340000] 0x000000050000-0x000002000000 : "firmware"
 [    0.410000] 2 uimage-fw partitions found on MTD device firmware
-[    0.410000] 0x000000050000-0x000000168da1 : &quot;kernel&quot;
-[    0.420000] 0x000000168da1-0x000002000000 : &quot;rootfs&quot;
+[    0.410000] 0x000000050000-0x000000168da1 : "kernel"
+[    0.420000] 0x000000168da1-0x000002000000 : "rootfs"
 [    0.420000] mtd: device 5 (rootfs) set to be root filesystem
 [    0.430000] 1 squashfs-split partitions found on MTD device rootfs
-[    0.440000] 0x000000620000-0x000002000000 : &quot;rootfs_data&quot;
+[    0.440000] 0x000000620000-0x000002000000 : "rootfs_data"
 </code></pre>
 <p>::: tip
 系统在SPI设备上创建了4个MTD分区
@@ -218,13 +220,13 @@
 <h3 id="查看系统-mtd-分配"><a class="header" href="#查看系统-mtd-分配">查看系统 MTD 分配</a></h3>
 <pre><code class="language-bash">root@Widora:~# cat /proc/mtd
 dev:    size   erasesize  name
-mtd0: 00030000 00010000 &quot;u-boot&quot;
-mtd1: 00010000 00010000 &quot;u-boot-env&quot;
-mtd2: 00010000 00010000 &quot;factory&quot;
-mtd3: 01fb0000 00010000 &quot;firmware&quot;
-mtd4: 00118da1 00010000 &quot;kernel&quot;
-mtd5: 01e9725f 00010000 &quot;rootfs&quot;
-mtd6: 019e0000 00010000 &quot;rootfs_data&quot;
+mtd0: 00030000 00010000 "u-boot"
+mtd1: 00010000 00010000 "u-boot-env"
+mtd2: 00010000 00010000 "factory"
+mtd3: 01fb0000 00010000 "firmware"
+mtd4: 00118da1 00010000 "kernel"
+mtd5: 01e9725f 00010000 "rootfs"
+mtd6: 019e0000 00010000 "rootfs_data"
 </code></pre>
 <h3 id="查看系统-mtd-分配-1"><a class="header" href="#查看系统-mtd-分配-1">查看系统 MTD 分配</a></h3>
 <pre><code class="language-bash">root@Widora:~# cat /proc/partitions
@@ -829,7 +831,7 @@ config wifi-iface 'sta'
 <p>:::</p>
 <h4 id="查看无线网络状态"><a class="header" href="#查看无线网络状态">查看无线网络状态</a></h4>
 <pre><code class="language-bash">root@Widora:~# iwinfo
-ra0       ESSID: &quot;Widora-A9B8&quot;
+ra0       ESSID: "Widora-A9B8"
           Access Point: 0C:EF:AF:D2:A9:B8
           Mode: Client  Channel: 7 (2.442 GHz)
           Tx-Power: 18 dBm  Link Quality: 10/100
@@ -845,13 +847,13 @@ ra0       ESSID: &quot;Widora-A9B8&quot;
 <h4 id="搜索范围内的其它无线设备"><a class="header" href="#搜索范围内的其它无线设备">搜索范围内的其它无线设备</a></h4>
 <pre><code class="language-bash">root@Widora:~# iwinfo ra0 scan
 Cell 01 - Address: 50:64:2B:4B:02:4E
-          ESSID: &quot;Xiaomi_024D&quot;
+          ESSID: "Xiaomi_024D"
           Mode: Master  Channel: 11
           Signal: -256 dBm  Quality: 55/100
           Encryption: WPA2 PSK (TKIP, AES-OCB)
 
 Cell 02 - Address: 44:97:5A:EC:C5:14
-          ESSID: &quot;FAST_C514&quot;
+          ESSID: "FAST_C514"
           Mode: Master  Channel: 1
           Signal: -256 dBm  Quality: 47/100
           Encryption: WPA2 PSK (AES-OCB)

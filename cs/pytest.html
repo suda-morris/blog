@@ -92,7 +92,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="chapter-item expanded "><a href="../cs/cmake.html"><strong aria-hidden="true">3.</strong> CMake</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">4.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编程语言</li><li class="chapter-item expanded "><a href="../cs/rust.html"><strong aria-hidden="true">5.</strong> Rust</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">6.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="../cs/pytest.html" class="active"><strong aria-hidden="true">7.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">8.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">9.</strong> USB 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/can.html"><strong aria-hidden="true">10.</strong> CAN 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/mipi-dsi.html"><strong aria-hidden="true">11.</strong> MIPI DSI 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">12.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">前端</li><li class="chapter-item expanded "><a href="../cs/tauri.html"><strong aria-hidden="true">13.</strong> Tauri</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">14.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">15.</strong> slides 工具</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -187,7 +189,7 @@
 </li>
 <li>
 <p><code>-k</code>：使用表达式指定要运行的测试用例，表达式可以匹配测试名，且表达式中可以包含 <code>and</code>,<code>or</code>,<code>not</code> 关键字</p>
-<pre><code class="language-text">➤ pytest -v --collect-only -k &quot;replace or asdict&quot;
+<pre><code class="language-text">➤ pytest -v --collect-only -k "replace or asdict"
 
 &lt;Package tests&gt;
   &lt;Module test_named_tuple.py&gt;
@@ -259,18 +261,18 @@
 <li>
 <p>使用 <code>with pytest.raises(Exception):</code> 来断言异常</p>
 <pre><code class="language-python">def test_start_tasks_db_raises():
-  &quot;&quot;&quot;Make sure unsupported db raises an exception.&quot;&quot;&quot;
+  """Make sure unsupported db raises an exception."""
   with pytest.raises(ValueError) as exc_info:
-      tasks.start_tasks_db(&quot;some/great/path&quot;, &quot;mysql&quot;)
+      tasks.start_tasks_db("some/great/path", "mysql")
   exception_msg = exc_info.value.args[0]
   assert exc_info.type == ValueError
-  assert exception_msg == &quot;db_type must be a 'tiny' or 'mongo'&quot;
+  assert exception_msg == "db_type must be a 'tiny' or 'mongo'"
 </code></pre>
 </li>
 <li>
 <p>使用 <code>pytest.approx</code> 来断言浮点数</p>
 <pre><code class="language-python">def test_approx():
-  &quot;&quot;&quot;Using pytest.approx.&quot;&quot;&quot;
+  """Using pytest.approx."""
   v1 = 0.1 + 0.2
   v2 = 0.3
   assert v1 != v2
@@ -283,28 +285,28 @@
 <li>
 <p>使用 <code>@pytest.mark.xfail</code> 装饰器来标记预期失败的测试</p>
 <pre><code class="language-python">@pytest.mark.xfail(
-    sys.platform == &quot;win32&quot;,
-    reason=&quot;can't run on Windows&quot;
+    sys.platform == "win32",
+    reason="can't run on Windows"
 )
 def test_unique_id_is_a_duck():
-    &quot;&quot;&quot;Demonstrate xfail&quot;&quot;&quot;
+    """Demonstrate xfail"""
     uid = tasks.unique_id()
-    assert uid == &quot;a duck&quot;
+    assert uid == "a duck"
 </code></pre>
 </li>
 <li>
 <p>使用 <code>@pytest.mark.parametrize(argnames, argvalues)</code> 装饰器来运行相同测试用例的不同参数组合, <code>parametrize()</code> 的第一个参数是<strong>用逗号分隔的字符串列表</strong>，第二个参数是<strong>值列表</strong></p>
 <pre><code class="language-python">@pytest.mark.parametrize(
-    &quot;summary, owner, done&quot;,
+    "summary, owner, done",
     [
-        (&quot;sleep&quot;, None, False),
-        (&quot;wake&quot;, &quot;brian&quot;, False),
-        (&quot;breath&quot;, &quot;iris&quot;, True),
-        (&quot;eat&quot;, &quot;bob&quot;, True),
+        ("sleep", None, False),
+        ("wake", "brian", False),
+        ("breath", "iris", True),
+        ("eat", "bob", True),
     ],
 )
 def test_add_variety(summary, owner, done):
-    &quot;&quot;&quot;Demonstrate parameterize with 3 parameters.&quot;&quot;&quot;
+    """Demonstrate parameterize with 3 parameters."""
     new_task = Task(summary, owner, done)
     task_id = tasks.add(new_task)
     task_from_db = tasks.get(task_id)
@@ -314,34 +316,34 @@ def test_add_variety(summary, owner, done):
 <li>
 <p><code>parametrize()</code> 还可以通过 <code>ids</code> 参数来指定每个参数组合的名字, <code>ids</code> 参数的值是一个字符串列表，长度必须和 <code>argvalues</code> 参数的长度一致</p>
 <pre><code class="language-python">tasks_to_try = (
-  Task(&quot;sleep&quot;, None, True),
-  Task(&quot;wake&quot;, &quot;brian&quot;, False),
-  Task(&quot;breathe&quot;, &quot;bob&quot;, True),
-  Task(&quot;exercise&quot;, &quot;iris&quot;, False),
+  Task("sleep", None, True),
+  Task("wake", "brian", False),
+  Task("breathe", "bob", True),
+  Task("exercise", "iris", False),
 )
-task_ids = [f&quot;Task({t.summary},{t.owner},{t.done})&quot; for t in tasks_to_try]
+task_ids = [f"Task({t.summary},{t.owner},{t.done})" for t in tasks_to_try]
 
 
-@pytest.mark.parametrize(&quot;task&quot;, tasks_to_try, ids=task_ids)
+@pytest.mark.parametrize("task", tasks_to_try, ids=task_ids)
 def test_add_variety(task):
-    &quot;&quot;&quot;Demonstrate parameterize with 3 parameters.&quot;&quot;&quot;
+    """Demonstrate parameterize with 3 parameters."""
     task_id = tasks.add(task)
     task_from_db = tasks.get(task_id)
     assert equivalent(task, task_from_db)
 </code></pre>
 </li>
 <li>
-<p>当 <code>ids</code> 不能被参数化批量生成时，需要自定义的时候，可以给每个参数值定义一个 <code>id</code> 来做标识: <code>pytest.param(&lt;value&gt;, id=&quot;something&quot;)</code></p>
+<p>当 <code>ids</code> 不能被参数化批量生成时，需要自定义的时候，可以给每个参数值定义一个 <code>id</code> 来做标识: <code>pytest.param(&lt;value&gt;, id="something")</code></p>
 <pre><code class="language-python">@pytest.mark.parametrize(
-    &quot;task&quot;,
+    "task",
     [
-        pytest.param(Task(&quot;sleep&quot;)),
-        pytest.param(Task(&quot;wake&quot;, &quot;brian&quot;), id=&quot;summary/owner&quot;),
-        pytest.param(Task(&quot;breathe&quot;, &quot;BRIAN&quot;, True), id=&quot;summary/owner/done&quot;),
+        pytest.param(Task("sleep")),
+        pytest.param(Task("wake", "brian"), id="summary/owner"),
+        pytest.param(Task("breathe", "BRIAN", True), id="summary/owner/done"),
     ],
 )
 def test_add_variety(task):
-    &quot;&quot;&quot;Demonstrate parameterize with 3 parameters.&quot;&quot;&quot;
+    """Demonstrate parameterize with 3 parameters."""
     task_id = tasks.add(task)
     task_from_db = tasks.get(task_id)
     assert equivalent(task, task_from_db)
@@ -370,34 +372,34 @@ def test_some_data(some_data):
 <p>多个 fixture 之间可以相互依赖，比如一个 fixture 依赖另一个 fixture，这时可以在 fixture 函数的参数列表中添加依赖的 fixture 函数</p>
 <pre><code class="language-python">@pytest.fixture()
 def db_with_3_tasks(tasks_db, tasks_just_a_few):
-    &quot;&quot;&quot;Connected db with 3 tasks, all unique&quot;&quot;&quot;
+    """Connected db with 3 tasks, all unique"""
     for t in tasks_just_a_few:
         tasks.add(t)
 
 def test_add_increases_count(db_with_3_tasks):
-  tasks.add(Task(&quot;throw a party&quot;))
+  tasks.add(Task("throw a party"))
   assert tasks.count() == 4
 </code></pre>
 </li>
 <li>
 <p>使用 <code>usefixtures</code> 为测试类指定 fixture，这种方法<strong>不能</strong>够使用 fixture 函数的返回值</p>
-<pre><code class="language-python">@pytest.mark.usefixtures(&quot;tasks_db&quot;)
+<pre><code class="language-python">@pytest.mark.usefixtures("tasks_db")
 class TestAdd:
-    &quot;&quot;&quot;Using a fixture for setup and teardown.&quot;&quot;&quot;
+    """Using a fixture for setup and teardown."""
 
     def test_add_increases_count(self):
-        &quot;&quot;&quot;tasks.add() affect tasks.count().&quot;&quot;&quot;
-        tasks.add(Task(&quot;throw a party&quot;))
+        """tasks.add() affect tasks.count()."""
+        tasks.add(Task("throw a party"))
         assert tasks.count() == 1
 </code></pre>
 </li>
 <li>
 <p>通过 <code>scope</code> 参数指定 fixture 的作用范围（也可以理解为控制 fixture 执行 setup 和 teardown 的频率），<code>scope</code> 参数的值可以是 <code>function</code>、<code>class</code>、<code>module</code>、<code>session</code>，默认值是 <code>function</code>。fixture 只能使用同级别的 fixture 或者比自己级别更高的 fixture。</p>
-<pre><code class="language-python">@pytest.fixture(scope=&quot;session&quot;)
+<pre><code class="language-python">@pytest.fixture(scope="session")
 def tasks_db(tmpdir_factory):
-    &quot;&quot;&quot;Connect to db before testing, disconnect after.&quot;&quot;&quot;
-    tmp_dir = tmpdir_factory.mktemp(&quot;temp&quot;)
-    tasks.start_tasks_db(str(tmp_dir), &quot;tiny&quot;)
+    """Connect to db before testing, disconnect after."""
+    tmp_dir = tmpdir_factory.mktemp("temp")
+    tasks.start_tasks_db(str(tmp_dir), "tiny")
     yield
     tasks.stop_tasks_db()
 </code></pre>
@@ -411,25 +413,25 @@ def tasks_db(tmpdir_factory):
 <li>
 <p>对测试函数进行参数化，可以多次运行的只是该测试函数。而使用<strong>参数化</strong> fixture,每个使用该 fixture 的测试函数都可以被运行多次</p>
 <pre><code class="language-python">tasks_to_try = [
-    pytest.param(Task(&quot;sleep&quot;)),
-    pytest.param(Task(&quot;wake&quot;, &quot;brian&quot;)),
-    pytest.param(Task(&quot;breathe&quot;, &quot;BRIAN&quot;, True)),
+    pytest.param(Task("sleep")),
+    pytest.param(Task("wake", "brian")),
+    pytest.param(Task("breathe", "BRIAN", True)),
 ]
 
 
 def id_func(task: Task):
-    &quot;&quot;&quot;Create a string representation for test report.&quot;&quot;&quot;
-    return f&quot;({task.summary},{task.owner},{task.done})&quot;
+    """Create a string representation for test report."""
+    return f"({task.summary},{task.owner},{task.done})"
 
 
 @pytest.fixture(params=tasks_to_try, ids=id_func)
 def a_task(request):
-    &quot;&quot;&quot;Using a fixture to pass data to a test.&quot;&quot;&quot;
+    """Using a fixture to pass data to a test."""
     return request.param
 
 
 def test_add_variety(a_task):
-    &quot;&quot;&quot;Demonstrate parameterize with 3 parameters.&quot;&quot;&quot;
+    """Demonstrate parameterize with 3 parameters."""
     task_id = tasks.add(a_task)
     task_from_db = tasks.get(task_id)
     assert equivalent(a_task, task_from_db)
@@ -445,62 +447,62 @@ def test_add_variety(a_task):
     # join() extends the path to include a filename
     # the file is created when it's written to
     # tmpdir is a py.path.local object
-    a_file = tmpdir.join(&quot;something.txt&quot;)
+    a_file = tmpdir.join("something.txt")
 
     # you can create directories
-    a_sub_dir = tmpdir.mkdir(&quot;anything&quot;)
+    a_sub_dir = tmpdir.mkdir("anything")
 
     # you can create files in the directory (created when written)
-    another_file = a_sub_dir.join(&quot;something_else.txt&quot;)
+    another_file = a_sub_dir.join("something_else.txt")
 
-    # this write creates &quot;something.txt&quot;
-    a_file.write(&quot;contents may settle during shipping&quot;)
+    # this write creates "something.txt"
+    a_file.write("contents may settle during shipping")
 
-    # this write creates &quot;anything/something_else.txt&quot;
-    another_file.write(&quot;something different&quot;)
+    # this write creates "anything/something_else.txt"
+    another_file.write("something different")
 
-    assert a_file.read() == &quot;contents may settle during shipping&quot;
-    assert another_file.read() == &quot;something different&quot;
+    assert a_file.read() == "contents may settle during shipping"
+    assert another_file.read() == "something different"
 </code></pre>
 <pre><code class="language-python">def test_tmpdir_factor(tmpdir_factory):
     print(tmpdir_factory.getbasetemp())
 
     # you should start with making a directory
     # a_dir acts like the object returned from the tmpdir fixture
-    a_dir = tmpdir_factory.mktemp(&quot;mydir&quot;)
-    a_file = a_dir.join(&quot;something.txt&quot;)
+    a_dir = tmpdir_factory.mktemp("mydir")
+    a_file = a_dir.join("something.txt")
 
     # you can create directories
-    a_sub_dir = a_dir.mkdir(&quot;anything&quot;)
+    a_sub_dir = a_dir.mkdir("anything")
 
     # you can create files in the directory (created when written)
-    another_file = a_sub_dir.join(&quot;something_else.txt&quot;)
+    another_file = a_sub_dir.join("something_else.txt")
 
-    # this write creates &quot;something.txt&quot;
-    a_file.write(&quot;contents may settle during shipping&quot;)
+    # this write creates "something.txt"
+    a_file.write("contents may settle during shipping")
 
-    # this write creates &quot;anything/something_else.txt&quot;
-    another_file.write(&quot;something different&quot;)
+    # this write creates "anything/something_else.txt"
+    another_file.write("something different")
 
-    assert a_file.read() == &quot;contents may settle during shipping&quot;
-    assert another_file.read() == &quot;something different&quot;
+    assert a_file.read() == "contents may settle during shipping"
+    assert another_file.read() == "something different"
 </code></pre>
 <p><code>tmpdir_factory</code> 的作用范围是会话级别，<code>tmpdir</code> 的作用范围是函数级别。如果需要模块或者类级别作用范围的目录，可以利用 <code>tmpdir_factory</code> 再创建一个 fixture。</p>
-<pre><code class="language-python">@pytest.fixture(scope=&quot;module&quot;)
+<pre><code class="language-python">@pytest.fixture(scope="module")
 def my_tmpdir(tmpdir_factory):
     pass
 </code></pre>
 <h4 id="pytestconfig"><a class="header" href="#pytestconfig">pytestconfig</a></h4>
 <p><code>pytestconfig</code> 是 <code>request.config</code> 的快捷方式，可以通过 <code>pytestconfig.getoption()</code> 获取命令行选项。</p>
 <pre><code class="language-python">def test_option(pytestconfig):
-    print(f&quot;args: {pytestconfig.args}&quot;)
-    print(f&quot;invocation_dir: {pytestconfig.invocation_dir}&quot;)
-    print(f&quot;rootdir: {pytestconfig.rootdir}&quot;)
-    print(f&quot;inifile: {pytestconfig.inifile}&quot;)
-    print(f&quot;basetemp: {pytestconfig.getoption('basetemp')}&quot;)
-    print(f&quot;-k EXPRESSION: {pytestconfig.getoption('keyword')}&quot;)
-    print(f&quot;-v, --verbose: {pytestconfig.getoption('verbose')}&quot;)
-    print(f&quot;--tb style: {pytestconfig.getoption('tbstyle')}&quot;)
+    print(f"args: {pytestconfig.args}")
+    print(f"invocation_dir: {pytestconfig.invocation_dir}")
+    print(f"rootdir: {pytestconfig.rootdir}")
+    print(f"inifile: {pytestconfig.inifile}")
+    print(f"basetemp: {pytestconfig.getoption('basetemp')}")
+    print(f"-k EXPRESSION: {pytestconfig.getoption('keyword')}")
+    print(f"-v, --verbose: {pytestconfig.getoption('verbose')}")
+    print(f"--tb style: {pytestconfig.getoption('tbstyle')}")
 </code></pre>
 <p>也可以基于 <code>pytestconfig</code> 创建新的 fixture</p>
 <pre><code class="language-python">@pytest.fixture()
@@ -509,17 +511,17 @@ def foo(pytestconfig):
 
 
 def test_option(foo):
-    print(&quot;foo: {}&quot;.format(foo))
+    print("foo: {}".format(foo))
 </code></pre>
 <h4 id="cache"><a class="header" href="#cache">cache</a></h4>
 <p>cache 的作用是存储一段测试会话的信息，在下一段测试会话中使用。<code>cache</code>的接口主要有两个：<code>cache.get(key, default)</code> 和 <code>cache.set(key, value)</code>。</p>
 <p>习惯上，键名以应用名字或插件名字开始，接着是<code>/</code>，然后是分隔开的键字符串。键值可以是任何可以转换成 JSON 的对象。</p>
-<pre><code class="language-python">Duration = namedtuple(&quot;Duration&quot;, [&quot;current&quot;, &quot;last&quot;])
+<pre><code class="language-python">Duration = namedtuple("Duration", ["current", "last"])
 
 
-@pytest.fixture(scope=&quot;session&quot;)
+@pytest.fixture(scope="session")
 def duration_cache(request):
-    key = &quot;duration/test_durations&quot;
+    key = "duration/test_durations"
     d = Duration({}, request.config.cache.get(key, {}))
     yield d
     request.config.cache.set(key, d.current)
@@ -534,11 +536,11 @@ def check_duration(request, duration_cache):
     duration = (datetime.datetime.now() - start_time).total_seconds()
     d.current[nodeid] = duration
     if d.last.get(nodeid, None) is not None:
-        errorstring = &quot;test duration over 2x last duration&quot;
+        errorstring = "test duration over 2x last duration"
         assert duration &lt;= (d.last[nodeid] * 2), errorstring
 
 
-@pytest.mark.parametrize(&quot;i&quot;, range(5))
+@pytest.mark.parametrize("i", range(5))
 def test_slow_stuff(i):
     time.sleep(random.random())
 </code></pre>
@@ -561,19 +563,19 @@ duration/test_durations contains:
 <li>
 <p><code>capsys.readouterr()</code>：返回一个包含 <code>out</code> 和 <code>err</code> 的 <code>namedtuple</code>，分别是标准输出和标准错误的内容</p>
 <pre><code class="language-python">def test_capsys(capsys):
-    print(&quot;hello&quot;)
-    print(&quot;world&quot;, file=sys.stderr)
+    print("hello")
+    print("world", file=sys.stderr)
     out, err = capsys.readouterr()
-    assert out == &quot;hello\n&quot;
-    assert err == &quot;world\n&quot;
+    assert out == "hello\n"
+    assert err == "world\n"
 </code></pre>
 </li>
 <li>
 <p>临时让输出绕过默认的输出捕获机制，可以使用 <code>capsys.disabled()</code> 上下文管理器</p>
 <pre><code class="language-python">def test_capsys_disabled(capsys):
     with capsys.disabled():
-        print(&quot;always print this&quot;)
-    print(&quot;normal print, usually captured&quot;)
+        print("always print this")
+    print("normal print, usually captured")
 </code></pre>
 </li>
 </ul>
@@ -586,7 +588,7 @@ duration/test_durations contains:
     class A:
         a = 1
 
-    monkeypatch.setattr(A, &quot;a&quot;, 2)
+    monkeypatch.setattr(A, "a", 2)
     assert A.a == 2
 </code></pre>
 </li>
@@ -596,68 +598,68 @@ duration/test_durations contains:
     class A:
         a = 1
 
-    monkeypatch.delattr(A, &quot;a&quot;)
-    assert not hasattr(A, &quot;a&quot;)
+    monkeypatch.delattr(A, "a")
+    assert not hasattr(A, "a")
 </code></pre>
 </li>
 <li>
 <p>setitem(mapping, name, value)：修改字典的值</p>
 <pre><code class="language-python">def test_setitem(monkeypatch):
-    d = {&quot;a&quot;: 1}
-    monkeypatch.setitem(d, &quot;a&quot;, 2)
-    assert d[&quot;a&quot;] == 2
+    d = {"a": 1}
+    monkeypatch.setitem(d, "a", 2)
+    assert d["a"] == 2
 </code></pre>
 </li>
 <li>
 <p>delitem(obj, name, raising=True)：删除字典的值</p>
 <pre><code class="language-python">def test_delitem(monkeypatch):
-    d = {&quot;a&quot;: 1}
-    monkeypatch.delitem(d, &quot;a&quot;)
-    assert &quot;a&quot; not in d
+    d = {"a": 1}
+    monkeypatch.delitem(d, "a")
+    assert "a" not in d
 </code></pre>
 </li>
 <li>
 <p>setenv(name, value, prepend=False)：修改环境变量</p>
 <pre><code class="language-python">def test_setenv(monkeypatch):
-    monkeypatch.setenv(&quot;foo&quot;, &quot;bar&quot;)
-    assert os.environ[&quot;foo&quot;] == &quot;bar&quot;
+    monkeypatch.setenv("foo", "bar")
+    assert os.environ["foo"] == "bar"
 </code></pre>
 </li>
 <li>
 <p>delenv(name, raising=True)：删除环境变量</p>
 <pre><code class="language-python">def test_delenv(monkeypatch):
-    monkeypatch.setenv(&quot;foo&quot;, &quot;bar&quot;)
-    monkeypatch.delenv(&quot;foo&quot;)
-    assert &quot;foo&quot; not in os.environ
+    monkeypatch.setenv("foo", "bar")
+    monkeypatch.delenv("foo")
+    assert "foo" not in os.environ
 </code></pre>
 </li>
 <li>
 <p>syspath_prepend(path)：在 <code>sys.path</code> 的开头添加路径，<code>sys.path</code> 是 Python 模块的搜索路径</p>
 <pre><code class="language-python">def test_syspath_prepend(monkeypatch):
-    monkeypatch.syspath_prepend(&quot;/foo&quot;)
-    assert sys.path[0] == &quot;/foo&quot;
+    monkeypatch.syspath_prepend("/foo")
+    assert sys.path[0] == "/foo"
 </code></pre>
 </li>
 <li>
 <p>chdir(path)：修改当前工作目录</p>
 <pre><code class="language-python">def test_chdir(monkeypatch):
-    monkeypatch.chdir(&quot;/tmp&quot;)
-    assert os.getcwd() == &quot;/tmp&quot;
+    monkeypatch.chdir("/tmp")
+    assert os.getcwd() == "/tmp"
 </code></pre>
 </li>
 </ul>
 <h4 id="recwarn"><a class="header" href="#recwarn">recwarn</a></h4>
 <p>recwarn 用来检查待测代码产生的警告信息。</p>
 <pre><code class="language-python">def test_recwarn(recwarn):
-    warnings.warn(&quot;Please stop using this function&quot;, DeprecationWarning)
+    warnings.warn("Please stop using this function", DeprecationWarning)
     assert len(recwarn) == 1
     w = recwarn.pop()
     assert w.category == DeprecationWarning
-    assert str(w.message) == &quot;Please stop using this function&quot;
+    assert str(w.message) == "Please stop using this function"
 </code></pre>
 <p>pytest 还可以使用 <code>pytest.warns</code> 来检查警告信息。</p>
 <pre><code class="language-python">def lame_function():
-    warnings.warn(&quot;Please stop using this&quot;, DeprecationWarning)
+    warnings.warn("Please stop using this", DeprecationWarning)
 
 
 def test_lame_function():
@@ -667,7 +669,7 @@ def test_lame_function():
     assert len(warning_list) == 1
     w = warning_list.pop()
     assert w.category == DeprecationWarning
-    assert str(w.message) == &quot;Please stop using this&quot;
+    assert str(w.message) == "Please stop using this"
 </code></pre>
 <h2 id="插件"><a class="header" href="#插件">插件</a></h2>
 <h3 id="寻找插件"><a class="header" href="#寻找插件">寻找插件</a></h3>
@@ -680,67 +682,67 @@ def test_lame_function():
 <p>使用 <code>pytest_addoption</code> 可以给 pytest 添加额外的命令行选项</p>
 <pre><code class="language-python">def pytest_addoption(parser):
     parser.addoption(
-        &quot;--myopt&quot;,
-        action=&quot;store_true&quot;,
-        help=&quot;some boolean option&quot;,
+        "--myopt",
+        action="store_true",
+        help="some boolean option",
     )
     parser.addoption(
-        &quot;--foo&quot;,
-        action=&quot;store&quot;,
-        default=&quot;bar&quot;,
-        help=&quot;foo: bar or baz&quot;,
+        "--foo",
+        action="store",
+        default="bar",
+        help="foo: bar or baz",
     )
 </code></pre>
 <p>或者不通过命令行参数，使用 <code>pytest.ini</code> 文件做自定义的配置</p>
 <pre><code class="language-python">def pytest_addoption(parser):
     parser.addini(
-        &quot;myopt&quot;,
-        type=&quot;bool&quot;,
+        "myopt",
+        type="bool",
         default=False,
-        help=&quot;some boolean option&quot;,
+        help="some boolean option",
     )
     parser.addini(
-        &quot;foo&quot;,
-        type=&quot;string&quot;,
-        default=&quot;bar&quot;,
-        help=&quot;foo: bar or baz&quot;,
+        "foo",
+        type="string",
+        default="bar",
+        help="foo: bar or baz",
 </code></pre>
 </li>
 <li>
 <p>使用 <code>pytest_report_header</code> 可以在测试报告的 header 中添加额外的信息</p>
 <pre><code class="language-python">def pytest_report_header(config):
-    return &quot;🍎🍎🍎🍎🍎🍎🍎🍎🍎&quot;
+    return "🍎🍎🍎🍎🍎🍎🍎🍎🍎"
 </code></pre>
 </li>
 <li>
 <p>使用 <code>pytest_report_teststatus</code> 可以修改测试报告中的测试状态</p>
 <pre><code class="language-python">def pytest_report_teststatus(report):
-    if report.when == &quot;call&quot; and report.failed:
-        return report.outcome, &quot;💥&quot;, &quot;💥&quot;
+    if report.when == "call" and report.failed:
+        return report.outcome, "💥", "💥"
 </code></pre>
 </li>
 </ul>
 <h3 id="测试插件"><a class="header" href="#测试插件">测试插件</a></h3>
 <ul>
 <li>
-<p>开启 <code>pytester</code> 插件，在 conftest.py 中添加 <code>pytest_plugins = [&quot;pytester&quot;]</code></p>
+<p>开启 <code>pytester</code> 插件，在 conftest.py 中添加 <code>pytest_plugins = ["pytester"]</code></p>
 </li>
 <li>
 <p>使用 <code>pytester</code> 来测试插件</p>
 <pre><code class="language-python">@pytest.fixture()
 def sample_test(testdir):
     testdir.makepyfile(
-        &quot;&quot;&quot;
+        """
         def test_sample():
             assert True
-        &quot;&quot;&quot;
+        """
     )
     return testdir
 
 
 def test_verbose(sample_test):
-    result = sample_test.runpytest(&quot;-v&quot;)
-    result.stdout.fnmatch_lines([&quot;*::test_sample PASSED*&quot;])
+    result = sample_test.runpytest("-v")
+    result.stdout.fnmatch_lines(["*::test_sample PASSED*"])
     result.assert_outcomes(passed=1)
 </code></pre>
 <p><code>testdir</code> 自动创建了一个临时目录用来存放测试文件</p>
@@ -762,8 +764,8 @@ def test_verbose(sample_test):
 <li>
 <p>使用</p>
 <pre><code class="language-python">def test_mock(mocker):
-    mocker.patch(&quot;os.path.exists&quot;, return_value=True)
-    assert os.path.exists(&quot;/tmp&quot;)
+    mocker.patch("os.path.exists", return_value=True)
+    assert os.path.exists("/tmp")
 </code></pre>
 </li>
 </ul>
@@ -844,10 +846,10 @@ def test_verbose(sample_test):
 <li>
 <p>使用</p>
 <pre><code class="language-python">def test_selenium(selenium):
-    selenium.get(&quot;https://www.baidu.com&quot;)
-    selenium.find_element_by_id(&quot;kw&quot;).send_keys(&quot;pytest&quot;)
-    selenium.find_element_by_id(&quot;su&quot;).click()
-    assert &quot;pytest&quot; in selenium.title
+    selenium.get("https://www.baidu.com")
+    selenium.find_element_by_id("kw").send_keys("pytest")
+    selenium.find_element_by_id("su").click()
+    assert "pytest" in selenium.title
 </code></pre>
 </li>
 </ul>

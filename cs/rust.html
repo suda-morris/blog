@@ -92,7 +92,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about-me.html">关于我</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">体系结构</li><li class="chapter-item expanded "><a href="../cs/riscv.html"><strong aria-hidden="true">1.</strong> RISC-V</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编译系统</li><li class="chapter-item expanded "><a href="../cs/gcc-toolchains.html"><strong aria-hidden="true">2.</strong> GCC</a></li><li class="chapter-item expanded "><a href="../cs/cmake.html"><strong aria-hidden="true">3.</strong> CMake</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">操作系统</li><li class="chapter-item expanded "><a href="../cs/openwrt.html"><strong aria-hidden="true">4.</strong> OpenWRT</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">编程语言</li><li class="chapter-item expanded "><a href="../cs/rust.html" class="active"><strong aria-hidden="true">5.</strong> Rust</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">控制系统</li><li class="chapter-item expanded "><a href="../ee/control-system.html"><strong aria-hidden="true">6.</strong> 控制系统基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">测试框架</li><li class="chapter-item expanded "><a href="../cs/pytest.html"><strong aria-hidden="true">7.</strong> pytest</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">多媒体</li><li class="chapter-item expanded "><a href="../cs/video-process.html"><strong aria-hidden="true">8.</strong> 视频处理</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">通信协议</li><li class="chapter-item expanded "><a href="../ee/usb.html"><strong aria-hidden="true">9.</strong> USB 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/can.html"><strong aria-hidden="true">10.</strong> CAN 协议基础</a></li><li class="chapter-item expanded "><a href="../ee/mipi-dsi.html"><strong aria-hidden="true">11.</strong> MIPI DSI 协议基础</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">电路设计</li><li class="chapter-item expanded "><a href="../ee/yosys.html"><strong aria-hidden="true">12.</strong> Yosys</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">前端</li><li class="chapter-item expanded "><a href="../cs/tauri.html"><strong aria-hidden="true">13.</strong> Tauri</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">管理</li><li class="chapter-item expanded "><a href="../cs/git.html"><strong aria-hidden="true">14.</strong> git</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">演示</li><li class="chapter-item expanded "><a href="../ux/slides-tool.html"><strong aria-hidden="true">15.</strong> slides 工具</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -195,9 +197,9 @@
 <h2 id="值放堆上还是栈上"><a class="header" href="#值放堆上还是栈上">值放堆上还是栈上</a></h2>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let s = &quot;hello world&quot;.to_string();
-println!(&quot;'hello world': {:p}, s: {:p}, len: {}, capacity: {}, size: {}&quot;,
-        &amp;&quot;hello world&quot;, &amp;s, s.len(), s.capacity(), std::mem::size_of_val(&amp;s));
+</span>let s = "hello world".to_string();
+println!("'hello world': {:p}, s: {:p}, len: {}, capacity: {}, size: {}",
+        &amp;"hello world", &amp;s, s.len(), s.capacity(), std::mem::size_of_val(&amp;s));
 <span class="boring">}</span></code></pre></pre>
 <p><img src="../images/rust/string-in-memory.webp" alt="string的内存布局" /></p>
 <blockquote>
@@ -207,21 +209,21 @@ println!(&quot;'hello world': {:p}, s: {:p}, len: {}, capacity: {}, size: {}&quo
 </span><span class="boring">fn main() {
 </span>static MAX: u32 = 0;
 fn foo() {}
-let hello = &quot;hello world&quot;.to_string();
+let hello = "hello world".to_string();
 let data = Box::new(1);
 
 // string literals 指向 RODATA 地址
-println!(&quot;RODATA: {:p}&quot;, &quot;hello world!&quot;);
+println!("RODATA: {:p}", "hello world!");
 // static 变量在 DATA section
-println!(&quot;DATA (static var): {:p}&quot;, &amp;MAX);
+println!("DATA (static var): {:p}", &amp;MAX);
 // function 在 TEXT
-println!(&quot;TEXT (function): {:p}&quot;, foo as *const ());
+println!("TEXT (function): {:p}", foo as *const ());
 // String 结构体分配在栈上，所以其引用指向一个栈地址
-println!(&quot;STACK (&amp;hello): {:p}&quot;, &amp;hello);
+println!("STACK (&amp;hello): {:p}", &amp;hello);
 // 需要通过解引用获取其堆上数据，然后取其引用
-println!(&quot;HEAP (&amp;*hello): {:p}&quot;, &amp;*hello);
+println!("HEAP (&amp;*hello): {:p}", &amp;*hello);
 // Box 实现了 Pointer trait 无需额外解引用
-println!(&quot;HEAP (box impl Pointer) {:p} {:p}&quot;, data, &amp;*data);
+println!("HEAP (box impl Pointer) {:p} {:p}", data, &amp;*data);
 <span class="boring">}</span></code></pre></pre>
 <h2 id="move-copy-borrow"><a class="header" href="#move-copy-borrow">move, copy, borrow</a></h2>
 <p><img src="../images/rust/move-copy-borrow.jpg" alt="move, copy, borrow" /></p>
@@ -251,7 +253,7 @@ fn main() {
         let mut v = data.borrow_mut();
         *v += 1;
     }
-    println!(&quot;data: {:?}&quot;, data.borrow());
+    println!("data: {:?}", data.borrow());
 }</code></pre></pre>
 <h2 id="生命周期"><a class="header" href="#生命周期">生命周期</a></h2>
 <pre><pre class="playground"><code class="language-rust edition2021">pub fn strtok&lt;'a&gt;(s: &amp;mut &amp;'a str, delimiter: char) -&gt; &amp;'a str {
@@ -265,16 +267,16 @@ fn main() {
     } else {
         // 如果没找到，返回整个字符串，把原字符串指针 s 指向空串
         let prefix = *s;
-        *s = &quot;&quot;;
+        *s = "";
         prefix
     }
 }
 
 fn main() {
-    let s = String::from(&quot;hello world&quot;);
+    let s = String::from("hello world");
     let mut s1 = s.as_str();
     let hello = strtok(&amp;mut s1, ' ');
-    println!(&quot;hello is: {}, s1: {}, s: {}&quot;, hello, s1, s);
+    println!("hello is: {}, s1: {}, s: {}", hello, s1, s);
 }</code></pre></pre>
 <p><img src="../images/rust/lifetime-example.webp" alt="lifetime" /></p>
 <blockquote>
@@ -304,13 +306,13 @@ struct S3 {
 
 fn main() {
     println!(
-        &quot;sizeof S1: {}, S2: {}, S3: {}&quot;,
+        "sizeof S1: {}, S2: {}, S3: {}",
         size_of::&lt;S1&gt;(),
         size_of::&lt;S2&gt;(),
         size_of::&lt;S3&gt;()
     );
     println!(
-        &quot;alignof S1: {}, S2: {}, S3: {}&quot;,
+        "alignof S1: {}, S2: {}, S3: {}",
         align_of::&lt;S1&gt;(),
         align_of::&lt;S2&gt;(),
         align_of::&lt;S3&gt;()
@@ -333,14 +335,14 @@ enum MyEnum {
 macro_rules! show_size {
     (header) =&gt; {
         println!(
-            &quot;{:&lt;24} {:&gt;4}    {}    {}&quot;,
-            &quot;Type&quot;, &quot;T&quot;, &quot;Option&lt;T&gt;&quot;, &quot;Result&lt;T, io::Error&gt;&quot;
+            "{:&lt;24} {:&gt;4}    {}    {}",
+            "Type", "T", "Option&lt;T&gt;", "Result&lt;T, io::Error&gt;"
         );
-        println!(&quot;{}&quot;, &quot;-&quot;.repeat(64));
+        println!("{}", "-".repeat(64));
     };
     ($t:ty) =&gt; {
         println!(
-            &quot;{:&lt;24} {:4} {:8} {:12}&quot;,
+            "{:&lt;24} {:4} {:8} {:12}",
             stringify!($t),
             size_of::&lt;$t&gt;(),
             size_of::&lt;Option&lt;$t&gt;&gt;(),
@@ -371,18 +373,18 @@ use std::sync::{Arc, Mutex};
 lazy_static! {
     static ref HASHMAP: Arc&lt;Mutex&lt;HashMap&lt;u32, &amp;'static str&gt;&gt;&gt; = {
         let mut m = HashMap::new();
-        m.insert(0, &quot;foo&quot;);
-        m.insert(1, &quot;bar&quot;);
-        m.insert(2, &quot;baz&quot;);
+        m.insert(0, "foo");
+        m.insert(1, "bar");
+        m.insert(2, "baz");
         Arc::new(Mutex::new(m))
     };
 }
 
 fn main() {
     let mut map = HASHMAP.lock().unwrap();
-    map.insert(3, &quot;waz&quot;);
+    map.insert(3, "waz");
 
-    println!(&quot;map: {:?}&quot;, map);
+    println!("map: {:?}", map);
 }</code></pre></pre>
 <h2 id="带关联类型的-trait"><a class="header" href="#带关联类型的-trait">带关联类型的 trait</a></h2>
 <pre><pre class="playground"><code class="language-rust edition2021">use std::str::FromStr;
@@ -407,27 +409,27 @@ where
     fn parse_from_str(s: &amp;str) -&gt; Result&lt;Self, Self::Error&gt; {
         // ensure that regular expressions are compiled exactly once.
         lazy_static! {
-            static ref RE: Regex = Regex::new(r&quot;^\d+(\.\d+)?&quot;).unwrap();
+            static ref RE: Regex = Regex::new(r"^\d+(\.\d+)?").unwrap();
         };
         if let Some(captures) = RE.captures(s) {
             captures
                 .get(0)
-                .map_or(Err(&quot;failed to capture&quot;.to_string()), |s| {
+                .map_or(Err("failed to capture".to_string()), |s| {
                     s.as_str()
                         .parse()
-                        .map_err(|_e| &quot;failed to parse captured string&quot;.to_string())
+                        .map_err(|_e| "failed to parse captured string".to_string())
                 })
         } else {
-            Err(&quot;failed to parse string&quot;.to_string())
+            Err("failed to parse string".to_string())
         }
     }
 }
 
 fn main() {
-    println!(&quot;result: {}&quot;, u8::parse_from_str(&quot;255 hello&quot;).unwrap());
-    println!(&quot;result: {}&quot;, u8::parse_from_str(&quot;001 world&quot;).unwrap());
-    println!(&quot;result: {}&quot;, u8::parse_from_str(&quot;!&quot;).unwrap_or_default());
-    println!(&quot;result: {}&quot;, f64::parse_from_str(&quot;123.45abc&quot;).unwrap());
+    println!("result: {}", u8::parse_from_str("255 hello").unwrap());
+    println!("result: {}", u8::parse_from_str("001 world").unwrap());
+    println!("result: {}", u8::parse_from_str("!").unwrap_or_default());
+    println!("result: {}", f64::parse_from_str("123.45abc").unwrap());
 }</code></pre></pre>
 <h2 id="trait-object-的实现机制"><a class="header" href="#trait-object-的实现机制">trait object 的实现机制</a></h2>
 <p><img src="../images/rust/trait-object.webp" alt="trait object 的内存布局" /></p>
@@ -510,12 +512,12 @@ impl&lt;T&gt; From&lt;T&gt; for T {
 <pre><pre class="playground"><code class="language-rust edition2021">use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 
 fn print(v: impl Into&lt;IpAddr&gt;) {
-    println!(&quot;{:?}&quot;, v.into());
+    println!("{:?}", v.into());
 }
 
 fn main() {
-    let v4: Ipv4Addr = &quot;2.2.2.2&quot;.parse().unwrap();
-    let v6: Ipv6Addr = &quot;::1&quot;.parse().unwrap();
+    let v4: Ipv4Addr = "2.2.2.2".parse().unwrap();
+    let v6: Ipv6Addr = "::1".parse().unwrap();
 
     // IPAddr 实现了 From&lt;[u8; 4]，转换 IPv4 地址
     print([1, 1, 1, 1]);
@@ -624,7 +626,7 @@ pub fn new(x: T) -&gt; Self {
 </span><span class="boring">fn main() {
 </span>pub trait ToOwned {
     type Owned: Borrow&lt;Self&gt;;
-    #[must_use = &quot;cloning is often expensive and is not expected to have side effects&quot;]
+    #[must_use = "cloning is often expensive and is not expected to have side effects"]
     fn to_owned(&amp;self) -&gt; Self::Owned;
 
     fn clone_into(&amp;self, target: &amp;mut Self::Owned) { ... }
@@ -683,7 +685,7 @@ pub trait Borrow&lt;Borrowed&gt; where Borrowed: ?Sized {
 use url::Url;
 
 fn main() {
-    let url = Url::parse(&quot;https://tyr.com/rust?page=1024&amp;sort=desc&amp;extra=hello%20world&quot;).unwrap();
+    let url = Url::parse("https://tyr.com/rust?page=1024&amp;sort=desc&amp;extra=hello%20world").unwrap();
     let mut pairs = url.query_pairs();
 
     assert_eq!(pairs.count(), 3);
@@ -691,26 +693,26 @@ fn main() {
     let (mut k, v) = pairs.next().unwrap();
     // 因为 k, v 都是 Cow&lt;str&gt; 他们用起来感觉和 &amp;str 或者 String 一样
     // 此刻，他们都是 Borrowed
-    println!(&quot;key: {}, v: {}&quot;, k, v);
+    println!("key: {}, v: {}", k, v);
     // 当修改发生时，k 变成 Owned
-    k.to_mut().push_str(&quot;_lala&quot;);
+    k.to_mut().push_str("_lala");
 
     print_pairs((k, v));
 
     print_pairs(pairs.next().unwrap());
-    // 在处理 extra=hello%20world 时，value 被处理成 &quot;hello world&quot;
+    // 在处理 extra=hello%20world 时，value 被处理成 "hello world"
     // 所以这里 value 是 Owned
     print_pairs(pairs.next().unwrap());
 }
 
 fn print_pairs(pair: (Cow&lt;str&gt;, Cow&lt;str&gt;)) {
-    println!(&quot;key: {}, value: {}&quot;, show_cow(pair.0), show_cow(pair.1));
+    println!("key: {}, value: {}", show_cow(pair.0), show_cow(pair.1));
 }
 
 fn show_cow(cow: Cow&lt;str&gt;) -&gt; String {
     match cow {
-        Cow::Borrowed(v) =&gt; format!(&quot;Borrowed {}&quot;, v),
-        Cow::Owned(v) =&gt; format!(&quot;Owned {}&quot;, v),
+        Cow::Borrowed(v) =&gt; format!("Borrowed {}", v),
+        Cow::Owned(v) =&gt; format!("Owned {}", v),
     }
 }</code></pre></pre>
 <pre><pre class="playground"><code class="language-rust edition2021">use serde::Deserialize;
@@ -724,12 +726,12 @@ struct User&lt;'input&gt; {
 }
 
 fn main() {
-    let input = r#&quot;{ &quot;name&quot;: &quot;Tyr&quot;, &quot;age&quot;: 18 }&quot;#;
+    let input = r#"{ "name": "Tyr", "age": 18 }"#;
     let user: User = serde_json::from_str(input).unwrap();
 
     match user.name {
-        Cow::Borrowed(x) =&gt; println!(&quot;borrowed {}&quot;, x),
-        Cow::Owned(x) =&gt; println!(&quot;owned {}&quot;, x),
+        Cow::Borrowed(x) =&gt; println!("borrowed {}", x),
+        Cow::Owned(x) =&gt; println!("owned {}", x),
     }
 }</code></pre></pre>
 <h3 id="mutexguardt"><a class="header" href="#mutexguardt">MutexGuard&lt;T&gt;</a></h3>
@@ -752,8 +754,8 @@ fn main() {
             // 此时只有拿到 MutexGuard 的线程可以访问 HashMap
             let data = &amp;mut *g;
             // Cow 实现了很多数据结构的 From trait，
-            // 所以我们可以用 &quot;hello&quot;.into() 生成 Cow
-            let entry = data.entry(&quot;hello&quot;.into()).or_insert(0);
+            // 所以我们可以用 "hello".into() 生成 Cow
+            let entry = data.entry("hello".into()).or_insert(0);
             *entry += 1;
             // MutexGuard 被 Drop，锁被释放
         });
@@ -761,7 +763,7 @@ fn main() {
 
     thread::sleep(Duration::from_millis(100));
 
-    println!(&quot;metrics: {:?}&quot;, metrics.lock().unwrap());
+    println!("metrics: {:?}", metrics.lock().unwrap());
 }</code></pre></pre>
 <h2 id="内存分配器"><a class="header" href="#内存分配器">内存分配器</a></h2>
 <h3 id="替换默认的内存分配器"><a class="header" href="#替换默认的内存分配器">替换默认的内存分配器</a></h3>
@@ -785,13 +787,13 @@ unsafe impl GlobalAlloc for MyAllocator {
         // stdout 会打印到一个由 Mutex 互斥锁保护的共享全局 buffer 中，这个过程中会涉及内存的分配
         // 分配的内存又会触发 println!()，最终造成程序崩溃
         // eprintln! 直接打印到 stderr，不会 buffer
-        eprintln!(&quot;ALLOC: {:p}, size {}&quot;, data, layout.size());
+        eprintln!("ALLOC: {:p}, size {}", data, layout.size());
         data
     }
 
     unsafe fn dealloc(&amp;self, ptr: *mut u8, layout: Layout) {
         System.dealloc(ptr, layout);
-        eprintln!(&quot;FREE: {:p}, size {}&quot;, ptr, layout.size());
+        eprintln!("FREE: {:p}, size {}", ptr, layout.size());
     }
 }
 
@@ -816,7 +818,7 @@ fn main() {
 
     // 输出中有一个 1024 大小的内存分配，是 println! 导致的
     println!(
-        &quot;!!! allocated memory: {:p}, len: {}&quot;,
+        "!!! allocated memory: {:p}, len: {}",
         &amp;*data,
         std::mem::size_of::&lt;Matrix&gt;()
     );
@@ -849,7 +851,7 @@ FREE: 0x55c63eb5b960, size 48
     let vec = vec![1, 2, 3, 4, 5];
     let s1 = &amp;arr[..2];
     let s2 = &amp;vec[..2];
-    println!(&quot;s1: {:?}, s2: {:?}&quot;, s1, s2);
+    println!("s1: {:?}, s2: {:?}", s1, s2);
 
     // &amp;[T] 和 &amp;[T] 是否相等取决于长度和内容是否相等
     assert_eq!(s1, s2);
@@ -885,7 +887,7 @@ fn main() {
 }
 
 fn print_slice&lt;T: fmt::Debug&gt;(s: &amp;[T]) {
-    println!(&quot;{:?}&quot;, s);
+    println!("{:?}", s);
 }
 
 fn print_slice1&lt;T, U&gt;(s: T)
@@ -893,7 +895,7 @@ where
     T: AsRef&lt;[U]&gt;,
     U: fmt::Debug,
 {
-    println!(&quot;{:?}&quot;, s.as_ref());
+    println!("{:?}", s.as_ref());
 }</code></pre></pre>
 <h3 id="将-slice-转化成迭代器"><a class="header" href="#将-slice-转化成迭代器">将 slice 转化成迭代器</a></h3>
 <pre><pre class="playground"><code class="language-rust edition2021">fn main() {
@@ -904,21 +906,21 @@ where
         .filter(|v| *v &lt; 16)
         .collect();
 
-    println!(&quot;{:?}&quot;, result);
+    println!("{:?}", result);
 }</code></pre></pre>
 <p>Rust 下的迭代器是个<code>懒接口（lazy interface）</code>，也就是说这段代码直到运行到 <code>collect</code> 时才真正开始执行，之前的部分不过是在不断地生成新的结构，来累积处理逻辑而已。Rust 大量使用了 inline 等优化技巧，使得迭代器的性能和 C 语言的 for 循环差别不大。</p>
 <p>此外，<code>itertools</code> crate 还提供了额外的，标准库中没有提供的迭代器。</p>
 <pre><pre class="playground"><code class="language-rust edition2021">use itertools::Itertools;
 
 fn main() {
-    let err_str = &quot;bad happened&quot;;
+    let err_str = "bad happened";
     let input = vec![Ok(21), Err(err_str), Ok(7)];
     let it = input
         .into_iter()
         // 对成功的结果进一步做 filter/map 操作
         .filter_map_ok(|i| if i &gt; 10 { Some(i * 2) } else { None });
     // 结果应该是：vec![Ok(42), Err(err_str)]
-    println!(&quot;{:?}&quot;, it.collect::&lt;Vec&lt;_&gt;&gt;());
+    println!("{:?}", it.collect::&lt;Vec&lt;_&gt;&gt;());
 }</code></pre></pre>
 <h3 id="特殊的切片-str"><a class="header" href="#特殊的切片-str">特殊的切片 &amp;str</a></h3>
 <p><img src="../images/rust/string-slice-vs-vector-slice.webp" alt="字符列表和字符串的区别" /></p>
@@ -927,12 +929,12 @@ fn main() {
 fn main() {
     let arr = ['h', 'e', 'l', 'l', 'o'];
     let vec = vec!['h', 'e', 'l', 'l', 'o'];
-    let s = String::from(&quot;hello&quot;);
+    let s = String::from("hello");
     let s1 = &amp;arr[1..3];
     let s2 = &amp;vec[1..3];
     // &amp;str 本身就是一个特殊的 slice
     let s3 = &amp;s[1..3];
-    println!(&quot;s1: {:?}, s2: {:?}, s3: {:?}&quot;, s1, s2, s3);
+    println!("s1: {:?}, s2: {:?}, s3: {:?}", s1, s2, s3);
 
     // &amp;[char] 和 &amp;[char] 是否相等取决于长度和内容是否相等
     assert_eq!(s1, s2);
@@ -951,25 +953,25 @@ fn main() {
 fn main() {
     let mut v1 = vec![1, 2, 3, 4];
     v1.push(5);
-    println!(&quot;cap should be 8: {}&quot;, v1.capacity());
+    println!("cap should be 8: {}", v1.capacity());
 
     // 从 Vec&lt;T&gt; 转换成 Box&lt;[T]&gt;，此时会丢弃多余的 capacity
     let b1 = v1.into_boxed_slice();
     let mut b2 = b1.clone();
 
     let v2 = b1.into_vec();
-    println!(&quot;cap should be exactly 5: {}&quot;, v2.capacity());
+    println!("cap should be exactly 5: {}", v2.capacity());
 
     assert!(b2.deref() == v2);
 
     // Box&lt;[T]&gt; 可以更改其内部数据，但无法 push
     b2[0] = 2;
     // b2.push(6);
-    println!(&quot;b2: {:?}&quot;, b2);
+    println!("b2: {:?}", b2);
 
     // 注意 Box&lt;[T]&gt; 和 Box&lt;[T; n]&gt; 并不相同
     let b3 = Box::new([2, 2, 3, 4, 5]);
-    println!(&quot;b3: {:?}&quot;, b3);
+    println!("b3: {:?}", b3);
 
     // b2 和 b3 相等，但 b3.deref() 和 v2 无法比较
     assert!(b2 == b3);
@@ -1048,13 +1050,13 @@ impl&lt;'a&gt; Student&lt;'a&gt; {
 
 fn main() {
     let mut hasher = DefaultHasher::new();
-    let student = Student::new(&quot;Tyr&quot;, 18);
+    let student = Student::new("Tyr", 18);
     // 实现了 Hash 的数据结构可以直接调用 hash 方法
     student.hash(&amp;mut hasher);
     let mut map = HashMap::new();
     // 实现了 Hash / PartialEq / Eq 的数据结构可以作为 HashMap 的 key
-    map.insert(student, vec![&quot;Math&quot;, &quot;Writing&quot;]);
-    println!(&quot;hash: 0x{:x}, map: {:?}&quot;, hasher.finish(), map);
+    map.insert(student, vec!["Math", "Writing"]);
+    println!("hash: 0x{:x}, map: {:?}", hasher.finish(), map);
 }</code></pre></pre>
 <h2 id="btreemap"><a class="header" href="#btreemap">BTreeMap</a></h2>
 <p>BTreeMap 是内部使用 B-tree 来组织哈希表的数据结构，和 HashMap 不同的是，BTreeMap 是有序的。</p>
@@ -1062,20 +1064,20 @@ fn main() {
 
 fn main() {
     let map = BTreeMap::new();
-    let mut map = explain(&quot;empty&quot;, map);
+    let mut map = explain("empty", map);
 
     for i in 0..16usize {
-        map.insert(format!(&quot;Tyr {}&quot;, i), i);
+        map.insert(format!("Tyr {}", i), i);
     }
 
-    let mut map = explain(&quot;added&quot;, map);
+    let mut map = explain("added", map);
 
-    map.remove(&quot;Tyr 1&quot;);
+    map.remove("Tyr 1");
 
-    let map = explain(&quot;remove 1&quot;, map);
+    let map = explain("remove 1", map);
 
     for item in map.iter() {
-        println!(&quot;{:?}&quot;, item);
+        println!("{:?}", item);
     }
 }
 
@@ -1084,7 +1086,7 @@ fn main() {
 fn explain&lt;K, V&gt;(name: &amp;str, map: BTreeMap&lt;K, V&gt;) -&gt; BTreeMap&lt;K, V&gt; {
     let arr: [usize; 3] = unsafe { std::mem::transmute(map) };
     println!(
-        &quot;{}: height: {}, root node: 0x{:x}, len: 0x{:x}&quot;,
+        "{}: height: {}, root node: 0x{:x}, len: 0x{:x}",
         name, arr[0], arr[1], arr[2]
     );
     unsafe { std::mem::transmute(arr) }
@@ -1109,12 +1111,12 @@ impl Name {
 
 fn main() {
     let mut map = BTreeMap::new();
-    map.insert(Name::new(&quot;/etc/password&quot;, 0x1), 12);
-    map.insert(Name::new(&quot;/etc/hosts&quot;, 0x1), 4);
-    map.insert(Name::new(&quot;/home/tchen&quot;, 0x0), 28);
+    map.insert(Name::new("/etc/password", 0x1), 12);
+    map.insert(Name::new("/etc/hosts", 0x1), 4);
+    map.insert(Name::new("/home/tchen", 0x0), 28);
 
     for item in map.iter() {
-        println!(&quot;{:?}&quot;, item);
+        println!("{:?}", item);
     }
 }</code></pre></pre>
 <h2 id="错误处理"><a class="header" href="#错误处理">错误处理</a></h2>
@@ -1135,14 +1137,14 @@ fn main() {
 
 fn main() {
     let result = panic::catch_unwind(|| {
-        println!(&quot;hello!&quot;);
+        println!("hello!");
     });
     assert!(result.is_ok());
     let result = panic::catch_unwind(|| {
-        panic!(&quot;oh no!&quot;);
+        panic!("oh no!");
     });
     assert!(result.is_err());
-    println!(&quot;panic captured: {:#?}&quot;, result);
+    println!("panic captured: {:#?}", result);
 }</code></pre></pre>
 <h3 id="error-trait"><a class="header" href="#error-trait"><code>Error</code> trait</a></h3>
 <p>为了规范代表错误的数据类型的行为，Rust 定义了 Error trait：</p>
@@ -1162,16 +1164,16 @@ fn main() {
 #[derive(Error, Debug)]
 #[non_exhaustive]
 pub enum DataStoreError {
-    #[error(&quot;data store disconnected&quot;)]
+    #[error("data store disconnected")]
     Disconnect(#[from] io::Error),
-    #[error(&quot;the data for key `{0}` is not available&quot;)]
+    #[error("the data for key `{0}` is not available")]
     Redaction(String),
-    #[error(&quot;invalid header (expected {expected:?}, found {found:?})&quot;)]
+    #[error("invalid header (expected {expected:?}, found {found:?})")]
     InvalidHeader {
         expected: String,
         found: String,
     },
-    #[error(&quot;unknown data store error&quot;)]
+    #[error("unknown data store error")]
     Unknown,
 }
 <span class="boring">}</span></code></pre></pre>
@@ -1183,27 +1185,27 @@ pub enum DataStoreError {
 </span>use std::{collections::HashMap, mem::size_of_val};
 
 // 长度为 0
-let c1 = || println!(&quot;hello world!&quot;);
+let c1 = || println!("hello world!");
 // 和参数无关，长度也为 0
-let c2 = |i: i32| println!(&quot;hello: {}&quot;, i);
-let name = String::from(&quot;tyr&quot;);
+let c2 = |i: i32| println!("hello: {}", i);
+let name = String::from("tyr");
 let name1 = name.clone();
 let mut table = HashMap::new();
-table.insert(&quot;hello&quot;, &quot;world&quot;);
+table.insert("hello", "world");
 // 如果捕获一个引用，长度为 8
-let c3 = || println!(&quot;hello: {}&quot;, name);
+let c3 = || println!("hello: {}", name);
 // 捕获移动的数据 name1(长度 24) + table(长度 48)，因此 closure 长度 72
-let c4 = move || println!(&quot;hello: {}, {:?}&quot;, name1, table);
+let c4 = move || println!("hello: {}, {:?}", name1, table);
 let name2 = name.clone();
 // 和局部变量无关，捕获了一个 String name2，因此 closure 长度 24
 let c5 = move || {
     let x = 1;
-    let name3 = String::from(&quot;lindsey&quot;);
-    println!(&quot;hello: {}, {:?}, {:?}&quot;, x, name2, name3);
+    let name3 = String::from("lindsey");
+    println!("hello: {}, {:?}, {:?}", x, name2, name3);
 };
 
 println!(
-    &quot;c1: {}, c2: {}, c3: {}, c4: {}, c5: {}, main: {}&quot;,
+    "c1: {}, c2: {}, c3: {}, c4: {}, c5: {}, main: {}",
     size_of_val(&amp;c1),
     size_of_val(&amp;c2),
     size_of_val(&amp;c3),
@@ -1220,14 +1222,14 @@ println!(
 </span>pub trait FnOnce&lt;Args&gt; {
     type Output;
     // 会转移 self 的所有权到 call_once 函数中
-    extern &quot;rust-call&quot; fn call_once(self, args: Args) -&gt; Self::Output;
+    extern "rust-call" fn call_once(self, args: Args) -&gt; Self::Output;
 }
 <span class="boring">}</span></code></pre></pre>
 <pre><pre class="playground"><code class="language-rust edition2021"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// 一个 FnMut 闭包，可以被传给一个需要 FnOnce 的上下文，此时调用闭包相当于调用了 call_once()
 pub trait FnMut&lt;Args&gt;: FnOnce&lt;Args&gt; {
-    extern &quot;rust-call&quot; fn call_mut(
+    extern "rust-call" fn call_mut(
         &amp;mut self,
         args: Args
     ) -&gt; Self::Output;
@@ -1237,7 +1239,7 @@ pub trait FnMut&lt;Args&gt;: FnOnce&lt;Args&gt; {
 </span><span class="boring">fn main() {
 </span>// 任何需要 FnOnce 或者 FnMut 的场合，都可以传入满足 Fn 的闭包
 pub trait Fn&lt;Args&gt;: FnMut&lt;Args&gt; {
-    extern &quot;rust-call&quot; fn call(&amp;self, args: Args) -&gt; Self::Output;
+    extern "rust-call" fn call(&amp;self, args: Args) -&gt; Self::Output;
 }
 <span class="boring">}</span></code></pre></pre>
 <h3 id="将闭包作为参数传递"><a class="header" href="#将闭包作为参数传递">将闭包作为参数传递</a></h3>
@@ -1250,17 +1252,17 @@ pub trait Fn&lt;Args&gt;: FnMut&lt;Args&gt; {
     // Fn，移动所有权
     let mut c1 = move |x: u64| v1.len() as u64 * x;
 
-    println!(&quot;direct call: {}&quot;, c(2));
-    println!(&quot;direct call: {}&quot;, c1(2));
+    println!("direct call: {}", c(2));
+    println!("direct call: {}", c1(2));
 
-    println!(&quot;call: {}&quot;, call(3, &amp;c));
-    println!(&quot;call: {}&quot;, call(3, &amp;c1));
+    println!("call: {}", call(3, &amp;c));
+    println!("call: {}", call(3, &amp;c1));
 
-    println!(&quot;call_mut: {}&quot;, call_mut(4, &amp;mut c));
-    println!(&quot;call_mut: {}&quot;, call_mut(4, &amp;mut c1));
+    println!("call_mut: {}", call_mut(4, &amp;mut c));
+    println!("call_mut: {}", call_mut(4, &amp;mut c1));
 
-    println!(&quot;call_once: {}&quot;, call_once(5, c));
-    println!(&quot;call_once: {}&quot;, call_once(5, c1));
+    println!("call_once: {}", call_once(5, c));
+    println!("call_once: {}", call_once(5, c1));
 }
 
 fn call(arg: u64, c: &amp;impl Fn(u64) -&gt; u64) -&gt; u64 {
@@ -1279,10 +1281,10 @@ fn call_once(arg: u64, c: impl FnOnce(u64) -&gt; u64) -&gt; u64 {
 
 fn main() {
     let c1 = curry(5);
-    println!(&quot;5 multiply 2 is: {}&quot;, c1(2));
+    println!("5 multiply 2 is: {}", c1(2));
 
     let adder2 = curry(3.14);
-    println!(&quot;pi multiply 4^2 is: {}&quot;, adder2(4. * 4.));
+    println!("pi multiply 4^2 is: {}", adder2(4. * 4.));
 }
 
 fn curry&lt;T&gt;(x: T) -&gt; impl Fn(T) -&gt; T
@@ -1304,7 +1306,7 @@ struct BashExecutor {
 impl Executor for BashExecutor {
     fn execute(&amp;self, cmd: &amp;str) -&gt; Result&lt;String, &amp;'static str&gt; {
         Ok(format!(
-            &quot;fake bash execute: env: {}, cmd: {}&quot;,
+            "fake bash execute: env: {}, cmd: {}",
             self.env, cmd
         ))
     }
@@ -1320,16 +1322,16 @@ where
 }
 
 fn main() {
-    let env = &quot;PATH=/usr/bin&quot;.to_string();
+    let env = "PATH=/usr/bin".to_string();
 
-    let cmd = &quot;cat /etc/passwd&quot;;
+    let cmd = "cat /etc/passwd";
     let r1 = execute(cmd, BashExecutor { env: env.clone() });
-    println!(&quot;{:?}&quot;, r1);
+    println!("{:?}", r1);
 
     let r2 = execute(cmd, |cmd: &amp;str| {
-        Ok(format!(&quot;fake fish execute: env: {}, cmd: {}&quot;, env, cmd))
+        Ok(format!("fake fish execute: env: {}, cmd: {}", env, cmd))
     });
-    println!(&quot;{:?}&quot;, r2);
+    println!("{:?}", r2);
 }
 
 fn execute(cmd: &amp;str, exec: impl Executor) -&gt; Result&lt;String, &amp;'static str&gt; {
