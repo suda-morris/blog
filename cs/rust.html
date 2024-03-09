@@ -29,6 +29,7 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href=".././mdbook-admonish.css">
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -183,14 +184,14 @@
                     <main>
                         <h1 id="rust-知识碎片"><a class="header" href="#rust-知识碎片">Rust 知识碎片</a></h1>
 <h2 id="编译过程"><a class="header" href="#编译过程">编译过程</a></h2>
-<p><img src="../images/rust/compile-process.png" alt="Rust 编译过程" /></p>
+<p><img src="../images/rust/compile-process.png" alt="Rust 的编译过程" /></p>
 <ol>
-<li>分词：把词法结构处理成词条流</li>
-<li>词条流经过语法解析形成抽象语法树</li>
-<li>抽象语法树简化成高级中间语言 (HIR)，编译器对 HIR 进行类型检查、方法查找等工作</li>
-<li>HIR 进一步简化形成中级中间语言 (MIR)，编译器对 MIR 进行借用检查、优化等工作，在 MIR 中已经看不到 Rust 各版次的差异了</li>
-<li>产生 LLVM 中间语言</li>
-<li>LLVM 后端会对 LLVM 中间语言进行优化，最终生成机器代码</li>
+<li>分词：把词法结构处理成<strong>词条流</strong></li>
+<li>词条流经过语法解析形成<strong>抽象语法树</strong></li>
+<li>抽象语法树简化成高级中间语言 (<strong>HIR</strong>)，编译器对 HIR 进行类型检查、方法查找等工作</li>
+<li>HIR 进一步简化形成中级中间语言 (<strong>MIR</strong>)，编译器对 MIR 进行借用检查、优化等工作，在 MIR 中已经看不到 Rust 各版次(Edition)的差异了</li>
+<li>产生 <strong>LLVM</strong> 中间语言</li>
+<li>LLVM 后端会对 LLVM 中间语言进行优化，最终生成<strong>机器代码</strong></li>
 </ol>
 <h2 id="常用数据结构"><a class="header" href="#常用数据结构">常用数据结构</a></h2>
 <p><img src="../images/rust/data-structure.webp" alt="数据结构" /></p>
